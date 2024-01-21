@@ -1,0 +1,148 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/reset.css">
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"></script>
+<style>
+.sectionContainer{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    position: relative;
+    z-index: 998;
+}
+/* .sectionContainer .sectionContainerWrap{
+    max-width: 1480px;
+    width: 92%;
+    position: relative;
+} */
+.sectionContainer .banner{
+    position: relative;
+    overflow: hidden;
+    width: 1920px;
+    /* height: calc(100vh - 230px); */
+    height: 760px;
+    /* height: auto; */
+}
+.sectionContainer .banner .banner_slider{
+    width: 100%;
+    position: relative;
+    visibility: visible;
+}
+.sectionContainer .banner .banner_slider li{
+    float: none;
+    position: absolute;
+    display: block;
+    z-index: 50;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 1s;
+}
+.sectionContainer .banner .banner_slider li.on{
+    z-index: 50;
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transition: all 1s;
+}
+.sectionContainer .banner .banner_slider li a{
+    cursor: pointer;
+}
+.sectionContainer .banner img{
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+.sectionContainer .banner .banner_pager{
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    z-index: 100;
+    padding-top: 20px;
+    text-align: center;
+}
+.sectionContainer .banner .banner_pager .banner_pager_item{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+}
+.sectionContainer .banner .banner_pager .banner_pager_item.on{
+    background-color: rgba(0, 0, 0, 0.8);
+}
+</style>
+</head>
+<body>
+    <div class="sectionContainer">
+		<div class="banner">
+            <ul class="banner_slider">
+                <li class="on"><a href="#1"><img src="img/banner/main_banner_01.jpeg"></a></li>
+                <li><a href="#2"><img src="img/banner/main_banner_02.jpeg"></a></li>
+                <li><a href="#3"><img src="img/banner/main_banner_03.jpeg"></a></li>
+                <li><a href="#4"><img src="img/banner/main_banner_04.jpeg"></a></li>
+                <li><a href="#5"><img src="img/banner/main_banner_05.jpeg"></a></li>
+                <li><a href="#6"><img src="img/banner/main_banner_06.jpeg"></a></li>
+                <li><a href="#7"><img src="img/banner/main_banner_07.jpeg"></a></li>
+            </ul>
+            <div class="banner_pager">
+                <div class="banner_pager_item on"></div>
+                <div class="banner_pager_item"></div>
+                <div class="banner_pager_item"></div>
+                <div class="banner_pager_item"></div>
+                <div class="banner_pager_item"></div>
+                <div class="banner_pager_item"></div>
+                <div class="banner_pager_item"></div>
+            </div>
+		</div>
+	</div>
+    <script>
+        let sliders = document.querySelectorAll('.sectionContainer .banner .banner_slider li');
+        let pagers = document.querySelectorAll('.sectionContainer .banner .banner_pager .banner_pager_item');
+        let k = 0;
+        let myTimer;
+
+        for(let i=0;i<sliders.length;i++){
+            pagers[i].addEventListener('click', () => {
+                for(let j=0;j<sliders.length;j++){
+                    sliders[j].classList.remove('on');
+                    pagers[j].classList.remove('on');
+                }
+                sliders[i].classList.add('on');
+                pagers[i].classList.add('on');
+            })
+        }
+        // $(function(){
+        //     $('.sectionContainer .banner .banner_pager .banner_pager_item:nth-child(n)').click(function(){
+        //         $('.sectionContainer .banner .banner_slider li:nth-child(n)').fadeToggle();
+        //         $('.sectionContainer .banner .banner_slider li:nth-child(n)').siblings().fadeOut();
+        //         $(this).addClass('on');
+        //         $(this).siblings().removeClass('on');
+        //     })
+        // })
+        imageChange();
+        function imageChange(){
+            if(k===7){
+                k = 0;
+            }
+            else{
+                pagers[k].click();
+                k++;
+            }
+            myTimer = setTimeout(imageChange,5000);
+        }
+    </script>
+</body>
+</html>

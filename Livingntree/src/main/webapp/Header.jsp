@@ -41,7 +41,7 @@
     font-size: 13px;
     color: #666;
 }
-.headerContainer .headerContainerWrap .top_area .top_util .board a i{
+/* .headerContainer .headerContainerWrap .top_area .top_util .board a i{
     display: inline-block;
     overflow: hidden;
     width: 5px;
@@ -49,14 +49,24 @@
     margin-left: 10px;
     text-indent: 120%;
     white-space: nowrap;
-}
-.headerContainer .headerContainerWrap .top_area .top_util .board a i:before{
+} */
+/* .headerContainer .headerContainerWrap .top_area .top_util .board a i:before{
 	width: 5px;
     height: 5px;
-}
-.headerContainer .headerContainerWrap .top_area .top_util .board.on a i{
+} */
+/* .headerContainer .headerContainerWrap .top_area .top_util .board.on a i{
     margin-top: 4px;
     transform: rotate(180deg);
+} */
+.headerContainer .headerContainerWrap .top_area .top_util .board .fa-solid {
+    /* transform:scaleY(-1); */
+    /* transform:rotate(-180deg); */
+    transition:transform 0.3s; 
+}
+.headerContainer .headerContainerWrap .top_area .top_util .board.on .fa-solid {
+    /* transform:scaleY(-1); */
+    transform:rotate(180deg);
+    transition:transform 0.3s; 
 }
 .headerContainer .headerContainerWrap .top_area .top_util .board.on ul{
     display: block;
@@ -191,7 +201,7 @@
                 <li class="board">
                     <a href="#" style="font-weight: bold;">
                         고객센터
-                        <i class="fa-solid fa-chevron-down"></i>
+                        <i class="fa-solid fa-angle-down" aria-hidden="false"></i>
                     </a>
                     <ul class="boardinfo">
                         <li><a href="#">상품 리뷰</a></li>
@@ -248,6 +258,10 @@
     $(function(){
         $('.headerContainer .headerContainerWrap .top_area .top_util .board a').click(function(){
             $('.headerContainer .headerContainerWrap .top_area .top_util .board').toggleClass('on');
+        })
+        
+        $('.headerContainer .headerContainerWrap .top_area .top_util .board ul').click(function(){
+            $('.headerContainer .headerContainerWrap .top_area .top_util .board').removeClass('on');
         })
 
         $('.headerContainer .headerContainerWrap .top_nav_box .top_category ul li').mouseenter(function(){

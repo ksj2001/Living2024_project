@@ -1,0 +1,114 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"></script>
+<style>
+.sectionContainer{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    position: relative;
+    z-index: 998;
+}
+/* .sectionContainer .sectionContainerWrap{
+    max-width: 1480px;
+    width: 92%;
+    position: relative;
+} */
+.sectionContainer .banner{
+    position: relative;
+    overflow: hidden;
+    width: 1920px;
+    height: 760px;
+}
+.sectionContainer .banner .banner_slider{
+    width: auto;
+    position: relative;
+    visibility: visible;
+}
+.sectionContainer .banner .banner_slider li{
+    float: none;
+    position: absolute;
+    z-index: 50;
+    /* display: none;
+    opacity: 0; */
+}
+/* .sectionContainer .banner .banner_slider li.on{
+    z-index: 50;
+    display: block;
+    opacity: 1;
+    transition: opacity 1s;
+} */
+.sectionContainer .banner .banner_slider li a{
+    cursor: pointer;
+}
+.sectionContainer .banner img{
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+.sectionContainer .banner .banner_pager{
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    z-index: 100;
+    padding-top: 20px;
+}
+.sectionContainer .banner .banner_pager .banner_pager_item{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+.sectionContainer .banner .banner_pager .banner_pager_item.on{
+    background-color: rgba(0, 0, 0, 0.8);
+}
+</style>
+</head>
+<body>
+    <div class="sectionContainer">
+		<div class="banner">
+            <ul class="banner_slider">
+                <li><a href="#"><img src="img/banner/main_banner_01.jpeg"></a></li>
+                <li><a href="#"><img src="img/banner/main_banner_02.jpeg"></a></li>
+                <li><a href="#"><img src="img/banner/main_banner_03.jpeg"></a></li>
+                <li><a href="#"><img src="img/banner/main_banner_04.jpeg"></a></li>
+                <li><a href="#"><img src="img/banner/main_banner_05.jpeg"></a></li>
+                <li><a href="#"><img src="img/banner/main_banner_06.jpeg"></a></li>
+                <li><a href="#"><img src="img/banner/main_banner_07.jpeg"></a></li>
+            </ul>
+            <div class="banner_pager">
+                <div class="banner_pager_item"></div>
+                <div class="banner_pager_item"></div>
+                <div class="banner_pager_item"></div>
+                <div class="banner_pager_item"></div>
+                <div class="banner_pager_item"></div>
+                <div class="banner_pager_item"></div>
+                <div class="banner_pager_item"></div>
+            </div>
+		</div>
+	</div>
+    <script>
+        $(function(){
+            $('.sectionContainer .banner .banner_pager .banner_pager_item:nth-child(n)').click(function(){
+                $('.sectionContainer .banner .banner_slider li:nth-child(n)').fadeIn();
+                $('.sectionContainer .banner .banner_slider li:nth-child(n)').siblings().fadeOut();
+                $(this).addClass('on');
+                $(this).siblings().removeClass('on');
+            })
+        })
+    </script>
+</body>
+</html>
