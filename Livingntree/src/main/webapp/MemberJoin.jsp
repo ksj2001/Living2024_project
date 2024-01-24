@@ -8,13 +8,13 @@
 <link rel="stylesheet" href="css/reset.css">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
-.container{
+.joinContainer{
     position: relative;
     display: flex;
     justify-content: center;
     width: 100%;
 }
-.container .contents{
+.joinContainer .contents{
     max-width: 1480px;
     width: 92%;
     margin: 50px 0;
@@ -49,6 +49,8 @@
     text-align: right;
 }
 .memberArea img{
+ 	width: 4px;
+    height: 4px;
     margin-top: -3.5px;
     margin-right: 12px;
     vertical-align: middle;
@@ -77,8 +79,8 @@ table{
 }
 .tableBox table tr th img{
     display: inline-block;
-    width: 100%;
-    height: 100%;
+    width: 4px;
+    height: 4px;
     vertical-align: middle;
 }
 .tableBox table tr td{
@@ -123,13 +125,17 @@ p.txtInfo{
 .tableBox table #pwq, .tableBox table #pwa{
     width: 450px;
 }
-select{
+select #pwq, select #phone1{
     max-width: 100%;
     height: 40px;
     padding: 0 30px 0 15px;
     font-size: 13px;
     border: 1px solid #e0e0e0;
-    background: #fff url(img/icon/ico_select.png) no-repeat right 10px center;
+    background-color: #fff;
+    background: url(img/icon/ico_select.png);
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    /* background: #fff url(img/icon/ico_select.png) no-repeat right 10px center; */
     background-size: 14px 8px;
 }
 .tableBox table .formMultiple{
@@ -206,7 +212,7 @@ input[type="text"][readonly]{
 </style>
 </head>
 <body>
-    <div class="container">
+    <div class="joinContainer">
         <div class="contents">
             <div class="title">
                 <h2>회원 가입</h2>
@@ -286,11 +292,11 @@ input[type="text"][readonly]{
                             <th><img src="img/icon/ico_required.svg" alt="필수">휴대전화</th>   
                             <td>
                                 <select id="phone1" name="phone1">
-                                    <option value="010">010</option>
-                                    <option value="016">016</option>
-                                    <option value="017">017</option>
-                                    <option value="018">018</option>
-                                    <option value="019">019</option>
+                                    <option value="1">010</option>
+                                    <option value="2">016</option>
+                                    <option value="3">017</option>
+                                    <option value="4">018</option>
+                                    <option value="5">019</option>
                                 </select>
                                 -
                                 <input type="text" id="phone2" name="phone2" maxlength="4">

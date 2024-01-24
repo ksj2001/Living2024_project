@@ -199,8 +199,8 @@
     color: #555;
 }
 .sectionContainer .main_product_list .product_list .product .prdList li .prdList_item .description .spec .mileage span img{
-    width: 100%;
-    height: auto;
+    width: 11px;
+    height: 11px;
     margin-bottom: 2px;
 }
 .sectionContainer .main_product_list .product_list .more{

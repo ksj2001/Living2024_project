@@ -6,17 +6,27 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/reset.css">
+<script src="https://kit.fontawesome.com/82fd850f0d.js" crossorigin="anonymous"></script>
 <style>
-.container{
+.loginContainer{
     display: flex;
     justify-content: center;
     width: 100%;
 }
-.container .contents{
+.loginContainer .contents{
     width: 400px;
     margin: 50px 0;
 }
-.container .contents .login input{
+.title{
+    margin: 45px 0 40px;
+    text-align: center;
+}
+.title h2{
+	font-weight: 700;
+    font-size: 32px;
+    color: #1f1f1f;
+}
+.loginContainer .contents .login input{
     display: block;
     width: 100%;
     height: 48px;
@@ -25,31 +35,44 @@
     padding: 0 20px;
     border: 1px solid #e3e3e3;
 }
-.container .contents .login_idSave_wrap{
+.loginContainer .contents .login_idSave_wrap{
     display: flex;
     justify-content: flex-end;
 }
-.container .contents .login_idSave_wrap p{
+.loginContainer .contents .login_idSave_wrap p{
     margin: 10px 0 20px;
 }
-.container .contents .login_idSave_wrap p input[type="checkbox"]{
+/* checkbox css start */
+.loginContainer .contents .login_idSave_wrap .login_idSave input[type="checkbox"]{
+    display : none;
+}
+.loginContainer .contents .login_idSave_wrap .login_idSave .check_label:before {
+    content: '\f00c';
+    font-family: fontawesome;
     width: 24px;
     height: 24px;
-    border: 1px solid #d9d9d9;
-    border-radius: 0;
-    background-image: url(img/icon/checkbox_off.svg);
-    outline: 0;
-    vertical-align: text-top;
-    cursor: pointer;
+    text-align: center;
+    line-height: 24px;
+    font-size: 16px;
+    color : #ccc;
+    /*  border-radius: 3px; */
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    /* color: transparent; */
+    display: inline-block;
 }
-.container .contents .login_idSave_wrap p input[type="checkbox"]:checked{
-    background-image: url(img/icon/checkbox_on.svg);
+.loginContainer .contents .login_idSave_wrap .login_idSave input[type="checkbox"]:checked + .check_label::before {
+   /* background-color: rgb(43, 43, 43); */
+   /*  color: white; */
+   color: black;
+   font-weight: bold;
 }
-.container .contents .login_idSave_wrap p label{
+/* checkbox css end */
+.loginContainer .contents .login_idSave_wrap p label{
     margin: 0 15px 0 10px;
     vertical-align: middle;
 }
-.container .contents .login_button input[type="submit"]{
+.loginContainer .contents .login_button input[type="submit"]{
     width: 100%;
     height: 56px;
     padding: 19px 26px;
@@ -61,22 +84,22 @@
     color: #fff;
     cursor: pointer;
 }
-.container .contents .login_find{
+.loginContainer .contents .login_find{
     display: flex;
     justify-content: center;
 }
-.container .contents .login_find div{
+.loginContainer .contents .login_find div{
     margin-top: 20px;
     padding: 0 10px;
 }
-.container .contents .login_find div a{
+.loginContainer .contents .login_find div a{
 	font-size: 14px;
 }
-.container .contents .login_find div:nth-child(2){
+.loginContainer .contents .login_find div:nth-child(2){
     padding-left: 11px;
     background: url(../img/icon/line2.png) no-repeat left;
 }
-.container .contents .login_util{
+.loginContainer .contents .login_util{
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -86,24 +109,24 @@
     border: 1px solid #e3e3e3;
     text-align: center;
 }
-.container .contents .login_util div:nth-child(1){
+.loginContainer .contents .login_util div:nth-child(1){
     font-size: 18px;
     font-weight: 700;
     color: #1a1a1a;
 }
-.container .contents .login_util div:nth-child(2){
+.loginContainer .contents .login_util div:nth-child(2){
     margin: 8px 0 23px 0;
     font-size: 14px;
     line-height: 1.5;
     color: #8a8a8a;
 }
-.container .contents .login_util div:nth-child(3){
+.loginContainer .contents .login_util div:nth-child(3){
     width: 152px;
     height: 56px;
     margin: 0 auto;
     border: 1px solid #d6d6d6;
 }
-.container .contents .login_util div:nth-child(3) a{
+.loginContainer .contents .login_util div:nth-child(3) a{
     display: block;
     width: 100%;
     height: 100%;
@@ -115,8 +138,11 @@
 </style>
 </head>
 <body>
-    <div class="container">
+    <div class="loginContainer">
         <div class="contents">
+        	<div class="title">
+                <h2>로그인</h2>
+            </div>
             <form action="MemberLoginProc.do" method="post">
                 <div class="login">
                     <input type="text" name="id">
@@ -125,7 +151,7 @@
                 <div class="login_idSave_wrap">
                     <p class="login_idSave">
                         <input type="checkbox" id="check_save_id" name="check_save_id">
-                        <label for="check_save_id">아이디 저장</label>
+                        <label for="check_save_id" class="check_label">아이디 저장</label>
                     </p>
                 </div>
                 <div class="login_button">

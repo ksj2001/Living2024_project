@@ -192,10 +192,10 @@
     <div class="headerContainerWrap">
         <div class="top_area">
             <ul class="top_util">
-                <li class="join statelogoff"><a href="#" style="font-weight: bold;
+                <li class="join statelogoff"><a href="Main.jsp?section=MemberJoin.jsp" style="font-weight: bold;
                     color: rgb(194, 107, 107);">회원가입</a></li>
-                <li class="login statelogoff"><a href="#">로그인</a></li>
-                <li class="order"><a href="#">주문조회</a></li>
+                <li class="login statelogoff"><a href="Main.jsp?section=MemberLogin.jsp">로그인</a></li>
+                <li class="order"><a href="Main.jsp?section=MemberLogin.jsp">주문조회</a></li>
                 <li class="mypage statelogin"><a href="#">마이페이지</a></li>
                 <li class="recent"><a href="#">최근본상품</a></li>
                 <li class="board">
@@ -211,24 +211,24 @@
             </ul>
         </div>
         <div class="top_nav_box">
-            <div class="top_logo"><a href="#"><img src="img/logo/logo_top.jpg" alt="리빙앤트리"></a></div>
+            <div class="top_logo"><a href="Main.jsp"><img src="img/logo/logo_top.jpg" alt="리빙앤트리"></a></div>
             <div class="top_category">
                 <ul>
-                    <li><a href="#">기획전</a></li>
-                    <li><a href="#">모음전</a></li>
-                    <li><a href="#">리빙박스</a></li>
-                    <li><a href="#">서랍장</a></li>
-                    <li><a href="#">휴지통</a></li>
-                    <li><a href="#">바스켓</a></li>
-                    <li><a href="#">생활용품</a></li>
-                    <li><a href="#">기타용품</a></li>
-                    <li><a href="#">부속제품</a></li>
+                    <li><a href="LivProductListProc.do?p_category=1">기획전</a></li>
+                    <li><a href="LivProductListProc.do?p_category=2">모음전</a></li>
+                    <li><a href="LivProductListProc.do?p_category=3">리빙박스</a></li>
+                    <li><a href="LivProductListProc.do?p_category=4">서랍장</a></li>
+                    <li><a href="LivProductListProc.do?p_category=5">휴지통</a></li>
+                    <li><a href="LivProductListProc.do?p_category=6">바스켓</a></li>
+                    <li><a href="LivProductListProc.do?p_category=7">생활용품</a></li>
+                    <li><a href="LivProductListProc.do?p_category=8">기타용품</a></li>
+                    <li><a href="LivProductListProc.do?p_category=9">부속제품</a></li>
                     <li><a href="#">상품리뷰</a></li>
                 </ul>
             </div>
             <ul class="top_mypage">
                 <li>
-                    <a href="#">
+                    <a href="Main.jsp?section=MemberLogin.jsp">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" class="icon" role="img">
                             <circle cx="11.5" cy="6.5" r="3.75" stroke="#000" stroke-width="1.5"></circle>
                             <path stroke="#000" stroke-width="1.5" d="M1.78 21.25c.382-4.758 4.364-8.5 9.22-8.5h1c4.856 0 8.838 3.742 9.22 8.5H1.78z"></path>
