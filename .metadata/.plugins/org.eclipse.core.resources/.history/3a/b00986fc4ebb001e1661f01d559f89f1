@@ -37,7 +37,7 @@ public class LivingDAO {
 			String sql = "select * from product where p_category=? order by p_code desc limit ?,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, category);
-			pstmt.setInt(2, startRow-1);
+			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, pageSize);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -74,7 +74,7 @@ public class LivingDAO {
 			String sql = "select * from product where p_category=? order by p_price desc limit ?,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, category);
-			pstmt.setInt(2, startRow-1);
+			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, pageSize);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -111,7 +111,7 @@ public class LivingDAO {
 			String sql = "select * from product where p_category=? order by p_price asc limit ?,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, category);
-			pstmt.setInt(2, startRow-1);
+			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, pageSize);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {

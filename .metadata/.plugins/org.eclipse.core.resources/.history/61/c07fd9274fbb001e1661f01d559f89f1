@@ -32,7 +32,7 @@
     font-size: 13px;
     border: 1px solid #e0e0e0;
     background-color: #fff;
-    background-image: url("/img/icon/ico_select.png");
+    background-image: url("img/icon/ico_select.png");
     background-repeat: no-repeat;
     background-position: right 10px center; 
     /* background: #fff url(img/icon/ico_select.png) no-repeat right 10px center; */
