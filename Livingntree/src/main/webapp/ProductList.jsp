@@ -21,7 +21,7 @@
     color: #1f1f1f;
 }
 .orders{
-	width: 80%;
+	width: 76%;
 	margin: 0 auto;
 	text-align: right;
 }
@@ -48,7 +48,7 @@
 	justify-content: flex-start;
     width: 100%;
     flex-flow: row wrap;
-    margin-left: 20px;
+    margin-left: 15px;
 }
 .productContainer .prdList_item{
 	width: 23%;
@@ -133,11 +133,44 @@
     margin-bottom: 2px;
 }
 .pageing{
-	width: 200px;
-	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	margin-top: 60px;
+	margin-bottom: 50px;
+	text-align: center;
+}
+.pageing div{
+    width: 40px;
+    height: 40px;
+}
+.pageing .prevBtn{
+	font-size: 0;
+	/* background-image: url(img/icon/btn_page_next.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+    background-size: 40px; */
+}
+.pageing .nextBtn{
+	font-size: 0;
+	/* background-image: url(img/icon/btn_page_next.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+    background-size: 40px; */
 }
 .pageing a{
-	font-size: 20px;
+	display: inline-block;
+	width: 100%;
+    height: 100%;
+    font-size: 14px;
+    line-height: 40px;
+    text-align: center;
+    background: #fff;
+}
+.pageing a img{
+	width: 40px;
+	height: 40px;
 }
 </style>
 </head>
@@ -172,22 +205,50 @@
 		<c:set var="catename" value="${catename='부속제품'}" />
 	</c:when>
 </c:choose>
+<!--  -->
+
 <div class="title">
 	<h2>${catename}</h2>
 </div>
-<div class="orders">
-	<select id="orderby" name="orderby">
-		<option value="1">- 정렬방식 -</option>
-    	<option value="2">높은가격</option>
-    	<option value="3">낮은가격</option>
-	</select>
-</div>
+
+<!-- 정렬방식 -->
+<c:choose>
+	<c:when test="${order eq 1}">
+		<div class="orders">
+			<select id="orderby">
+				<option value="1" selected>- 정렬방식 -</option>
+    			<option value="2">높은가격</option>
+    			<option value="3">낮은가격</option>
+			</select>
+		</div>
+	</c:when>
+	<c:when test="${order eq 2}">
+		<div class="orders">
+			<select id="orderby">
+				<option value="1">- 정렬방식 -</option>
+    			<option value="2" selected>높은가격</option>
+    			<option value="3">낮은가격</option>
+			</select>
+		</div>
+	</c:when>
+	<c:when test="${order eq 3}">
+		<div class="orders">
+			<select id="orderby">
+				<option value="1" selected>- 정렬방식 -</option>
+    			<option value="2">높은가격</option>
+    			<option value="3" selected>낮은가격</option>
+			</select>
+		</div>
+	</c:when>
+</c:choose>
+<!--  -->
+
 <div class="productWrap">
 	<div class="productContainer">
 		<c:forEach var="pdto" items="${plist}">
 			<div class="prdList_item">
     			<div class="thumbnail">
-      			<a href="#">
+      			<a href="ProductDetail.do?p_code=${pdto.p_code}">
         			<img src="img/productimg/${pdto.p_mainimg}" alt="">
       			</a>
       			<div class="icon_box">
@@ -206,18 +267,38 @@
 </div>
 
 <!-- 페이징 -->
-      <div class="pageing"> 
-        <c:if test="${startPage > pageBlock }">
-			<a href="LivProductListProc.do?pageNum=${startPage - pageBlock}&category=${category}"><img src="img/icon/btn_page_prev.png"></a>
+<div class="pageing"> 
+	
+	<div class="prevBtn">
+		<c:if test="${startPage > pageBlock }">
+			<a href="LivProductListProc.do?pageNum=${startPage - pageBlock}&p_category=${category}&order=${order}"><img src="img/icon/btn_page_prev.png"></a>
 		</c:if>
-		
-        <c:forEach var="i" begin="${startPage}" end="${endPage}">
-        	<a href="LivProductListProc.do?pageNum=${i}&category=${category}"> ${i} </a>
-        </c:forEach>
-
-        <c:if test="${endPage < pageCount}">
-        	<a href="LivProductListProc.do?pageNum=${startPage + pageBlock}&category=${category}"><img src="img/icon/btn_page_next.png"></a>
-        </c:if>
+	</div>
+	
+	<div class="pageNum">
+		<c:forEach var="i" begin="${startPage}" end="${endPage}">
+    		<a href="LivProductListProc.do?pageNum=${i}&p_category=${category}&order=${order}"> ${i} </a>
+    	</c:forEach>
+	</div>	
+	
+	<div class="nextBtn">
+		<c:if test="${endPage < pageCount}">
+    		<a href="LivProductListProc.do?pageNum=${startPage + pageBlock}&p_category=${category}&order=${order}"><img src="img/icon/btn_page_next.png"></a>
+    	</c:if>
+	</div>
+	
 </div>
+
+<script>
+    let order = document.querySelector(".orders #orderby");
+    let orderValue;
+    let category = "<c:out value='${category}'/>";
+    
+    
+    order.addEventListener("change", () =>{
+    	orderValue = order.options[order.selectedIndex].value;
+    	location.href = "LivProductListProc.do?p_category="+category+"&order="+orderValue;
+    })
+</script>
 </body>
 </html>

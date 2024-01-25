@@ -31,6 +31,11 @@ public class LivProductListProc extends HttpServlet {
 			category = request.getParameter("p_category");
 		}
 		
+		String order = request.getParameter("order");
+		if(order == null) {
+			order = "1";
+		}
+		
 		// 페이징 시작
 		
 		int pageSize = 12;
@@ -50,7 +55,16 @@ public class LivProductListProc extends HttpServlet {
 		int startRow = (currentPage - 1) * pageSize + 1;
 		int endRow = currentPage * pageSize;
 		
-		ArrayList<ProductDTO> plist = ldao.getAllProduct(Integer.parseInt(category), startRow, pageSize);
+		ArrayList<ProductDTO> plist = new ArrayList<>();
+		
+		if(Integer.parseInt(order) == 1) {
+			plist = ldao.getAllProduct(Integer.parseInt(category), startRow, pageSize);
+		}else if(Integer.parseInt(order) == 2) {
+			plist = ldao.getAllProductAscPrice(Integer.parseInt(category), startRow, pageSize);
+		}else {
+			plist = ldao.getAllProductDescPrice(Integer.parseInt(category), startRow, pageSize);
+		}
+		
 		number = count - (currentPage - 1) * pageSize;
 		
 		int pageCount = 0;
@@ -84,6 +98,7 @@ public class LivProductListProc extends HttpServlet {
 		request.setAttribute("endPage", endPage);
 
 		request.setAttribute("category", category);
+		request.setAttribute("order", order);
 		request.setAttribute("plist", plist);
 		RequestDispatcher rd = request.getRequestDispatcher("Main.jsp?section=ProductList.jsp");
 		rd.forward(request, response);
