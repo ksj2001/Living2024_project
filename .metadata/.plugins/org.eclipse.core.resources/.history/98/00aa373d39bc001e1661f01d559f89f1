@@ -1,0 +1,29 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="joinDoneContainer">
+        <div class="contents">
+            <div class="title">
+                <h2>회원 가입 완료</h2>
+            </div>
+            <div class="memberArea">
+                <div class="joinComplete">
+                    <div class="member_icon">
+                        <img src="img/icon/icon_joincomplete.svg" alt="아이콘">&nbsp;
+                    </div>
+                </div>
+                <p class="desc">회원가입이 완료되었습니다.</p>
+                <div class="btnBox">
+                    <a href="Main.jsp">메인으로 이동</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

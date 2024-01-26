@@ -29,4 +29,14 @@
     <servlet-name>LivProductListProc</servlet-name>
     <url-pattern>/LivProductListProc</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MemberJoinDone</display-name>
+    <servlet-name>MemberJoinDone</servlet-name>
+    <servlet-class>control.MemberJoinDone</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberJoinDone</servlet-name>
+    <url-pattern>/MemberJoinDone</url-pattern>
+  </servlet-mapping>
 </web-app>

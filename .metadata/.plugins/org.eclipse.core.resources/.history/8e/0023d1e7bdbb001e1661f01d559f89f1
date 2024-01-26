@@ -1,0 +1,72 @@
+package control;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import model.LivingDAO;
+import model.MemberDTO;
+
+@WebServlet("/MemberJoinProc.do")
+public class MemberJoinProc extends HttpServlet {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		reqPro(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		reqPro(request, response);
+	}
+
+	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
+		LivingDAO ldao = new LivingDAO();
+		MemberDTO mdto = new MemberDTO();
+		
+		// id 중복체크
+		String id = request.getParameter("id");
+		String checkId = ldao.getOneId(id);
+		
+		// pw 확인
+		String pw = request.getParameter("pw");
+		String checkPw = request.getParameter("pwchk");
+		
+		String pwq = request.getParameter("pwq");
+		String pwa = request.getParameter("pwa");
+		String name = request.getParameter("name");
+		int postcode =  Integer.parseInt(request.getParameter("postcode"));
+		String defaultaddr = request.getParameter("defaultaddr");
+		String detailaddr = request.getParameter("detailaddr");
+		String phone1 = request.getParameter("phone1");
+		String phone2 = request.getParameter("phone2");
+		String phone3 = request.getParameter("phone3");
+		String email = request.getParameter("email");
+		
+		mdto.setM_id(id);
+		mdto.setM_pw(pw);
+		mdto.setM_pwq(pwq);
+		mdto.setM_pwa(pwa);
+		mdto.setM_postcode(postcode);
+		mdto.setM_defaultaddr(defaultaddr);
+		mdto.setM_detailaddr(detailaddr);
+		mdto.setM_phone(phone1+"-"+phone2+"-"+phone3);
+		mdto.setM_email(email);
+		
+		// 예외처리 1) 회원정보가 입력되지 않은 상태면 alert 띄우기
+		// 2) 아이디/비밀번호/이메일 형식이 맞지 않으면 alert 띄우기
+		// 3) 아이디가 중복이면 alert 띄우기
+		// 4) 패스워드가 일치하지 않으면 alert 띄우기
+		// 5) 위의 조건을 모두 만족하면 insert 한다.
+		if(id.equals(checkId)) {
+			request.setAttribute("msgError", "이미 존재하는 아이디입니다.");
+			RequestDispatcher rd = request.getRequestDispatcher("MemberJoinError.jsp");
+			rd.forward(request, response);
+		}
+		
+	}
+}

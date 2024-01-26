@@ -231,21 +231,21 @@ input[type="text"][readonly]{
                             <th><img src="img/icon/ico_required.svg" alt="필수">아이디</th>   
                             <td>
                                 <input type="text" id="id" name="id">
-                                <div class="txtInfo">(영문소문자/숫자, 4~16자)</div>
+                                <div class="txtInfo">(영문소문자/숫자, 4~16자, 숫자로 시작하는 아이디 사용 불가)</div>
                                 <p id="idMsg" class="txtInfo txtSuccess"></p>
                             </td>
                         </tr>
                         <tr>
                             <th><img src="img/icon/ico_required.svg" alt="필수">비밀번호</th>   
                             <td>
-                                <input type="text" id="pw" name="pw">
+                                <input type="password" id="pw" name="pw">
                                 <div class="txtInfo">(영문 대소문자/숫자/특수문자 중 3가지 이상 조합, 8자~16자)</div>
                             </td>
                         </tr>
                         <tr>
                             <th><img src="img/icon/ico_required.svg" alt="필수">비밀번호 확인</th>   
                             <td>
-                                <input type="text" id="pwchk" name="pwchk">
+                                <input type="password" id="pwchk" name="pwchk">
                                 <p id="pwchkMsg" class="txtInfo"></p>
                             </td>
                         </tr>
@@ -321,6 +321,61 @@ input[type="text"][readonly]{
         </div>
     </div>
     <script>
+    let id = document.getElementById('id');
+    let pw = document.getElementById('pw');
+    let pwchk = document.getElementById('pwchk');
+    let email = document.getElementById('email');
+    let idMsg = document.getElementById("idMsg");
+    let pwchkMsg = document.getElementById("pwchkMsg");
+    let emailMsg = document.getElementById("emailMsg");
+    
+    id.addEventListener("focusout", () =>{
+        const regexId = /^[a-z]{1}[a-z0-9]{3,15}$/;
+        if(id.value!="" && id.value!=""){
+				if(regexId.test(id.value)){
+					idMsg.innerHTML = "사용 가능한 아이디입니다.";
+                    idMsg.classList.remove('error');
+				}
+				else{
+					idMsg.innerHTML = "유효하지 않은 아이디입니다.";
+                    idMsg.classList.add('error');
+				}
+			}
+		else{
+			idMsg.innerHTML = "아이디를 입력해주세요.";
+            idMsg.classList.add('error');
+		}
+    })
+
+    pwchk.addEventListener("focusout", () =>{
+		if(pw.value===pwchk.value || pw.value==""){
+			pwchkMsg.innerHTML = "";
+			pwchkMsg.classList.remove('error');
+		}
+		else{
+			pwchkMsg.innerHTML = "비밀번호가 일치하지 않습니다.";
+			pwchkMsg.classList.add('error');
+		}
+	})
+
+    email.addEventListener("focusout", () =>{
+        const regexEmail = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9.]+$/;
+        if(email.value!="" && email.value!=""){
+				if(regexEmail.test(email.value)){
+					emailMsg.innerHTML = "";
+                    emailMsg.classList.remove('error');
+				}
+				else{
+					emailMsg.innerHTML = "유효한 이메일을 입력해주세요.";
+                    emailMsg.classList.add('error');
+				}
+			}
+		else{
+			emailMsg.innerHTML = "이메일을 입력해주세요.";
+            emailMsg.classList.add('error');
+		}
+    })
+    
     function DaumPostcode(){
     	new daum.Postcode({
     		oncomplete: function (data){

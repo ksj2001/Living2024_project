@@ -25,6 +25,17 @@
 	margin: 0 auto;
 	text-align: right;
 }
+.orders .prdCount{
+	float: left;
+	font-size: 13px;
+	color: #7d7d7d;
+}
+.orders .prdCount strong{
+	margin-left: 8px;
+	font-size: 13px;
+	font-weight: bold;
+	color: #000;
+}
 .orders #orderby{
     max-width: 100%;
     height: 40px;
@@ -215,6 +226,7 @@
 <c:choose>
 	<c:when test="${order eq 1}">
 		<div class="orders">
+			<p class="prdCount">총<strong>${count}</strong>개의 상품</p>
 			<select id="orderby">
 				<option value="1" selected>- 정렬방식 -</option>
     			<option value="2">높은가격</option>
