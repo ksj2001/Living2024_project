@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="css/reset.css">
 <style>
 .joinDoneContainer{
     position: relative;
@@ -16,7 +17,7 @@
 .joinDoneContainer .contents{
     max-width: 1480px;
     width: 92%;
-    margin: 50px 0;
+    margin: 20px 0 70px;
 }
 .title{
     margin: 45px 0 40px;
@@ -49,6 +50,7 @@
 .memberArea .joinComplete .desc{
     font-size: 20px;
     font-weight: 700;
+    margin-bottom: 40px;
     color: #1a1a1a;
 }
 .memberArea .joinComplete .information{
@@ -67,6 +69,7 @@
 }
 .memberArea .joinComplete .information .description dl{
     overflow: hidden;
+	display: flex;
     text-align: left;
 }
 .memberArea .joinComplete .information .description dl dt{
@@ -91,6 +94,7 @@
 }
 .memberArea .btnBox a{
     display: inline-block;
+    width: 100%;
     height: 56px;
     line-height: 56px;
     font-size: 16px;
@@ -121,7 +125,7 @@
                         <img src="img/icon/icon_joincomplete.svg" alt="아이콘">&nbsp;
                     </div>
                     <p class="desc">회원가입이 완료되었습니다.</p>
-                    <div class="inforamtion">
+                    <div class="information">
                         <div class="description">
                             <dl>
                                 <dt>아이디</dt>

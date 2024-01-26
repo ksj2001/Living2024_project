@@ -39,4 +39,24 @@
     <servlet-name>MemberJoinDone</servlet-name>
     <url-pattern>/MemberJoinDone</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MemberLoginProc</display-name>
+    <servlet-name>MemberLoginProc</servlet-name>
+    <servlet-class>control.MemberLoginProc</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberLoginProc</servlet-name>
+    <url-pattern>/MemberLoginProc</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MemberLogoutProc</display-name>
+    <servlet-name>MemberLogoutProc</servlet-name>
+    <servlet-class>control.MemberLogoutProc</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberLogoutProc</servlet-name>
+    <url-pattern>/MemberLogoutProc</url-pattern>
+  </servlet-mapping>
 </web-app>

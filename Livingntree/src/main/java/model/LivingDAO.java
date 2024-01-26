@@ -169,7 +169,7 @@ public class LivingDAO {
 	public void insertMember(MemberDTO mdto) {
 		getConnect();
 		try {
-			String sql = "insert into member values(?,?,?,?,?,?,?,?)";
+			String sql = "insert into member values(?,?,?,?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, mdto.getM_id());
 			pstmt.setString(2, mdto.getM_pw());
@@ -196,9 +196,10 @@ public class LivingDAO {
 	}
 	
 	public String getOneId(String id) {
+		getConnect();
 		String checkId = "";
 		try {
-			String sql = "select id from member where id=?";
+			String sql = "select m_id from member where m_id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
@@ -217,5 +218,30 @@ public class LivingDAO {
 			}
 		}
 		return checkId;
+	}
+	
+	public String getMemberPw(String id) {
+		getConnect();
+		String pw = "";
+		try {
+			String sql = "select m_pw from member where m_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				pw = rs.getString(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(con != null) con.close();
+				if(pstmt != null) pstmt.close();
+				if(rs != null) rs.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+		return pw;
 	}
 }

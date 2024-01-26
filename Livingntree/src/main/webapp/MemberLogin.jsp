@@ -31,9 +31,13 @@
     width: 100%;
     height: 48px;
     line-height: 48px;
+    font-size: 13px;
     margin-bottom: 10px;
     padding: 0 20px;
     border: 1px solid #e3e3e3;
+}
+.loginContainer .contents .login input::placeholder{
+	color: #bbb;
 }
 .loginContainer .contents .login_idSave_wrap{
     display: flex;
@@ -145,8 +149,8 @@
             </div>
             <form action="MemberLoginProc.do" method="post">
                 <div class="login">
-                    <input type="text" name="id">
-                    <input type="password" name="pw">
+                    <input type="text" name="id" placeholder="아이디">
+                    <input type="password" name="pw" placeholder="비밀번호">
                 </div>
                 <div class="login_idSave_wrap">
                     <p class="login_idSave">
@@ -165,7 +169,7 @@
             <div class="login_util">
                 <div>아직 회원이 아니신가요?</div>
                 <div>지금 회원가입을 하시면<br>다양하고 특별한 혜택이 준비되어 있습니다.</div>
-                <div><a href="#">회원가입</a></div>
+                <div><a href="Main.jsp?section=MemberJoin.jsp">회원가입</a></div>
             </div>
         </div>
     </div>

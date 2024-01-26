@@ -11,6 +11,9 @@
   integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
   crossorigin="anonymous"></script>
 <style>
+.headerContainer{
+	border-bottom: 0 !important;
+}
 .sectionContainer{
     width: 100%;
     background-color: #fff;
