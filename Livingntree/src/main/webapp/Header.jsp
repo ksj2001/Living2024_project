@@ -198,7 +198,7 @@
             	<c:choose>
             		<c:when test="${loginId != null}">
             			<li class="join"><a href="#">내정보수정</a></li>
-                		<li class="login"><a href="Main.jsp?section=MemberLogoutProc.do">로그아웃</a></li>
+                		<li class="login"><a href="MemberLogoutProc.do">로그아웃</a></li>
             		</c:when>
             		<c:otherwise>
             			<li class="join"><a href="Main.jsp?section=MemberJoin.jsp" style="font-weight: bold;

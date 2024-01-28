@@ -59,4 +59,14 @@
     <servlet-name>MemberLogoutProc</servlet-name>
     <url-pattern>/MemberLogoutProc</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MemberFindIdProc</display-name>
+    <servlet-name>MemberFindIdProc</servlet-name>
+    <servlet-class>control.MemberFindIdProc</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberFindIdProc</servlet-name>
+    <url-pattern>/MemberFindIdProc</url-pattern>
+  </servlet-mapping>
 </web-app>

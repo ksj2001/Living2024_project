@@ -421,7 +421,7 @@ input[type="text"][readonly]{
     function checkMember(){
     	let formname = document.formname;
     	let phone = phone1.value+"-"+phone2.value+"-"+phone3.value;
-    	console.log(id.value);
+    	/* console.log(id.value);
     	console.log(pw.value);
     	console.log(pwchk.value);
     	console.log(pwq.value);
@@ -431,7 +431,7 @@ input[type="text"][readonly]{
     	console.log(phone2.value);
     	console.log(phone3.value);
     	console.log(phone);
-    	console.log(email.value);
+    	console.log(email.value); */
     	// 1)
     	if(id.value === ""){
 			alert('아이디를 입력해주세요.');
@@ -443,6 +443,10 @@ input[type="text"][readonly]{
 		}
     	if(pwa.value === ""){
 			alert('비밀번호 확인시 답변 항목은 필수 입력값입니다.');
+			return;
+		}
+    	if(name.value === ""){
+			alert('이름을 입력해주세요.');
 			return;
 		}
     	if(defaultaddr.value === "" || detailaddr.value === ""){
@@ -482,7 +486,6 @@ input[type="text"][readonly]{
 		
 		formname.submit();
     }
-
     </script>
 </body>
 </html>
