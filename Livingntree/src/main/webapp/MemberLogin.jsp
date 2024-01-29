@@ -101,7 +101,7 @@
 }
 .loginContainer .contents .login_find div:nth-child(2){
     padding-left: 11px;
-    background: url(../img/icon/line2.png);
+    background: url(img/icon/line2.png);
     background-repeat: no-repeat;
     background-position: left;
 }

@@ -1,0 +1,56 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	
+</style>
+</head>
+<body>
+	<div class="findPwqContainer">
+        <div class="contents">
+            <div class="title">
+                <h2>비밀번호 찾기</h2>
+            </div>
+            <form action="MemberFindPwqProc.do" name="formname" method="post">
+            	<input id="mdto" value="${mdto}" type="hidden">
+                <div class="memberArea">
+                    <div class="typeMember">
+                        <ul>
+                        	<li class="id">
+                                <strong class="term">질문</strong>
+                                <div class="desc">${mdto.m_pwq}</div>
+                            </li>
+                            <li class="name">
+                                <strong class="term">답변</strong>
+                                <div class="desc">
+                                    <input id="pwa" name="pwa" type="text">
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btnBox">
+                        <input type="button" class="submitBtn" onclick="checkFindPwq()" value="확인">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        function checkFindPwq(){
+            let formname = document.formname;
+
+            let pwa = document.getElementById('pwa');
+            if(pwa.value === ""){
+			    alert('답변 항목은 필수 입력값입니다.');
+			    return;
+		    }
+
+            formname.submit();
+        }
+    </script>
+</body>
+</html>

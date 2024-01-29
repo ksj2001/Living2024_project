@@ -69,4 +69,34 @@
     <servlet-name>MemberFindIdProc</servlet-name>
     <url-pattern>/MemberFindIdProc</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MemberFindPwProc</display-name>
+    <servlet-name>MemberFindPwProc</servlet-name>
+    <servlet-class>control.MemberFindPwProc</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberFindPwProc</servlet-name>
+    <url-pattern>/MemberFindPwProc</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MemberFindPwqProc</display-name>
+    <servlet-name>MemberFindPwqProc</servlet-name>
+    <servlet-class>control.MemberFindPwqProc</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberFindPwqProc</servlet-name>
+    <url-pattern>/MemberFindPwqProc</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MemberFindPwqTemp</display-name>
+    <servlet-name>MemberFindPwqTemp</servlet-name>
+    <servlet-class>control.MemberFindPwqTemp</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberFindPwqTemp</servlet-name>
+    <url-pattern>/MemberFindPwqTemp</url-pattern>
+  </servlet-mapping>
 </web-app>

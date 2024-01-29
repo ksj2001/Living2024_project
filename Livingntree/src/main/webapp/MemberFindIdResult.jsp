@@ -92,12 +92,12 @@ input[type="radio"]{
     height: 18px;
     margin-right: 10px;
     appearance: none;
-    background: url("/img/icon/bg_radio.png") no-repeat 0 0;
+    background: url("img/icon/bg_radio.png") no-repeat 0 0;
     background-size: 18px 18px;
     cursor: pointer;
 }
 input[type="radio"]:checked{
-    background-image: url("/img/icon/bg_radio_checked.png");
+    background-image: url("img/icon/bg_radio_checked.png");
     transition: 0.2s ease-out;
 }
 .btnBox{
@@ -173,7 +173,7 @@ input[type="radio"]:checked{
                 </div>
                 <div class="btnBox">
                     <input type="button" class="normalBtn" onclick="location.href='Main.jsp?section=MemberLogin.jsp'" value="로그인">
-                    <input type="button" class="submitBtn" onclick="location.href='#'" value="비밀번호 찾기">
+                    <input type="button" class="submitBtn" onclick="location.href='Main.jsp?section=MemberFindPw.jsp'" value="비밀번호 찾기">
                 </div>
             </div>
         </div>

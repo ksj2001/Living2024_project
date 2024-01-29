@@ -280,7 +280,7 @@ public class LivingDAO {
 			pstmt.setString(1, name);
 			pstmt.setString(2, phone);
 			rs = pstmt.executeQuery();
-			while(rs.next()) {
+			if(rs.next()) {
 				idList.add(rs.getString(1));
 			}
 		}catch(Exception e) {
@@ -295,5 +295,77 @@ public class LivingDAO {
 			}
 		}
 		return idList;
+	}
+	
+	public MemberDTO getMemberByEmail(String id, String name, String email) {
+		getConnect();
+		MemberDTO mdto = new MemberDTO();
+		try {
+			String sql = "select * from member where m_id=? and m_name=? and m_email=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, name);
+			pstmt.setString(3, email);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				mdto.setM_id(rs.getString(1));
+				mdto.setM_pw(rs.getString(2));
+				mdto.setM_pwq(rs.getString(3));
+				mdto.setM_pwa(rs.getString(4));
+				mdto.setM_name(rs.getString(5));
+				mdto.setM_postcode(rs.getInt(6));
+				mdto.setM_defaultaddr(rs.getString(7));
+				mdto.setM_detailaddr(rs.getString(8));
+				mdto.setM_phone(rs.getString(9));
+				mdto.setM_email(rs.getString(10));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(con != null) con.close();
+				if(pstmt != null) pstmt.close();
+				if(rs != null) rs.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+		return mdto;
+	}
+	
+	public MemberDTO getMemberByPhone(String id, String name, String phone) {
+		getConnect();
+		MemberDTO mdto = new MemberDTO();
+		try {
+			String sql = "select * from member where m_id=? and m_name=? and m_phone=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, name);
+			pstmt.setString(3, phone);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				mdto.setM_id(rs.getString(1));
+				mdto.setM_pw(rs.getString(2));
+				mdto.setM_pwq(rs.getString(3));
+				mdto.setM_pwa(rs.getString(4));
+				mdto.setM_name(rs.getString(5));
+				mdto.setM_postcode(rs.getInt(6));
+				mdto.setM_defaultaddr(rs.getString(7));
+				mdto.setM_detailaddr(rs.getString(8));
+				mdto.setM_phone(rs.getString(9));
+				mdto.setM_email(rs.getString(10));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(con != null) con.close();
+				if(pstmt != null) pstmt.close();
+				if(rs != null) rs.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+		return mdto;
 	}
 }

@@ -72,12 +72,13 @@ input[type="radio"]{
     width: 18px;
     height: 18px;
     appearance: none;
-    background: url("/img/icon/bg_radio.png") no-repeat 0 0;
+    background: url("img/icon/bg_radio.png") no-repeat 0 0;
     background-size: 18px 18px;
+    vertical-align: middle;
     cursor: pointer;
 }
 input[type="radio"]:checked{
-    background-image: url("/img/icon/bg_radio_checked.png");
+    background-image: url("img/icon/bg_radio_checked.png");
     transition: 0.2s ease-out;
 }
 input[type="radio"] + label{
@@ -170,7 +171,7 @@ input[type="text"]:focus, input[type="text"]:hover{
                         </ul>
                     </div>
                     <div class="btnBox">
-                        <input type="button" class="submitBtn" onclick="checkFindId()" value="가입하기">
+                        <input type="button" class="submitBtn" onclick="checkFindId()" value="확인">
                     </div>
                 </div>
             </form>

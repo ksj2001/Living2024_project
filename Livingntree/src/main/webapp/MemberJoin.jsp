@@ -257,11 +257,11 @@ input[type="text"][readonly]{
                             <th><img src="img/icon/ico_required.svg" alt="필수">비밀번호 확인 질문</th>   
                             <td>
                                 <select id="pwq" name="pwq">
-                                    <option value="1">기억에 남는 추억의 장소는?</option>
-                                    <option value="2">가장 기억에 남는 선생님 성함은?</option>
-                                    <option value="3">받았던 선물 중 기억에 남는 독특한 선물은?</option>
-                                    <option value="4">인상깊게 읽은 책 이름은?</option>
-                                    <option value="5">다시 태어나고 싶으면 되고 싶은 것은?</option>
+                                    <option value="기억에 남는 추억의 장소는?">기억에 남는 추억의 장소는?</option>
+                                    <option value="가장 기억에 남는 선생님 성함은?">가장 기억에 남는 선생님 성함은?</option>
+                                    <option value="받았던 선물 중 기억에 남는 독특한 선물은?">받았던 선물 중 기억에 남는 독특한 선물은?</option>
+                                    <option value="인상깊게 읽은 책 이름은?">인상깊게 읽은 책 이름은?</option>
+                                    <option value="다시 태어나고 싶으면 되고 싶은 것은?">다시 태어나고 싶으면 되고 싶은 것은?</option>
                                 </select>
                             </td>
                         </tr>
