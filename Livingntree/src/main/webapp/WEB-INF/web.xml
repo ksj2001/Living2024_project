@@ -99,4 +99,24 @@
     <servlet-name>MemberFindPwqTemp</servlet-name>
     <url-pattern>/MemberFindPwqTemp</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProductInfo</display-name>
+    <servlet-name>ProductInfo</servlet-name>
+    <servlet-class>control.ProductInfo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProductInfo</servlet-name>
+    <url-pattern>/ProductInfo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CartProc</display-name>
+    <servlet-name>CartProc</servlet-name>
+    <servlet-class>control.CartProc</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CartProc</servlet-name>
+    <url-pattern>/CartProc</url-pattern>
+  </servlet-mapping>
 </web-app>

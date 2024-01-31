@@ -96,9 +96,6 @@
 .productContainer .prdList_item .thumbnail .icon_box .cart{
     display: block;
     position: relative;
-    font-size: 14px;
-    font-weight: 500;
-    color: #fff;
     background-color: transparent;
     border-top: 1px solid transparent;
     border-bottom: 1px solid #fff;
@@ -112,6 +109,11 @@
 }
 .productContainer .prdList_item .thumbnail .icon_box .cart:hover{
     border-top: 1px solid #fff;
+}
+.productContainer .prdList_item .thumbnail .icon_box .cart a{
+	font-size: 14px;
+    font-weight: 500;
+    color: #fff;
 }
 .productContainer .prdList_item .description{
     margin-top: 30px;
@@ -237,6 +239,7 @@
 	</c:when>
 	<c:when test="${order eq 2}">
 		<div class="orders">
+			<p class="prdCount">총<strong>${count}</strong>개의 상품</p>
 			<select id="orderby">
 				<option value="1">- 정렬방식 -</option>
     			<option value="2" selected>높은가격</option>
@@ -246,6 +249,7 @@
 	</c:when>
 	<c:when test="${order eq 3}">
 		<div class="orders">
+			<p class="prdCount">총<strong>${count}</strong>개의 상품</p>
 			<select id="orderby">
 				<option value="1" selected>- 정렬방식 -</option>
     			<option value="2">높은가격</option>
@@ -261,15 +265,15 @@
 		<c:forEach var="pdto" items="${plist}">
 			<div class="prdList_item">
     			<div class="thumbnail">
-      			<a href="ProductDetail.do?p_code=${pdto.p_code}">
+      			<a href="ProductInfo.do?p_code=${pdto.p_code}">
         			<img src="img/productimg/${pdto.p_mainimg}" alt="">
       			</a>
       			<div class="icon_box">
-        			<span class="cart">ADD</span>
+        			<span class="cart"><a href="JangProc.do">ADD</a></span>
       			</div>
     			</div>
     			<div class="description">
-      			<div class="name"><a href="#">${pdto.p_name}</a></div>
+      			<div class="name"><a href="ProductInfo.do?p_code=${pdto.p_code}">${pdto.p_name}</a></div>
       			<div class="spec">
         			<div class="price"><span><fmt:formatNumber value="${pdto.p_price}" pattern="#,##0"/>원</span></div>
       			</div>

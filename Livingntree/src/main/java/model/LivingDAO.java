@@ -368,4 +368,96 @@ public class LivingDAO {
 		}
 		return mdto;
 	}
+	
+	public ProductDTO getOneProduct(int code) {
+		getConnect();
+		ProductDTO pdto = new ProductDTO();
+		try {
+			String sql = "select * from product where p_code=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, code);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				pdto.setP_code(rs.getInt(1));
+				pdto.setP_category(rs.getInt(2));
+				pdto.setP_name(rs.getString(3));
+				pdto.setP_mainimg(rs.getString(4));
+				pdto.setP_detailimg(rs.getString(5));
+				pdto.setP_price(rs.getInt(6));
+				pdto.setP_occ(rs.getString(7));
+				pdto.setP_delivfee(rs.getInt(8));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(con != null) con.close();
+				if(pstmt != null) pstmt.close();
+				if(rs != null) rs.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+		return pdto;
+	}
+	// 장바구니 값 insert하는 메서드
+	public void insertCart(CartDTO cdto) {
+		getConnect();
+		try {
+			String sql = "insert into cart values(null,?,?,?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cdto.getP_code());
+			pstmt.setInt(2, cdto.getC_qty());
+			pstmt.setInt(3, cdto.getC_total());
+			pstmt.setString(4, cdto.getM_id());
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(con != null) con.close();
+				if(pstmt != null) pstmt.close();
+				if(rs != null) rs.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+	}
+	
+	// product 테이블과 cart 테이블을 join하여 select하는 메서드
+	public ArrayList<CartDTO> getAllCart() {
+		getConnect();
+		ArrayList<CartDTO> a = new ArrayList<>();
+		try {
+			String sql = "select C.c_code,P.p_code,P.p_name,P.p_mainimg,P.p_price,P.p_delivfee,\r\n"
+					+ "C.c_qty,C.c_total,C.m_id from product P inner join cart C on P.p_code = C.p_code";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				CartDTO cdto = new CartDTO();
+				cdto.setC_code(rs.getInt(1));
+				cdto.setP_code(rs.getInt(2));
+				cdto.setP_name(rs.getString(3));
+				cdto.setP_mainimg(rs.getString(4));
+				cdto.setP_price(rs.getInt(5));
+				cdto.setP_delivfee(rs.getInt(6));
+				cdto.setC_qty(rs.getInt(7));
+				cdto.setC_total(rs.getInt(8));
+				cdto.setM_id(rs.getString(9));
+				a.add(cdto);
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(con != null) con.close();
+				if(pstmt != null) pstmt.close();
+				if(rs != null) rs.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+		return a;
+	}
 }
