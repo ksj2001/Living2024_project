@@ -279,20 +279,20 @@ table{
 	max-width: 100% !important;
     height: auto !important;
 }
-.additional .tabProductBox .prdReview{
+.additional .tabProductBox .prdReview, .additional .tabProductBox .prdQna{
 	display: none;
 }
-.prdReview .board_title{
+.prdReview .board_title, .prdQna .board_title{
 	display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 40px;
 }
-.prdReview .board_title h2{
+.prdReview .board_title h2, .prdQna .board_title h2{
 	font-size: 20px;
     font-weight: 400;
 }
-.prdReview .board_title .btnBox .btnNormal{
+.prdReview .board_title .btnBox .normalBtn, .prdQna .board_title .btnBox .normalBtn{
 	display: inline-block;
 	width: 110px;
 	height: 40px;
@@ -309,8 +309,11 @@ table{
     background-color: #fff;
     cursor: pointer;
 }
+.prdReview .board_title .btnBox .normalBtn:hover, .prdQna .board_title .btnBox .normalBtn:hover{
+    border-color: #ac5600;
+}
 /* .prdReview .board_contents{
-	
+    
 } */
 .additional .nodata{
 	padding: 56px 0;
@@ -488,7 +491,31 @@ table{
     		//f.submit();
     	}
   
-    	
+    	// Detail, Review, Q&A 메뉴 스크립트 짜기
+        let tabProducts = document.querySelectorAll(".tabProduct ul li");
+        let prdDetail = document.querySelector(".prdDetail");
+        let prdReview = document.querySelector(".prdReview");
+        let prdQna = document.querySelector(".prdQna");
+
+        for(let i=0;i<tabProducts.length;i++){
+            tabProducts[i].addEventListener("click",() => {
+                for(let j=0;j<tabProducts.length;j++){
+                    tabProducts[j].classList.remove('selected');
+                }
+                prdDetail.style.display = "none";
+                prdReview.style.display = "none";
+                prdQna.style.display = "none";
+
+                tabProducts[i].classList.add('selected');
+                if(i===0){
+                    prdDetail.style.display = "block";
+                }else if(i===1){
+                    prdReview.style.display = "block";
+                }else{
+                    prdQna.style.display = "block";
+                }
+            })
+        }
     </script>
 </body>
 </html>
