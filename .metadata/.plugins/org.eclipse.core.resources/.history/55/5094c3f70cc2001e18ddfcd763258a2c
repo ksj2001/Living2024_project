@@ -1,0 +1,45 @@
+package control;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import model.CartDTO;
+import model.LivingDAO;
+
+@WebServlet("/CartDelete.do")
+public class CartDelete extends HttpServlet {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		reqPro(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		reqPro(request, response);
+	}
+
+	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		LivingDAO ldao = new LivingDAO();
+		CartDTO cdto = new CartDTO();
+		
+		String chk = request.getParameter("chk");
+		String[] chkArr = chk.split(" "); // ex) chk = "1 2 3 ... " → chkArr = [1,2,3 ...]
+		
+		for(int i=0;i<chkArr.length;i++) {
+			int check = Integer.parseInt(chkArr[i]);
+			ldao.deleteCart(check);
+			System.out.println(check);
+		}
+		
+		ArrayList<CartDTO> cList = ldao.getAllCart();
+		request.setAttribute("cList", cList);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("CartProc.do");
+		rd.forward(request, response);
+	}
+}
