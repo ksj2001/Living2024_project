@@ -559,15 +559,15 @@ public class LivingDAO {
     	}
     }
     
-    // cart 테이블에 데이터가 존재할 경우 update
-    public void updateCart2(int cnt, int code) {
+    // CartList.jsp에서 +, - 버튼을 누를때마다 update
+    public void updateCart2(int cnt, int price, int code) {
     	getConnect();
     	try {
-    		String sql = "update cart C inner join product P on P.p_code = C.p_code \r\n"
-    				+ "set C.c_qty=?, C.c_total=C.c_qty*P.p_price where C.c_code=?";
+    		String sql = "update cart set c_qty=?, c_total= c_qty * ? where p_code=?";
     		pstmt = con.prepareStatement(sql);
     		pstmt.setInt(1, cnt);
-    		pstmt.setInt(2, code);
+    		pstmt.setInt(2, price);
+    		pstmt.setInt(3, code);
     		pstmt.executeUpdate();
     	}catch(Exception e) {
     		e.printStackTrace();

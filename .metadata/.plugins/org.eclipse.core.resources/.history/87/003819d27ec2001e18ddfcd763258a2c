@@ -39,10 +39,10 @@ public class CartProc extends HttpServlet {
 		if(request.getParameter("code") != null && !request.getParameter("code").isEmpty()) {
 			int cnt = Integer.parseInt(request.getParameter("cnt"));
 			int code = Integer.parseInt(request.getParameter("code"));
-			//String name = request.getParameter("name");
-			//String mainimg = request.getParameter("mainimg");
+			String name = request.getParameter("name");
+			String mainimg = request.getParameter("mainimg");
 			int price = Integer.parseInt(request.getParameter("price"));
-			//int delivfee = Integer.parseInt(request.getParameter("delivfee"));
+			int delivfee = Integer.parseInt(request.getParameter("delivfee"));
 			int total = cnt * price;
 			
 			cdto.setP_code(code);
@@ -55,7 +55,7 @@ public class CartProc extends HttpServlet {
 			if(count==0) { // 장바구니에 선택한 상품이 없을 때 장바구니에 새로 추가(insert)한다.
 				ldao.insertCart(cdto);
 			}else { // 장바구니에 선택한 상품이 이미 존재하면 개수만 update 해준다.
-				ldao.updateCart1(cnt,price,code);
+				ldao.updateCart1(cnt,code);
 			}
 		}
 		
