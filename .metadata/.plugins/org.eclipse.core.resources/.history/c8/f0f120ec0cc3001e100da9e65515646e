@@ -473,7 +473,7 @@
 								</div>
 							</div>
 							<div class="totalOrder">
-								<button class="btnSubmit sizeL" onclick="OrderList()">주문하기</button>
+								<button class="btnSubmit sizeL">주문하기</button>
 								<button class="btnNormal sizeL">관심상품</button>
 							</div>
 						</div>
@@ -576,16 +576,7 @@
 		}
 
 		function OrderList() {
-			param = "";
-			for (let i = 0; i < chk_list.length; i++) {
-				if (chk_list[i].checked) { // 장바구니에서 선택된 no값만 넘기는 코드
-					param = param + chk_list[i].value + " ";
-				}
-			}
-			
-			if(param === ""){
-				alert('선택된 상품이 없습니다.');
-			}else if (loginId == "") {
+			if (loginId == "") {
 				location.href = "Main.jsp?section=MemberLogin.jsp";
 			} else {
 				for (let i = 0; i < chk_list.length; i++) {

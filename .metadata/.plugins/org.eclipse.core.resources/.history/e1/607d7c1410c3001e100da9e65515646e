@@ -139,14 +139,4 @@
     <servlet-name>CartUpdate</servlet-name>
     <url-pattern>/CartUpdate</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>CartOrderPro</display-name>
-    <servlet-name>CartOrderPro</servlet-name>
-    <servlet-class>control.CartOrderPro</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>CartOrderPro</servlet-name>
-    <url-pattern>/CartOrderPro</url-pattern>
-  </servlet-mapping>
 </web-app>

@@ -638,23 +638,17 @@ public class LivingDAO {
     	getConnect();
     	CartDTO cdto = new CartDTO();
     	try {
-    		String sql = "select C.c_code,P.p_code,P.p_name,P.p_mainimg,P.p_price,P.p_delivfee, \r\n"
-					+ "C.c_qty,C.c_total,C.m_id from product P inner join cart C on P.p_code = C.p_code \r\n"
-					+ "where C.c_code=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, code);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				cdto.setC_code(rs.getInt(1));
-				cdto.setP_code(rs.getInt(2));
-				cdto.setP_name(rs.getString(3));
-				cdto.setP_mainimg(rs.getString(4));
-				cdto.setP_price(rs.getInt(5));
-				cdto.setP_delivfee(rs.getInt(6));
-				cdto.setC_qty(rs.getInt(7));
-				cdto.setC_total(rs.getInt(8));
-				cdto.setM_id(rs.getString(9));
-			}
+    		String sql = "select * from cart where c_code=?";
+    		pstmt = con.prepareStatement(sql);
+    		pstmt.setInt(1, code);
+    		rs = pstmt.executeQuery();
+    		if(rs.next()) {
+    			jdto.setNo(rs.getInt(1));
+    			jdto.setImg(rs.getString(2));
+    			jdto.setName(rs.getString(3));
+    			jdto.setCnt(rs.getInt(4));
+    			jdto.setPrice(rs.getInt(5));
+    		}
     	}catch(Exception e) {
     		e.printStackTrace();
     	}finally {
@@ -666,7 +660,7 @@ public class LivingDAO {
     			se.printStackTrace();
     		}
     	}
-    	return cdto;
+    	return jdto;
     }
     
 }

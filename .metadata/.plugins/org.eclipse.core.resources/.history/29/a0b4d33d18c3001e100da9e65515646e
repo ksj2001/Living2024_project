@@ -448,6 +448,7 @@ public class LivingDAO {
 				cdto.setM_id(rs.getString(9));
 				a.add(cdto);
 			}
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -631,42 +632,6 @@ public class LivingDAO {
     		}
     	}
     	return shippingTotal;
-    }
-    
-    // cart 테이블에서 주문한 상품 중 하나의 정보를 return
-    public CartDTO getCartSelect(int code) {
-    	getConnect();
-    	CartDTO cdto = new CartDTO();
-    	try {
-    		String sql = "select C.c_code,P.p_code,P.p_name,P.p_mainimg,P.p_price,P.p_delivfee, \r\n"
-					+ "C.c_qty,C.c_total,C.m_id from product P inner join cart C on P.p_code = C.p_code \r\n"
-					+ "where C.c_code=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, code);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				cdto.setC_code(rs.getInt(1));
-				cdto.setP_code(rs.getInt(2));
-				cdto.setP_name(rs.getString(3));
-				cdto.setP_mainimg(rs.getString(4));
-				cdto.setP_price(rs.getInt(5));
-				cdto.setP_delivfee(rs.getInt(6));
-				cdto.setC_qty(rs.getInt(7));
-				cdto.setC_total(rs.getInt(8));
-				cdto.setM_id(rs.getString(9));
-			}
-    	}catch(Exception e) {
-    		e.printStackTrace();
-    	}finally {
-    		try {
-    			if(con!=null) con.close();
-    			if(pstmt!=null) pstmt.close();
-    			if(rs!=null) rs.close();
-    		}catch(SQLException se) {
-    			se.printStackTrace();
-    		}
-    	}
-    	return cdto;
     }
     
 }
