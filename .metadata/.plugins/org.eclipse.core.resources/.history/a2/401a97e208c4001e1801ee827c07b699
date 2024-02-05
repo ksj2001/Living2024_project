@@ -23,18 +23,14 @@
     letter-spacing: -0.4px;
 	text-align: center;
     vertical-align: top;
-    border-left: 1px solid #d7d5d5;
-    border-right: 1px solid #d7d5d5;
     background: #fff;
 }
 #header .header h1{
 	margin: 0 95px;
-	text-align: center;
-}
-#header .header h1 a{
 	font-size: 18px;
 	font-weight: 700;
-	color: #000;
+	text-align: center;
+    color: #000;
 }
 #header .headerMenu {
     position: absolute;
@@ -87,7 +83,7 @@
     line-height: 61px;
     color: #fff;
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 500;
     text-align: center;
     border: 1px solid #D7D7D7;
 	background-color: #111;
@@ -105,7 +101,6 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
-	align-items: center;
 	padding: 20px 16px;
     word-wrap: break-word;
     word-break: break-all;
@@ -127,12 +122,10 @@
     background: #fff;
 }
 #order .fold .title i{
-	width: 20px;
-    height: 20px;
+	width: 16px;
+    height: 16px;
     display: inline-block;
-	font-size: 20px;
 	vertical-align: center;
-	color: #666;
 	transition: transform 0.3s;
 }
 #order .fold.selected .title i{
@@ -178,7 +171,7 @@
 }
 #order .sideRight{
 	position: absolute;
-    top: 60px;
+    top: 50px;
     right: 15px;
 }
 #order .btnNormal{
@@ -191,7 +184,6 @@
 	color: #000;
     border: 1px solid #b5b5b5;
     background: #fff;
-    cursor: pointer;
 }
 #order .orderList{
 	position: relative;
@@ -227,13 +219,11 @@
     margin-bottom: 9px;
     font-size: 14px;
     font-weight: 400;
-    line-height: 1.4em;
     color: #000;
 }
 #order .orderList .description .info{
 	margin-bottom: 14px;
     font-size: 14px;
-    line-height: 1.4em;
     color: #606060;
 }
 #order .orderList .description .prdPrice{
@@ -356,7 +346,7 @@
 			<div class="shipping fold selected">
 				<div class="title">
 					<h2>배송지</h2>
-					<i class="fa-solid fa-angle-down" aria-hidden="false"></i>
+					<i class="fa-solid fa-angle-up" aria-hidden="false"></i>
 				</div>
 				<div class="contents">
 					<div class="shippingInfo">
@@ -374,7 +364,7 @@
 			<div class="orderProduct fold selected">
 				<div class="title">
 					<h2>주문상품</h2>
-					<i class="fa-solid fa-angle-down" aria-hidden="false"></i>
+					<i class="fa-solid fa-angle-up" aria-hidden="false"></i>
 				</div>
 				<div class="contents">
 					<c:forEach var="chk" items="${chkList}">
@@ -391,7 +381,7 @@
 									</strong>
 									<div class="info">수량: ${chk.c_qty}개</div>
 									<div class="prdPrice">
-										<fmt:formatNumber value="${chk.c_total}" pattern="#,##0"/>원
+										<fmt:formatNumber value="${chk.p_price}" pattern="#,##0"/>원
 									</div>
 								</div>
 							</div>
@@ -415,7 +405,7 @@
 			<div class="payment fold selected">
 				<div class="title">
 					<h2>결제정보</h2>
-					<i class="fa-solid fa-angle-down" aria-hidden="false"></i>
+					<i class="fa-solid fa-angle-up" aria-hidden="false"></i>
 				</div>
 				<div class="contents">
 					<div class="segment">
@@ -435,7 +425,7 @@
 								<td class="right">
 									<c:set var="shippingTotal" value="0" />
 									<c:forEach var="chk" items="${chkList}">
-										<c:set var="shippingTotal" value="${shippingTotal + chk.p_delivfee}" />
+										<c:set var="itemTotal" value="${shippingTotal + chk.p_delivfee}" />
 									</c:forEach>
 									<fmt:formatNumber value="${shippingTotal}" pattern="#,##0"/>원
 								</td>
@@ -455,16 +445,5 @@
 			</button>
 		</form>
 	</section>
-	<script>
-		let fold = document.querySelectorAll('#order .fold');
-		let title = document.querySelectorAll('#order .fold .title');
-		// let contents = document.querySelectorAll('#order .fold .contents');
-
-		for(let i=0;i<title.length;i++){
-			title[i].addEventListener("click", () => {
-				fold[i].classList.toggle('selected');
-			})
-		}
-	</script>
 </body>
 </html>

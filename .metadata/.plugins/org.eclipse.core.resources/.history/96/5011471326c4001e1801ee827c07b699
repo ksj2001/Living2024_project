@@ -578,7 +578,7 @@
 		function OrderList() {
 			param = "";
 			for (let i = 0; i < chk_list.length; i++) {
-				if (chk_list[i].checked) { // 장바구니에서 선택된 code값만 넘기는 코드
+				if (chk_list[i].checked) { // 장바구니에서 선택된 no값만 넘기는 코드
 					param = param + chk_list[i].value + " ";
 				}
 			}
@@ -588,6 +588,12 @@
 			}else if (loginId == "") {
 				location.href = "Main.jsp?section=MemberLogin.jsp";
 			} else {
+				for (let i = 0; i < chk_list.length; i++) {
+					if (chk_list[i].checked) { // 장바구니에서 선택된 code값만 넘기는 코드
+						param = param + chk_list[i].value + " ";
+					}
+				}
+
 				location.href = 'CartOrderPro.do?chk=' + param + '&loginId=' + loginId;
 			}
 		}

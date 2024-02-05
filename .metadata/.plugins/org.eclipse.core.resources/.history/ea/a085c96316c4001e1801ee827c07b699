@@ -105,7 +105,6 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
-	align-items: center;
 	padding: 20px 16px;
     word-wrap: break-word;
     word-break: break-all;
@@ -127,12 +126,10 @@
     background: #fff;
 }
 #order .fold .title i{
-	width: 20px;
-    height: 20px;
+	width: 16px;
+    height: 16px;
     display: inline-block;
-	font-size: 20px;
 	vertical-align: center;
-	color: #666;
 	transition: transform 0.3s;
 }
 #order .fold.selected .title i{
@@ -356,7 +353,7 @@
 			<div class="shipping fold selected">
 				<div class="title">
 					<h2>배송지</h2>
-					<i class="fa-solid fa-angle-down" aria-hidden="false"></i>
+					<i class="fa-solid fa-angle-up" aria-hidden="false"></i>
 				</div>
 				<div class="contents">
 					<div class="shippingInfo">
@@ -374,7 +371,7 @@
 			<div class="orderProduct fold selected">
 				<div class="title">
 					<h2>주문상품</h2>
-					<i class="fa-solid fa-angle-down" aria-hidden="false"></i>
+					<i class="fa-solid fa-angle-up" aria-hidden="false"></i>
 				</div>
 				<div class="contents">
 					<c:forEach var="chk" items="${chkList}">
@@ -415,7 +412,7 @@
 			<div class="payment fold selected">
 				<div class="title">
 					<h2>결제정보</h2>
-					<i class="fa-solid fa-angle-down" aria-hidden="false"></i>
+					<i class="fa-solid fa-angle-up" aria-hidden="false"></i>
 				</div>
 				<div class="contents">
 					<div class="segment">
@@ -435,7 +432,7 @@
 								<td class="right">
 									<c:set var="shippingTotal" value="0" />
 									<c:forEach var="chk" items="${chkList}">
-										<c:set var="shippingTotal" value="${shippingTotal + chk.p_delivfee}" />
+										<c:set var="itemTotal" value="${shippingTotal + chk.p_delivfee}" />
 									</c:forEach>
 									<fmt:formatNumber value="${shippingTotal}" pattern="#,##0"/>원
 								</td>
@@ -455,16 +452,5 @@
 			</button>
 		</form>
 	</section>
-	<script>
-		let fold = document.querySelectorAll('#order .fold');
-		let title = document.querySelectorAll('#order .fold .title');
-		// let contents = document.querySelectorAll('#order .fold .contents');
-
-		for(let i=0;i<title.length;i++){
-			title[i].addEventListener("click", () => {
-				fold[i].classList.toggle('selected');
-			})
-		}
-	</script>
 </body>
 </html>

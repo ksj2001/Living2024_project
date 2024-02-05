@@ -1,0 +1,117 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/reset.css">
+</head>
+<body>
+	<header id="header">
+		<h1 class="logo">
+			<a href="Main.jsp">리빙앤트리</a>
+		</h1>
+		<div class="headerMenu gLeft">
+			<a href="#" class="btnBack" onclick="history.go(-1); return false;"></a>
+		</div>
+		<div class="headerMenu gRight">
+			<a href="CartProc.do" class="btnBasket"></a>
+			<a href="#" class="btnMyPage"></a>
+		</div>
+	</header>
+	<section id="order">
+		<div class="shipping">
+			<div class="title">
+				<h2>배송지</h2>
+				<i class="fa-solid fa-angle-up" aria-hidden="false"></i>
+			</div>
+			<div class="contents">
+				<div class="shippingInfo">
+					<div class="shippingInfoText">
+						<strong class="name">[기본]김사원</strong>
+						<p class="address">[06620]&nbsp;서울 서초구 서초대로74길 11 삼성전자빌딩 asdf</p>
+						<p class="contact">010-5555-5555</p>
+					</div>
+					<span class="sideRight">
+						<button type="button" class="btnNormal mini">배송지 목록</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="orderProduct">
+			<div class="title">
+				<h2>주문상품</h2>
+				<i class="fa-solid fa-angle-up" aria-hidden="false"></i>
+			</div>
+			<div class="contents">
+				<c:forEach var="chk" items="${chkList}">
+					<div class="orderList">
+						<div class="prdBox">
+							<div class="thumbnail"></div>
+							<div class="description"></div>
+							<div class="thumbnail"></div>
+						</div>
+					</div>
+					<div class="delivery">
+						<h3>배송비</h3>
+						<span class="deliveryFee">
+							<c:choose>
+								<c:when test="${chk.p_delivfee eq 0}">
+									0 (무료)원
+								</c:when>
+								<c:otherwise>
+									<fmt:formatNumber value="${chk.p_delivfee}" pattern="#,##0"/>원
+								</c:otherwise>
+							</c:choose>
+						</span>
+					</div>
+				</c:forEach>
+			</div>
+		</div>
+		<div class="payment">
+			<div class="title">
+				<h2>결제정보</h2>
+				<i class="fa-solid fa-angle-up" aria-hidden="false"></i>
+			</div>
+			<div class="contents">
+				<div class="segment">
+					<table border="0">
+						<tr>
+							<th class="row">주문상품</th>
+							<td class="right">
+								<c:set var="itemTotal" value="0" />
+								<c:forEach var="chk" items="${chkList}">
+									<c:set var="itemTotal" value="${itemTotal + chk.c_total}" />
+								</c:forEach>
+								<fmt:formatNumber value="${itemTotal}" pattern="#,##0"/>원
+							</td>
+						</tr>
+						<tr>
+							<th class="row">배송비</th>
+							<td class="right">
+								<c:set var="shippingTotal" value="0" />
+								<c:forEach var="chk" items="${chkList}">
+									<c:set var="itemTotal" value="${shippingTotal + chk.p_delivfee}" />
+								</c:forEach>
+								<fmt:formatNumber value="${shippingTotal}" pattern="#,##0"/>원
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="totalPrice">
+					<h3 class="heading">최종 결제 금액</h3>
+					<strong class="txtStrong">
+						<fmt:formatNumber value="${itemTotal+shippingTotal}" pattern="#,##0"/>원
+					</strong>
+				</div>
+			</div>
+		</div>
+		<button type="button" class="btnSubmit" id="btn_payment">
+			<fmt:formatNumber value="${itemTotal+shippingTotal}" pattern="#,##0"/>원 결제하기
+		</button>
+	</section>
+</body>
+</html>
