@@ -30,7 +30,6 @@ INDEX VERSION 1.134+D:\livingntree\.metadata\.plugins\org.eclipse.jdt.core
 393531047.index
 1224195140.index
 1632764136.index
-157042092.index
 490247618.index
 3450839073.index
 3305945533.index

@@ -208,7 +208,7 @@
             	</c:choose>
                 <li class="order"><a href="Main.jsp?section=MemberLogin.jsp">주문조회</a></li>
                 <c:if test="${loginId != null}">
-                	<li class="mypage"><a href="#">마이페이지</a></li>
+                	<li class="mypage"><a href="MyShop.do">마이페이지</a></li>
                 </c:if>
                 <li class="recent"><a href="#">최근본상품</a></li>
                 <li class="board">

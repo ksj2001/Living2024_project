@@ -669,4 +669,38 @@ public class LivingDAO {
     	return cdto;
     }
     
+    // 로그인 되어있는 아이디로 MemberDTO 가져오기
+    public MemberDTO getMemberByLoginId(String id) {
+		getConnect();
+		MemberDTO mdto = new MemberDTO();
+		try {
+			String sql = "select * from member where m_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				mdto.setM_id(rs.getString(1));
+				mdto.setM_pw(rs.getString(2));
+				mdto.setM_pwq(rs.getString(3));
+				mdto.setM_pwa(rs.getString(4));
+				mdto.setM_name(rs.getString(5));
+				mdto.setM_postcode(rs.getInt(6));
+				mdto.setM_defaultaddr(rs.getString(7));
+				mdto.setM_detailaddr(rs.getString(8));
+				mdto.setM_phone(rs.getString(9));
+				mdto.setM_email(rs.getString(10));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(con != null) con.close();
+				if(pstmt != null) pstmt.close();
+				if(rs != null) rs.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+		return mdto;
+	}
 }

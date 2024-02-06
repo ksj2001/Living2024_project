@@ -109,4 +109,44 @@
     <servlet-name>ProductInfo</servlet-name>
     <url-pattern>/ProductInfo</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CartProc</display-name>
+    <servlet-name>CartProc</servlet-name>
+    <servlet-class>control.CartProc</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CartProc</servlet-name>
+    <url-pattern>/CartProc</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CartDelete</display-name>
+    <servlet-name>CartDelete</servlet-name>
+    <servlet-class>control.CartDelete</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CartDelete</servlet-name>
+    <url-pattern>/CartDelete</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CartUpdate</display-name>
+    <servlet-name>CartUpdate</servlet-name>
+    <servlet-class>control.CartUpdate</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CartUpdate</servlet-name>
+    <url-pattern>/CartUpdate</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CartOrderPro</display-name>
+    <servlet-name>CartOrderPro</servlet-name>
+    <servlet-class>control.CartOrderPro</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CartOrderPro</servlet-name>
+    <url-pattern>/CartOrderPro</url-pattern>
+  </servlet-mapping>
 </web-app>
