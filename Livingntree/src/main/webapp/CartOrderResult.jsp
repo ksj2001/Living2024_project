@@ -41,9 +41,6 @@
     margin-bottom: 20px;
     font-size: 16px;
 }
-.memberArea .complete .infoDesc{
-    font-size: 13px;
-}
 .memberArea .complete .description{
     margin-top: 20px;
     text-align: left;
@@ -58,9 +55,6 @@
 }
 .memberArea .complete .description ul li{
     margin-bottom: 10px;
-}
-.memberArea .complete .description ul li.hidden{
-    display: none;
 }
 .memberArea .complete .description ul li .term{
     float: left;
@@ -84,21 +78,6 @@
 }
 .memberArea .complete .description label span{
 	font-size: 13px;
-}
-input[type="radio"]{
-    position: relative;
-    opacity: 1;
-    width: 18px;
-    height: 18px;
-    margin-right: 10px;
-    appearance: none;
-    background: url("img/icon/bg_radio.png") no-repeat 0 0;
-    background-size: 18px 18px;
-    cursor: pointer;
-}
-input[type="radio"]:checked{
-    background-image: url("img/icon/bg_radio_checked.png");
-    transition: 0.2s ease-out;
 }
 .btnBox{
     display: flex;
@@ -147,20 +126,14 @@ input[type="radio"]:checked{
                                 <strong class="term">이름</strong>
                                 <div class="desc">${name}</div>
                             </li>
-                            <%-- <c:choose>
-                            	<c:when test="${not empty email}"> --%>
-                            		<li>
-                                		<strong class="term">구매일자</strong>
-                                		<div class="desc">${date}</div>
-                            		</li>
-                            	<%-- </c:when>
-                            	<c:otherwise> --%>
-                            		<li>
-                                		<strong class="term">구매코드</strong>
-                                		<div class="desc">${date}+"_"+${code}</div>
-                            		</li>
-                            <%-- 	</c:otherwise>
-                            </c:choose> --%>
+                            <li>
+                                <strong class="term">구매일자</strong>
+                                <div class="desc">${date}</div>
+                            </li>
+                            <li>
+                                <strong class="term">구매코드</strong>
+                                <div class="desc">${date}+"_"+${code}</div>
+                            </li>
                         </ul>
                     </div>
                 </div>

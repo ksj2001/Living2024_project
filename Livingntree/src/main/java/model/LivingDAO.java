@@ -491,12 +491,13 @@ public class LivingDAO {
     }
 	
 	// cart의 전체 레코드 개수를 return하는 메서드
-    public int getAllCartCount() {
+    public int getAllCartCount(String id) {
     	getConnect();
     	int count = 0;
     	try {
-    		String sql = "select count(*) from cart";
+    		String sql = "select count(*) from cart where m_id=?";
     		pstmt = con.prepareStatement(sql);
+    		pstmt.setString(1, id);
     		rs = pstmt.executeQuery();
     		if(rs.next()) {
     			count = rs.getInt(1);

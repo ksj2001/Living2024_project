@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.CartDTO;
 import model.DelivDTO;
@@ -35,6 +36,9 @@ public class CartOrderDone extends HttpServlet {
 		CartDTO cdto = new CartDTO();
 		/* ProductDTO pdto = new ProductDTO(); */
 		ArrayList<OrdersDTO> arr = new ArrayList<>();
+		
+		HttpSession session = request.getSession();
+		String loginId = request.getParameter("loginId");
 		
 		String[] codearr = request.getParameterValues("code");
 		String[] imgarr = request.getParameterValues("img");
@@ -76,6 +80,10 @@ public class CartOrderDone extends HttpServlet {
 		ddto.setM_id(id);
 		ldao.insertDeliv(ddto);
 		
+		// 장바구니의 레코드 전체 개수를 session에 담는다.
+		int cartCount = ldao.getAllCartCount(loginId);
+		session.setAttribute("cartCount", cartCount);
+		session.setMaxInactiveInterval(-1); // 무한정으로 세션이 종료되지 않는다.
 		
 		request.setAttribute("date", odto.getO_date());
 		request.setAttribute("code", odto.getO_code());

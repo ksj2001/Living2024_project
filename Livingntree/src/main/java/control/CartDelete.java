@@ -44,12 +44,10 @@ public class CartDelete extends HttpServlet {
 		}
 		
 		// 장바구니의 레코드 전체 개수를 session에 담는다.
-		/*
-		 * int cartCount = ldao.getAllCartCount();
-		 * HttpSession session = request.getSession();
-		 * session.setAttribute("cartCount", cartCount);
-		 * session.setMaxInactiveInterval(-1); // 무한정으로 세션이 종료되지 않는다.
-		 */		
+		int cartCount = ldao.getAllCartCount(loginId);
+		session.setAttribute("cartCount", cartCount);
+		session.setMaxInactiveInterval(-1); // 무한정으로 세션이 종료되지 않는다.
+		
 		ArrayList<CartDTO> cList = ldao.getAllCart(loginId);
 		request.setAttribute("cList", cList);
 		

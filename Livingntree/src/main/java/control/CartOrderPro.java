@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.CartDTO;
 import model.LivingDAO;
@@ -30,6 +31,7 @@ public class CartOrderPro extends HttpServlet {
 		CartDTO cdto = new CartDTO();
 		ArrayList<CartDTO> chkList = new ArrayList<>(); 
 		
+		HttpSession session = request.getSession();
 		String loginId = request.getParameter("loginId");
 		String chk = request.getParameter("chk");
 		String chkArr[] = chk.split(" ");
@@ -39,6 +41,11 @@ public class CartOrderPro extends HttpServlet {
 			cdto = ldao.getCartSelect(check);
 			chkList.add(cdto);
 		}
+		
+		// 장바구니의 레코드 전체 개수를 session에 담는다.
+		int cartCount = ldao.getAllCartCount(loginId);
+		session.setAttribute("cartCount", cartCount);
+		session.setMaxInactiveInterval(-1); // 무한정으로 세션이 종료되지 않는다.
 
 		request.setAttribute("chkList", chkList);
 		RequestDispatcher rd = request.getRequestDispatcher("CartOrder.jsp");

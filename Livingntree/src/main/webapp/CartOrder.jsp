@@ -74,6 +74,22 @@
 #header .headerMenu.gRight a{
 	margin-right: 10px;
 }
+#header .headerMenu.gRight a .cartCount{
+	overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 2px;
+    width: 14px;
+    height: 14px;
+    padding: 0 2px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 9px;
+    line-height: 13px;
+    color: #fff;
+    text-align: center;
+    background: #ff0000;
+}
 #header .headerMenu .btnBasket{
 	background: url(img/icon/sfix_header.png) no-repeat -30px 0;
     background-size: 90px auto;
@@ -456,7 +472,11 @@ input[type="text"][readonly]{
 				<a href="#" class="btnBack" onclick="history.go(-1); return false;"></a>
 			</div>
 			<div class="headerMenu gRight">
-				<a href="CartProc.do" class="btnBasket"></a>
+				<a href="CartProc.do" class="btnBasket">
+					<c:if test="${cartCount != null && cartCount > 0}">
+                        <span class="cartCount">${cartCount}</span>
+                    </c:if>
+				</a>
 				<a href="#" class="btnMyPage"></a>
 			</div>
 		</div>

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.LivingDAO;
+
 @WebServlet("/MemberLogoutProc.do")
 public class MemberLogoutProc extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
