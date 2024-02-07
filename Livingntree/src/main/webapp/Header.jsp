@@ -188,6 +188,126 @@
     color: #1a1a1a;
     padding: 0 16px;
 }
+/* modal CSS 시작  */
+.searchcontainer{
+    width: calc(100% - 100px);
+    height: calc(100% - 100px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 1px solid #9a9a9a;
+    /*  opacity: 0; */
+    display: none; 
+     transition: 0.7s;
+   /* 화면에 보이지 않게 지정*/
+    background: white;
+   }
+   .searchcontainer.on{
+      /* opacity : 1; */
+      display : block;
+      z-index: 1000;
+   }
+   .searchcontainer .search_Wrap{
+     width: calc(100% - 100px);
+     height: calc(100% - 100px);
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%,-50%);
+     position : relative;
+   }
+   .searchcontainer .search_Wrap #closebtn{
+     width:80px;
+     height: 80px;
+     border:none;
+     background:transparent;
+     position: absolute;
+     top: 40px;
+     right: 0px; 
+     cursor: pointer;
+   }
+   .searchcontainer .search_Wrap .search_box{
+     width : calc(100% - 900px);
+     /* width: 800px;  */
+     height: 194px;
+     position: absolute;
+     top : 50%;
+     left : 50%;
+     transform: translate(-50%,-50%);
+   }
+   .searchcontainer .search_Wrap .search_box p {
+     margin: 0 0 64px;
+     font-size: 40px;
+     /* font-weight: 300; */
+     /* color: #575757; */
+     color: gray;
+     letter-spacing: -0.005em;
+   }
+   .searchcontainer .search_Wrap .search_box #keyword{
+    width: 800px; 
+    height: 70px;
+    flex: 1;
+    font-size: 32px;
+    font-weight: 300;
+    height: 100%;
+    color: #9a9a9a;
+    border: none;
+    border-bottom: 1px solid lightgray;
+    outline: none;
+    position : relative;
+    padding-bottom: 10px;
+   }
+   .searchcontainer .search_Wrap .search_box .search{
+      position: relative;
+   }
+   .searchcontainer .search_Wrap .search_box .search #searchbtn{
+     position : absolute;
+     width: 40px;
+     height: 40px;
+     top : 0;
+     right : 0;
+     border: none;
+     background : transparent;
+     cursor: pointer;
+   }
+   .searchcontainer .search_Wrap .search_box .search #searchbtn i{
+      font-size: 40px;
+   }
+   .overlay{
+     background-color: white;
+     position: fixed;
+     width: 100%;
+     height: 100vh;
+     top: 0;
+     left: 0;
+     opacity: 0;
+     visibility: hidden;
+   }
+  .overlay.on{
+    opacity: 1;
+    visibility: visible;
+    z-index: 999;
+   }
+   /* input 커서를 클릭시 placeholder의 문자가 사라지게 하는 CSS */
+   .searchcontainer .search_Wrap .search_box input::placeholder{
+      color : lightgray;
+      font-size: 35px;
+   }
+   .searchcontainer .search_Wrap .search_box input:focus::placeholder{
+      visibility: hidden;
+   }
+   /* 스크롤은 안보이고 스크롤기능은 실행됨 */
+   /* body::-webkit-scrollbar{display: none;} */
+   /* 화면에 스크롤바 감추기 css */
+  .scrollStop {
+    height: 100%;
+    overflow: hidden;
+   }
+  /* modal CSS 종료  */
 </style>
 </head>
 <body>
@@ -255,18 +375,41 @@
                         </svg>
                     </a>
                 </li>
-                <li>
-                    <a href="#">
+                <li id="modal">
+                    <button type="button" id="modalbtn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" class="icon" role="img">
                             <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 19c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z"></path>
                             <path stroke="#000" stroke-linejoin="round" stroke-width="1.5" d="M22 22l-5-5"></path>
                         </svg>
-                    </a>
+                    </button>
                 </li>
             </ul>
         </div>
     </div>
 </div>
+<!-- modal search창 만들기 -->
+<div class="searchcontainer">
+     <div class="search_Wrap">
+      <button type="button" id="closebtn"><img alt="closebtn" src="img/icon/close.png"></button>
+      <div class="search_box">
+          <p>Find Product</p>
+          <div class="bottom_search_box">
+           <form action="SearchProductProc.do" method="post" name="formname">
+            <div class="search">
+               <input type="text" name="keyword" id="keyword" placeholder="좁은 공간 틈새 수납해보세요">
+               <button type="button"  id="searchbtn">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" class="icon" role="img">
+                     <path stroke="#575757" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 19c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z"></path>
+                     <path stroke="#575757" stroke-linejoin="round" stroke-width="1.5" d="M22 22l-5-5"></path>
+                   </svg>
+                </button>   
+             </div>
+            </form> 
+          </div>
+       </div>
+     </div>
+  </div>
+ <div class="overlay"></div>   
 <script>
     $(function(){
         $('.headerContainer .headerContainerWrap .top_area .top_util .board a').click(function(){
@@ -283,6 +426,24 @@
 
         $('.headerContainer .headerContainerWrap .top_nav_box .top_category ul li').mouseleave(function(){
             $(this).removeClass('on');
+        })
+        
+         /* modal창 화면에 보이기/숨기기 */
+        $('.headerContainer .headerContainerWrap .top_nav_box .top_mypage li #modalbtn').click(function(){
+            $('.searchcontainer').addClass('on');
+            $('.overlay').addClass('on');
+            /* 검색버튼 클릭하면 스크롤바감추고 스크롤 기능도 멈춤 */
+            $('body').addClass('scrollStop');
+        })
+        $('#closebtn').click(function(){
+            $('.searchcontainer').removeClass('on');
+            $('.overlay').removeClass('on');
+            /* 종료버튼 클릭하면 스크롤바 감추기 해제 */
+            $('body').removeClass('scrollStop');
+        })
+        /* 모달창에서 상품검색한 자료 SearchProductProc.do로 전송  */
+        $('.searchcontainer .search_Wrap  .search_box .bottom_search_box .search #searchbtn').click(function(){
+        	formname.submit();
         })
     })
 </script>

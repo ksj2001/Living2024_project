@@ -51,7 +51,7 @@ public class CartProc extends HttpServlet {
 			cdto.setM_id(loginId);
 			
 			// 장바구니에 중복으로 상품이 담기는 오류를 해결
-			int count = ldao.getCodeCount(code);			
+			int count = ldao.getCodeCount(loginId,code);			
 			if(count==0) { // 장바구니에 선택한 상품이 없을 때 장바구니에 새로 추가(insert)한다.
 				ldao.insertCart(cdto);
 			}else { // 장바구니에 선택한 상품이 이미 존재하면 개수만 update 해준다.

@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/reset.css">
 <script src="https://kit.fontawesome.com/82fd850f0d.js" crossorigin="anonymous"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
 #header{
 	position: relative;
@@ -155,7 +156,119 @@
 	padding: 0 16px 20px;
 	line-height: 24px;
 }
-#order .shippingInfo .shippingInfoText{
+.tableBox{
+    border-top: 2px solid #1a1a1a;
+}
+table{
+    width: 100%;
+    border: 0;
+    border-collapse: collapse;
+}
+.tableBox table tr th, .tableBox table tr td{
+    height: auto;
+}
+.tableBox table tr th{
+    width: 190px;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #1a1a1a;
+    border-bottom: 1px solid #e5e5e5;
+    background-color: #f6f6f6;
+    line-height: 22px;
+    vertical-align: middle;
+}
+.tableBox table tr th img{
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    vertical-align: middle;
+}
+.tableBox table tr td{
+    width: auto;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #1a1a1a;
+    border-bottom: 1px solid #e5e5e5;
+    line-height: 22px;
+    vertical-align: middle;
+}
+.tableBox table tr td input[type="text"], .tableBox table tr td input[type="password"]{
+    width: 410px;
+    height: 40px;
+    line-height: 40px;
+    padding: 2px 4px 2px 15px;
+    border: 1px solid #e0e0e0;
+    color: #000;
+    font-size: 13px;
+    outline: 1px;
+}
+.tableBox table tr td input[type="text"]:focus, .tableBox table tr td input[type="password"]:focus,
+.tableBox table tr td input[type="text"]:hover, .tableBox table tr td input[type="password"]:hover{
+    border-color: #000;
+    transition: 0.3s;
+}
+.tableBox table #pwq, .tableBox table #pwa{
+    width: 450px;
+}
+#pwq, #phone1{
+    max-width: 100%;
+    height: 40px;
+    padding: 0 30px 0 15px;
+    font-size: 13px;
+    border: 1px solid #e0e0e0;
+    background-color: #fff;
+    background: url(img/icon/ico_select.png);
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    /* background: #fff url(img/icon/ico_select.png) no-repeat right 10px center; */
+    background-size: 14px 8px;
+    appearance:none;
+}
+.tableBox table .formMultiple{
+    padding-top: 22px;
+    padding-bottom: 22px;
+}
+.tableBox table .formMultiple div{
+    margin-bottom: 10px;
+}
+.tableBox table .formMultiple div:last-child{
+    margin-bottom: 0;
+}
+.tableBox table .formMultiple .postcode_wrap input[type="text"]{
+    width: 160px;
+}
+input[type="text"][readonly]{
+    background: #f9f9f9;
+}
+.tableBox table .btnBasic{
+    display: inline-block;
+    margin-left: 10px;
+    padding: 12px 20px;
+    height: 40px;
+    font-size: 13px;
+    box-sizing: border-box;
+    border: 1px solid #bcbcbc;
+    line-height: 1;
+    font-weight: normal;
+    text-decoration: none;
+    vertical-align: middle;
+    word-spacing: -0.5px;
+    letter-spacing: 0;
+    text-align: center;
+    white-space: nowrap;
+    color: #000;
+    background-color: #fff;
+}
+.tableBox table #phone1, .tableBox table #phone2, .tableBox table #phone3{
+    width: 110px;
+    margin: 0 14px;
+}
+.tableBox table #phone1{
+    margin-left: 0;
+}
+/* #order .shippingInfo .shippingInfoText{
 	overflow: hidden;
     padding-top: 9px;
 }
@@ -192,7 +305,7 @@
     border: 1px solid #b5b5b5;
     background: #fff;
     cursor: pointer;
-}
+} */
 #order .orderList{
 	position: relative;
 	margin: 15px 16px;
@@ -352,7 +465,7 @@
 		</div>
 	</header>
 	<section id="order">
-		<form action="CartOrderDone.do" method="post">
+		<form action="CartOrderDone.do" name="formname" method="post">
 			<div class="shipping fold selected">
 				<div class="title">
 					<h2>배송지</h2>
@@ -360,14 +473,61 @@
 				</div>
 				<div class="contents">
 					<div class="shippingInfo">
-						<div class="shippingInfoText">
+						<div class="tableBox">
+							<table border="1">
+								<tr>
+									<th>받는사람</th>   
+									<td>
+										<input type="text" id="name" name="name">
+									</td>
+								</tr>
+								<tr>
+									<th>주소</th>   
+									<td class="formMultiple">
+										<div class="postcode_wrap">
+											<input type="text" id="postcode" name="postcode" placeholder="우편번호" readonly>
+											<input type="button" class="btnBasic" onclick="DaumPostcode()" value="주소검색" style="cursor: pointer;"></button>
+										</div>
+										<div class="defaultaddr_wrap">
+											<input type="text" id="defaultaddr" name="defaultaddr" placeholder="기본주소" readonly>
+										</div>
+										<div class="detailaddr_wrap">
+											<input type="text" id="detailaddr" name="detailaddr" placeholder="나머지 주소">
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>휴대전화</th>   
+									<td>
+										<select id="phone1" name="phone1">
+											<option value="010">010</option>
+											<option value="016">016</option>
+											<option value="017">017</option>
+											<option value="018">018</option>
+											<option value="019">019</option>
+										</select>
+										-
+										<input type="text" id="phone2" name="phone2" maxlength="4">
+										-
+										<input type="text" id="phone3" name="phone3" maxlength="4">
+									</td>
+								</tr>
+								<tr>
+									<th>이메일</th>   
+									<td>
+										<input type="text" id="email" name="email">
+									</td>
+								</tr>
+							</table>
+						</div>
+						<!-- <div class="shippingInfoText">
 							<strong class="name">[기본]김사원</strong>
 							<p class="address">[06620]&nbsp;서울 서초구 서초대로74길 11 삼성전자빌딩 asdf</p>
 							<p class="contact">010-5555-5555</p>
 						</div>
 						<span class="sideRight">
 							<button type="button" class="btnNormal mini">배송지 목록</button>
-						</span>
+						</span> -->
 					</div>
 				</div>
 			</div>
@@ -378,6 +538,14 @@
 				</div>
 				<div class="contents">
 					<c:forEach var="chk" items="${chkList}">
+						<input type="hidden" name="code" value="${chk.p_code}">
+						<input type="hidden" name="img" value="${chk.p_mainimg}">
+						<input type="hidden" name="price" value="${chk.p_price}">
+						<input type="hidden" name="name" value="${chk.p_name}">
+						<input type="hidden" name="cnt" value="${chk.c_qty}">
+						<input type="hidden" name="delivfee" value="${chk.p_delivfee}">
+						<input type="hidden" name="id" value="${loginId}">
+						<input type="hidden" name="c_code" value="${chk.c_code}">
 						<div class="orderList">
 							<div class="prdBox">
 								<div class="thumbnail">
@@ -450,7 +618,7 @@
 					</div>
 				</div>
 			</div>
-			<button type="submit" class="btnSubmit" id="btn_payment">
+			<button type="button" onclick="purchase()" class="btnSubmit" id="btn_payment">
 				<fmt:formatNumber value="${itemTotal+shippingTotal}" pattern="#,##0"/>원 결제하기
 			</button>
 		</form>
@@ -464,6 +632,69 @@
 			title[i].addEventListener("click", () => {
 				fold[i].classList.toggle('selected');
 			})
+		}
+
+		// 주소검색 클릭 시 Daum 주소 API가 뜨도록 설정
+		function DaumPostcode(){
+    	new daum.Postcode({
+    		oncomplete: function (data){
+    			let addr = '';
+    			if(data.userSelectedType === 'R'){
+    				addr = data.roadAddress;
+    			}else{
+    				addr = data.jibunAddress;
+    			}
+    			document.getElementById('postcode').value = data.zonecode;
+    			document.getElementById('defaultaddr').value = addr;
+    			document.getElementById('detailaddr').focus();
+    		},
+    	}).open();	
+    	}
+		
+		let name = document.getElementById('name');
+		let postcode = document.getElementById('postcode');
+		let defaultaddr = document.getElementById('defaultaddr');
+		let detailaddr = document.getElementById('detailaddr');
+		let phone1 = document.getElementById('phone1');
+		let phone2 = document.getElementById('phone2');
+		let phone3 = document.getElementById('phone3');
+		let email = document.getElementById('email');
+
+		// 휴대전화: ex) 010-0000-0000, 010-111-1111
+		const regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+    	// 이메일: ex) jsp2024@gmail.com, genius@snu.ac.kr
+    	const regEmail = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9.]+$/;
+
+		function purchase(){
+			let formname = document.formname;
+			let phone = phone1.value+"-"+phone2.value+"-"+phone3.value;
+
+			if(name.value === ""){
+				alert('이름을 입력해주세요.');
+				return;
+			}
+    		if(defaultaddr.value === "" || detailaddr.value === ""){
+				alert('주소를 입력해주세요.');
+				return;
+			}
+    		if(phone2.value === "" || phone3.value === ""){
+				alert('휴대전화를 입력해주세요.');
+				return;
+			}
+    		if(email.value === ""){
+				alert('이메일을 입력해주세요.');
+				return;
+			}
+			if(!regPhone.test(phone)){
+				alert('올바른 휴대전화번호를 입력하세요.');
+				return;
+			}
+			if(!regEmail.test(email.value)){
+				alert('입력하신 이메일을 사용할 수 없습니다.');
+				return;
+			}
+
+			formname.submit();
 		}
 	</script>
 </body>

@@ -39,10 +39,7 @@ public class CartOrderPro extends HttpServlet {
 			cdto = ldao.getCartSelect(check);
 			chkList.add(cdto);
 		}
-		
-		// 배송지 정보는 보류
-		// -----------------
-		
+
 		request.setAttribute("chkList", chkList);
 		RequestDispatcher rd = request.getRequestDispatcher("CartOrder.jsp");
 		rd.forward(request, response);

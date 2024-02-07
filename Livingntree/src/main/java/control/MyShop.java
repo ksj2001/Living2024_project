@@ -15,7 +15,7 @@ import model.CartDTO;
 import model.LivingDAO;
 import model.MemberDTO;
 
-@WebServlet("MyShop.do")
+@WebServlet("/MyShop.do")
 public class MyShop extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		reqPro(request, response);

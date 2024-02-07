@@ -464,13 +464,14 @@ public class LivingDAO {
 	
 	// code에 해당하는 상품이 존재하는지 개수를 세는 메서드
     // cart 테이블에 데이터가 존재하는지 여부를 확인하는 메서드
-    public int getCodeCount(int code) {
+    public int getCodeCount(String id, int code) {
     	getConnect();
     	int count = 0;
     	try {
-    		String sql = "select count(*) from cart where p_code=?";
+    		String sql = "select count(*) from cart where m_id=? and p_code=?";
     		pstmt = con.prepareStatement(sql);
-    		pstmt.setInt(1, code);
+    		pstmt.setString(1, id);
+    		pstmt.setInt(2, code);
     		rs = pstmt.executeQuery();
     		if(rs.next()) {
     			count = rs.getInt(1);
@@ -703,4 +704,247 @@ public class LivingDAO {
 		}
 		return mdto;
 	}
+    
+    // 주문번호인 o_code를 작성하는 메서드 (같은 날짜에 물건을 구매하면 o_code가 1씩 증가, 날짜가 바뀌면 o_code는 1로 초기화)
+    public int codeaddSelect() {
+    	getConnect();
+    	int maxcode = 0;
+    	try {
+    		String sql = "select ifnull(max(o_code),0)+1 from orders where o_date = current_date()";
+    		pstmt = con.prepareStatement(sql);
+    		rs = pstmt.executeQuery();
+    		if(rs.next()) {
+    			maxcode = rs.getInt(1);
+    		}
+    	}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(con != null) con.close();
+				if(pstmt != null) pstmt.close();
+				if(rs != null) rs.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+    	return maxcode;
+    }
+    
+    public void insertOrders(OrdersDTO odto) {
+    	getConnect();
+    	try {
+    		String sql = "insert into orders values(current_date(),?,?,?,?,?)";
+    		pstmt = con.prepareStatement(sql);
+    		pstmt.setInt(1, odto.getO_code());
+    		pstmt.setInt(2, odto.getP_code());
+    		pstmt.setInt(3, odto.getO_qty());
+    		pstmt.setInt(4, odto.getO_total());
+    		pstmt.setString(5, odto.getM_id());
+    		pstmt.executeUpdate();
+    	}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(con != null) con.close();
+				if(pstmt != null) pstmt.close();
+				if(rs != null) rs.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+    }
+    
+    public void insertDeliv(DelivDTO ddto) {
+    	getConnect();
+    	try {
+    		String sql = "insert into delivaddress values(current_date(),?,?,?,?,?,?,?,?)";
+    		pstmt = con.prepareStatement(sql);
+    		pstmt.setInt(1, ddto.getO_code());
+    		pstmt.setString(2, ddto.getD_delivname());
+    		pstmt.setInt(3, ddto.getD_postcode());
+    		pstmt.setString(4, ddto.getD_defaultaddr());
+    		pstmt.setString(5, ddto.getD_detailaddr());
+    		pstmt.setString(6, ddto.getD_phone());
+    		pstmt.setString(7, ddto.getD_email());
+    		pstmt.setString(8, ddto.getM_id());
+    		pstmt.executeUpdate();
+    	}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(con != null) con.close();
+				if(pstmt != null) pstmt.close();
+				if(rs != null) rs.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+    }
+    
+    // 구매한 상품을 장바구니에서 삭제하는 메서드
+    public void deleteOrderCart(int code, String id) {
+    	getConnect();
+    	try {
+    		String sql = "delete from cart where p_code=? and m_id=?";
+    		pstmt = con.prepareStatement(sql);
+    		pstmt.setInt(1, code);
+    		pstmt.setString(2, id);
+    		pstmt.executeUpdate();
+    	}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(con != null) con.close();
+				if(pstmt != null) pstmt.close();
+				if(rs != null) rs.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+    }
+    
+  //----------------------------------------------------    오티가 작성한 부분  ------------------------------------------------
+  	// keyword에 해당하는 상품을 리턴하는 메소도
+  	public ArrayList<ProductDTO> searchProduct(String keyword, int startRow, int pageSize) {
+  		getConnect();
+  		ArrayList<ProductDTO> a = new ArrayList<>();
+  	
+  		try {
+  			String sql = "select * from product where p_name Like concat('%',?,'%') limit ?,?";
+  			pstmt = con.prepareStatement(sql);
+  			pstmt.setString(1, keyword);
+  			pstmt.setInt(2, startRow-1);
+  			pstmt.setInt(3, pageSize);
+  			rs = pstmt.executeQuery();
+  			while(rs.next()) {
+  				ProductDTO pdto = new ProductDTO();
+  				pdto.setP_code(rs.getInt(1));
+  				pdto.setP_category(rs.getInt(2));
+  				pdto.setP_name(rs.getString(3));
+  				pdto.setP_mainimg(rs.getString(4));
+  				pdto.setP_detailimg(rs.getString(5));
+  				pdto.setP_price(rs.getInt(6));
+  				pdto.setP_occ(rs.getString(7));
+  				pdto.setP_delivfee(rs.getInt(8));
+  				a.add(pdto);
+  			}
+  			
+  		}catch(Exception e) {
+  			e.printStackTrace();
+  		}finally {
+  			try {
+  				if(con != null) con.close();
+  				if(pstmt != null) pstmt.close();
+  				if(rs != null) rs.close();
+  			}catch(SQLException se){
+  				se.printStackTrace();
+  			}
+  		}
+  		return a;
+  	}
+  	// keyword에 해당하는 상품 모든 개수를 리턴하는 메소드
+  	public int getAllSearchCount(String keyword) {
+  		getConnect();
+  		int count = 0;
+  		try {
+  			String sql = "select count(*) from product where p_name Like concat('%',?,'%')";
+  			pstmt = con.prepareStatement(sql);
+  			pstmt.setString(1, keyword);
+  			System.out.println("DB 특정단어 : "+keyword);
+  			rs = pstmt.executeQuery();
+  			if(rs.next()) {
+  				count = rs.getInt(1);
+  			}
+  			
+  			System.out.println("DB 개수 : "+count);
+  		}catch(Exception e) {
+  			e.printStackTrace();
+  		}finally {
+  			try {
+  				if(con != null) con.close();
+  				if(pstmt != null) pstmt.close();
+  				if(rs != null) rs.close();
+  			}catch(SQLException se){
+  				se.printStackTrace();
+  			}
+  		}
+  		return count;
+  	}
+      
+  	// keyword(특정문자)별 상품들을 return하는 메서드 (낮은 가격 순)
+  		public ArrayList<ProductDTO> searchAscProduct(String keyword, int startRow, int pageSize){
+  			getConnect();
+  			ArrayList<ProductDTO> a = new ArrayList<>();
+  			try {
+  				String sql = "select * from product where p_name Like concat('%',?,'%') order by p_price asc limit ?,?";
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setString(1, keyword);
+  				pstmt.setInt(2, startRow-1);
+  				pstmt.setInt(3, pageSize);
+  				rs = pstmt.executeQuery();
+  				while(rs.next()) {
+  					ProductDTO pdto = new ProductDTO();
+  					pdto.setP_code(rs.getInt(1));
+  					pdto.setP_category(rs.getInt(2));
+  					pdto.setP_name(rs.getString(3));
+  					pdto.setP_mainimg(rs.getString(4));
+  					pdto.setP_detailimg(rs.getString(5));
+  					pdto.setP_price(rs.getInt(6));
+  					pdto.setP_occ(rs.getString(7));
+  					pdto.setP_delivfee(rs.getInt(8));
+  					a.add(pdto);
+  				}
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con != null) con.close();
+  					if(pstmt != null) pstmt.close();
+  					if(rs != null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  			return a;
+  		}
+  		
+  		// keyword(특정문자)별 상품들을 return하는 메서드 (높은 가격 순)
+  				public ArrayList<ProductDTO> searchDescProduct(String keyword, int startRow, int pageSize){
+  					getConnect();
+  					ArrayList<ProductDTO> a = new ArrayList<>();
+  					try {
+  						String sql = "select * from product where p_name Like concat('%',?,'%') order by p_price desc limit ?,?";
+  						pstmt = con.prepareStatement(sql);
+  						pstmt.setString(1, keyword);
+  						pstmt.setInt(2, startRow-1);
+  						pstmt.setInt(3, pageSize);
+  						rs = pstmt.executeQuery();
+  						while(rs.next()) {
+  							ProductDTO pdto = new ProductDTO();
+  							pdto.setP_code(rs.getInt(1));
+  							pdto.setP_category(rs.getInt(2));
+  							pdto.setP_name(rs.getString(3));
+  							pdto.setP_mainimg(rs.getString(4));
+  							pdto.setP_detailimg(rs.getString(5));
+  							pdto.setP_price(rs.getInt(6));
+  							pdto.setP_occ(rs.getString(7));
+  							pdto.setP_delivfee(rs.getInt(8));
+  							a.add(pdto);
+  						}
+  					}catch(Exception e) {
+  						e.printStackTrace();
+  					}finally {
+  						try {
+  							if(con != null) con.close();
+  							if(pstmt != null) pstmt.close();
+  							if(rs != null) rs.close();
+  						}catch(SQLException se){
+  							se.printStackTrace();
+  						}
+  					}
+  					return a;
+  				}
+  				
+  				
+  	//----------------------------------------------------------------			
 }
