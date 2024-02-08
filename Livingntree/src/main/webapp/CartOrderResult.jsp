@@ -123,7 +123,7 @@
                     <div class="description">
                         <ul>
                             <li>
-                                <strong class="term">이름</strong>
+                                <strong class="term">수령인</strong>
                                 <div class="desc">${name}</div>
                             </li>
                             <li>
@@ -132,7 +132,7 @@
                             </li>
                             <li>
                                 <strong class="term">구매코드</strong>
-                                <div class="desc">${date}+"_"+${code}</div>
+                                <div class="desc">${date}_${code}</div>
                             </li>
                         </ul>
                     </div>

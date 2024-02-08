@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import model.CartDTO;
 import model.LivingDAO;
 import model.MemberDTO;
+import model.OrdersDTO;
 
 @WebServlet("/MyShop.do")
 public class MyShop extends HttpServlet {
@@ -31,6 +32,7 @@ public class MyShop extends HttpServlet {
 		
 		LivingDAO ldao = new LivingDAO();
 		MemberDTO mdto = ldao.getMemberByLoginId(loginId);
+		/* OrdersDTO odto = ldao.getOrdersByLoginId(loginId); */
 		
 		request.setAttribute("mdto", mdto);
 		

@@ -1,6 +1,8 @@
 package control;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -37,6 +39,9 @@ public class CartOrderDone extends HttpServlet {
 		/* ProductDTO pdto = new ProductDTO(); */
 		ArrayList<OrdersDTO> arr = new ArrayList<>();
 		
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
 		HttpSession session = request.getSession();
 		String loginId = request.getParameter("loginId");
 		
@@ -53,7 +58,7 @@ public class CartOrderDone extends HttpServlet {
 		
 		// 구매 테이블에 insert
 		for(int i=0;i<codearr.length;i++) {
-			odto.setO_date(odto.getO_date());
+			odto.setO_date(sdf.format(date));
 			odto.setO_code(orderCode);
 			odto.setP_code(Integer.parseInt(codearr[i]));
 			odto.setO_qty(Integer.parseInt(cntarr[i]));
@@ -85,8 +90,9 @@ public class CartOrderDone extends HttpServlet {
 		session.setAttribute("cartCount", cartCount);
 		session.setMaxInactiveInterval(-1); // 무한정으로 세션이 종료되지 않는다.
 		
-		request.setAttribute("date", odto.getO_date());
-		request.setAttribute("code", odto.getO_code());
+		request.setAttribute("name", ddto.getD_delivname()); 
+		request.setAttribute("date", ddto.getO_date());
+		request.setAttribute("code", ddto.getO_code());
 		
 		RequestDispatcher rd = request.getRequestDispatcher("Main.jsp?section=CartOrderResult.jsp");
 		rd.forward(request, response);

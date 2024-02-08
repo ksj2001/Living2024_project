@@ -947,5 +947,39 @@ public class LivingDAO {
   				}
   				
   				
-  	//----------------------------------------------------------------			
+  	//----------------------------------------------------------------	
+  		// 로그인 되어있는 아이디로 OrdersDTO 가져오기 (member, delivaddress 테이블과 join 하기)
+  		public OrdersDTO getOrdersByLoginId(String id) {
+  			getConnect();
+  			OrdersDTO odto = new OrdersDTO();
+  			try {
+  				String sql = "select * from orders O inner join delivaddress D on O.o_date=D.o_date /r/n"
+  						+ "and O.o_code=D.o_code inner join product P on O.p_code=P.p_code /r/n"
+  						+ "where O.m_id=?";
+  				// select * from orders O inner join delivaddress D on O.o_date=D.o_date and  inner join product P on O.p_code=P.p_code where O.o_code=D.o_code and O.m_id=?;
+  				// select * from orders O inner join delivaddress D on O.o_date=D.o_date and O.o_code=D.o_code inner join product P on O.p_code=P.p_code where O.m_id=?;
+  				// O.o_date,O.o_code,O.p_code,P.p_mainimg,O.o_qty,O.o_total,D.d_delivname,D.d_defaultaddr,D.d_detailaddr,D.d_phone
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setString(1, id);
+  				rs = pstmt.executeQuery();
+  				if(rs.next()) {
+  					odto.setO_date(rs.getString(1));
+  					odto.setO_code(rs.getInt(2));
+  					odto.setP_code(rs.getInt(3));
+  					
+  					odto.setM_id(rs.getString(1));
+  				}
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con != null) con.close();
+  					if(pstmt != null) pstmt.close();
+  					if(rs != null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  			return odto;
+  		}
 }
