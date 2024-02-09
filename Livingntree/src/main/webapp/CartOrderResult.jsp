@@ -137,10 +137,10 @@
                         </ul>
                     </div>
                 </div>
-<!--                 <div class="btnBox">
-                    <input type="button" class="normalBtn" onclick="location.href='Main.jsp?section=MemberLogin.jsp'" value="로그인">
-                    <input type="button" class="submitBtn" onclick="location.href='Main.jsp?section=MemberFindPw.jsp'" value="비밀번호 찾기">
-                </div> -->
+	            <div class="btnBox">
+                    <input type="button" class="normalBtn" onclick="location.href='MyShopOrder.do'" value="주문내역 조회">
+                    <input type="button" class="submitBtn" onclick="location.href='Main.jsp'" value="홈으로 이동">
+                </div>
             </div>
         </div>
     </div>

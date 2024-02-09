@@ -169,4 +169,14 @@
     <servlet-name>CartOrderDone</servlet-name>
     <url-pattern>/CartOrderDone</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MyShipAddr</display-name>
+    <servlet-name>MyShipAddr</servlet-name>
+    <servlet-class>control.MyShipAddr</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MyShipAddr</servlet-name>
+    <url-pattern>/MyShipAddr</url-pattern>
+  </servlet-mapping>
 </web-app>

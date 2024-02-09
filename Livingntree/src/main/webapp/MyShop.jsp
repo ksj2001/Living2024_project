@@ -16,8 +16,7 @@
     width: 100%;
 }
 .myShopContainer .contents{
-    max-width: 1480px;
-    width: 92%;
+    width: 100%;
     margin: 50px 0;
 }
 .myShopContainer .contents .prdEmpty{
@@ -25,7 +24,7 @@
 	flex-direction: column;
 	align-items: center;
 	padding: 60px 0;
-	border-top: 1px solid #e6e6e6;
+	border-top: 2px solid #1a1a1a;
 	border-bottom: 1px solid #e6e6e6;
     font-size: 16px;
     color: #9a9a9a;
@@ -51,6 +50,7 @@
 .myShopContainer .contents .myName .user{
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 .myShopContainer .contents .myName .user img{
     width: 60px;
@@ -66,8 +66,8 @@
 }
 .myShopContainer .contents .myShopArea{
     position: relative;
-    width: calc(92% - 280px);
-    max-width: calc(1480px - 280px) !important;
+    width: calc(100% - 280px);
+    max-width: calc(100% - 280px) !important;
     padding-left: 280px !important;
     margin: 0 auto !important;
     min-height: 630px;
@@ -91,7 +91,7 @@
     color: #000;
 }
 .myShopArea .myShopMain .menu li{
-    margin-top: 10px;
+    margin-top: 15px;
 }
 .myShopArea .myShopMain .menu li a{
     display: block;
@@ -108,9 +108,63 @@
     font-weight: 500;
     color: #000;
 }
-/* .myShopArea .orderHistory .listItem{
-
+/* .myShopArea .orderHistory{
+    max-width: 1200px;
+    width: 1000px;
 } */
+.myShopArea .orderHistory .listItem{
+	border-top: 2px solid #1a1a1a;
+}
+.myShopArea .orderHistory .listItem .orderList table{
+    width: 100%;
+    margin-top: 20px;
+    border: 0;
+    border-collapse: collapse;
+}
+.myShopArea .orderHistory .listItem .orderList table tr{
+    display: table-row;
+    vertical-align: middle;
+}
+.orderList table th, .orderList table td{
+    height: 29px;
+    padding: 5px 10px;
+    line-height: 22px;
+    vertical-align: middle;
+    text-align: center;
+    border: 0;
+}
+.myShopArea .orderHistory .listItem .orderList table th{
+	height: 50px;
+    white-space: nowrap;
+    border-bottom: 0;
+    font-weight: 400;
+    background-color: #f6f6f6;
+}
+.myShopArea .orderHistory .listItem .orderList table td{
+    border-bottom: 1px solid #e5e5e5;
+}
+.myShopArea .orderHistory .listItem .orderList table td a{
+	vertical-align: middle;
+}
+.myShopArea .orderHistory .listItem .orderList table td img{
+    width: 50px;
+    height: 50px;
+}
+.btnNormal{
+	display: inline-block;
+    padding: 5px 10px;
+	border: 1px solid #d0ac88;
+    color: #d0ac88;
+	background-color: #fff;
+	vertical-align: middle;
+    word-spacing: -0.5px;
+    letter-spacing: 0;
+    text-align: center;
+	cursor: pointer;
+}
+.sizeS{
+    font-size: 12px;
+}
 </style>
 </head>
 <body>
@@ -128,7 +182,7 @@
                 <div class="myShopMain">
                     <div class="subTitle"><h3>나의 쇼핑 정보</h3></div>
                     <ul class="menu">
-                        <li><a href="#">주문내역 조회</a></li>
+                        <li><a href="MyShopOrder.do">주문내역 조회</a></li>
                         <li><a href="#">적립금 내역</a></li>
                         <li><a href="#">쿠폰 내역</a></li>
                         <li><a href="#">배송 주소록 관리</a></li>
@@ -151,20 +205,49 @@
                     </div>
                     <div class="listItem">
                     	<c:choose>
-                    		<%-- <c:when test="">
-                    		
-                    		</c:when> --%>
-                    		<%-- <c:otherwise> --%>
+                    		<c:when test="${oharr.size() > 0}">
+                    			<div class="orderList">
+                        			<table border="1">
+                                        <tr>
+                                            <th>주문일자</th>
+                                            <th>주문번호</th>
+                                            <th>상품정보</th>
+                                            <th>수령인</th>
+                                            <th>수량</th>
+                                            <th>총금액</th>
+                                            <th>배송상태</th>
+                                            <th>취소</th>
+                                        </tr>
+                                        <c:forEach var="o" items="${oharr}">
+                                            <tr>
+                                                <td>${o.o_date}</td>
+                                                <td>${o.o_date}_${o.o_code}</td>
+                                                <td>
+                                                    <a href="ProductInfo.do?p_code=${o.p_code}">
+                                                        <img src="img/productimg/${o.p_mainimg}">
+                                                    </a>
+                                                </td>
+                                                <td>${o.d_delivname}</td>
+                                                <td>${o.o_qty}</td>
+                                                <td><fmt:formatNumber value="${o.o_total}" pattern="#,##0"/>원</td>
+                                                <td>${o.delivchk}</td>
+                                                <td>
+                                                    <c:if test="${o.delivchk eq '배송준비중'}">
+                                                        <button class="btnNormal sizeS" onclick="oh_delete()">취소</button>
+                                                    </c:if>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </table>
+                        		</div>
+                    		</c:when>
+                    		<c:otherwise>
                     			<div class="prdEmpty">
                             		<svg xmlns="http://www.w3.org/2000/svg" width="65" height="64" fill="none" viewBox="0 0 65 64" class="icon" role="img"><path d="M63.3 32C63.3 49.0104 49.5104 62.8 32.5 62.8C15.4896 62.8 1.7 49.0104 1.7 32C1.7 14.9896 15.4896 1.2 32.5 1.2C49.5104 1.2 63.3 14.9896 63.3 32Z" stroke="#D9D9D9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path><path d="M32.5 18.6665V34.6665" stroke="#D9D9D9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path><path d="M32.5 40V44" stroke="#D9D9D9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                             		주문 내역이 없습니다.
                         		</div>
-                    		<%-- </c:otherwise> --%>
+                    		</c:otherwise>
                     	</c:choose>
-                        
-                        <div class="orderList">
-                        
-                        </div>
                     </div>
                 </div>
             </div>

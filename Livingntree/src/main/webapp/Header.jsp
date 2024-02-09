@@ -355,7 +355,7 @@
                 		<li class="login"><a href="Main.jsp?section=MemberLogin.jsp">로그인</a></li>
             		</c:otherwise>
             	</c:choose>
-                <li class="order"><a href="Main.jsp?section=MemberLogin.jsp">주문조회</a></li>
+                <li class="order"><a href="MyShopOrder.do">주문조회</a></li>
                 <c:if test="${loginId != null}">
                 	<li class="mypage"><a href="MyShop.do">마이페이지</a></li>
                 </c:if>
