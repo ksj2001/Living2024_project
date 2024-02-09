@@ -179,14 +179,4 @@
     <servlet-name>MyShipAddr</servlet-name>
     <url-pattern>/MyShipAddr</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>OrderDelete</display-name>
-    <servlet-name>OrderDelete</servlet-name>
-    <servlet-class>control.OrderDelete</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>OrderDelete</servlet-name>
-    <url-pattern>/OrderDelete</url-pattern>
-  </servlet-mapping>
 </web-app>

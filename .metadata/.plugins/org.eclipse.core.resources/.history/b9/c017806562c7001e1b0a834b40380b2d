@@ -40,6 +40,7 @@ public class CartDelete extends HttpServlet {
 		for(int i=0;i<chkArr.length;i++) {
 			int check = Integer.parseInt(chkArr[i]);
 			ldao.deleteCart(check);
+			System.out.println(check);
 		}
 		
 		// 장바구니의 레코드 전체 개수를 session에 담는다.

@@ -231,7 +231,6 @@
 				formname.submit();
 			}else{
 				location.href = "MyShopOrder.do";
-				/* !!!!! 취소 버튼을 눌러도 해당 주문이 취소됨 !!!!! */
 			}
     	}
     </script>

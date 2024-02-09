@@ -183,30 +183,24 @@
                                             <th>취소</th>
                                         </tr>
                                         <c:forEach var="o" items="${oharr}">
-                                            <form action="OrderDelete.do" name="formname" method="post">
-                                                <tr>
-                                                    <td>${o.o_date}</td>
-                                                    <td>${o.o_date}_${o.o_code}</td>
-                                                    <td>
-                                                        <a href="ProductInfo.do?p_code=${o.p_code}">
-                                                            <img src="img/productimg/${o.p_mainimg}">
-                                                        </a>
-                                                    </td>
-                                                    <td>${o.d_delivname}</td>
-                                                    <td>${o.o_qty}</td>
-                                                    <td>
-                                                        <fmt:formatNumber value="${o.o_total}" pattern="#,##0" />원
-                                                    </td>
-                                                    <td>${o.delivchk}</td>
-                                                    <td>
-                                                        <c:if test="${o.delivchk eq '배송준비중'}">
-                                                            <button class="btnNormal sizeS" onclick="oh_delete()">취소</button>
-                                                            <input type="hidden" name="date" value="${o.o_date}">
-                                                			<input type="hidden" name="code" value="${o.o_code}">
-                                                        </c:if>
-                                                    </td>
-                                                </tr>
-                                            </form>
+                                            <tr>
+                                                <td>${o.o_date}</td>
+                                                <td>${o.o_date}_${o.o_code}</td>
+                                                <td>
+                                                    <a href="ProductInfo.do?p_code=${o.p_code}">
+                                                        <img src="img/productimg/${o.p_mainimg}">
+                                                    </a>
+                                                </td>
+                                                <td>${o.d_delivname}</td>
+                                                <td>${o.o_qty}</td>
+                                                <td><fmt:formatNumber value="${o.o_total}" pattern="#,##0"/>원</td>
+                                                <td>${o.delivchk}</td>
+                                                <td>
+                                                    <c:if test="${o.delivchk eq '배송준비중'}">
+                                                        <button class="btnNormal sizeS" onclick="oh_delete()">취소</button>
+                                                    </c:if>
+                                                </td>
+                                            </tr>
                                         </c:forEach>
                                     </table>
                         		</div>
@@ -223,17 +217,5 @@
             </div>
         </div>
     </div>
-    <script>
-    	function oh_delete(){
-        	let formname = document.formname;
-        	let deleteOrder = confirm('해당 주문을 취소하시겠습니까?');
-			if(deleteOrder){
-				formname.submit();
-			}else{
-				location.href = "MyShopOrder.do";
-				/* !!!!! 취소 버튼을 눌러도 해당 주문이 취소됨 !!!!! */
-			}
-    	}
-    </script>
 </body>
 </html>

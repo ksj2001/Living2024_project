@@ -992,4 +992,46 @@ public class LivingDAO {
   			}
   			return a;
   		}
+  		
+  		public void deleteOrders(String date, int code) {
+  			getConnect();
+  			try {
+  				String sql = "delete from orders where o_date=? and o_code=?";
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setString(1, date);
+  				pstmt.setInt(2, code);
+  				pstmt.executeUpdate();
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con != null) con.close();
+  					if(pstmt != null) pstmt.close();
+  					if(rs != null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  		}
+  		
+  		public void deleteDelivaddress(String date, int code) {
+  			getConnect();
+  			try {
+  				String sql = "delete from delivaddress where o_date=? and o_code=?";
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setString(1, date);
+  				pstmt.setInt(2, code);
+  				pstmt.executeUpdate();
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con != null) con.close();
+  					if(pstmt != null) pstmt.close();
+  					if(rs != null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  		}
 }
