@@ -8,8 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.LivingDAO;
+import model.MemberDTO;
 import model.ReviewDTO;
 
 @WebServlet("/ReviewBoardWriteProc.do")
@@ -29,11 +31,14 @@ public class ReviewBoardWriteProc extends HttpServlet {
 		LivingDAO ldao = new LivingDAO();
 		ReviewDTO rdto = new ReviewDTO();
 		
-		rdto.setWriter(request.getParameter("writer"));
-		rdto.setSubject(request.getParameter("subject"));
-		rdto.setEmail(request.getParameter("email"));
-		rdto.setPassword(request.getParameter("password"));
-		rdto.setContent(request.getParameter("content"));
+		HttpSession session = request.getSession();
+		String loginId = (String)session.getAttribute("loginId");
+		
+		rdto.setR_pw(request.getParameter("password"));
+		rdto.setR_title(request.getParameter("subject"));
+		rdto.setR_content(request.getParameter("content"));
+		rdto.setM_name(ldao.getOneName(loginId));
+		rdto.setM_id(loginId);
 		
 		ldao.insertReviewBoard(rdto);
 		RequestDispatcher rd = request.getRequestDispatcher("ReviewBoardList.do");

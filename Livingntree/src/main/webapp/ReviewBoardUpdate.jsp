@@ -168,6 +168,7 @@ textarea{
                             </td>
                         </tr>
                     </table>
+                    <input type="hidden" name="code" value="${rdto.r_code}">
                 </div>
                 <div class="btnBox">
                     <span class="left">
@@ -183,6 +184,16 @@ textarea{
     </div>
     <script>
         function form_submit(){
+        	let subject = document.getElementById('subject');
+        	let content = document.getElementById('content');
+        	if(subject.value==""){
+        		alert('제목을 입력하세요.');
+        		return;
+        	}
+        	if(content.value==""){
+        		alert('내용을 입력하세요.');
+        		return;
+        	}
             document.getElementById('boardUpdateForm').submit();
         }
     </script>

@@ -114,7 +114,9 @@ input[type=text], input[type=password] {
                         이 글은 비밀글입니다. <strong class="txtEm">비밀번호</strong>를 입력하여 주세요.<br>관리자는 확인버튼만 누르시면 됩니다.
                     </p>
                     <p class="password">
-                        <input type="password" name="password" id="password">
+                        <input type="password" name="userPw" id="password">
+                        <input type="hidden" name="dbPw" value="${rdto.r_pw}">
+                        <input type="hidden" name="code" value="${rdto.r_code}">
                     </p>
                 </div>
                 <div class="btnBox">

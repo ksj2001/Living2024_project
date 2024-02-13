@@ -147,8 +147,8 @@
                 <div class="btnBox">
                     <span class="left">
                         <c:if test="${loginId eq rdto.m_id}">
-                            <a href="ReviewBoardDelete.do" class="btnNormalFix sizeM">삭제</a>
-                            <a href="ReviewBoardUpdate.do" class="btnNormalFix sizeM">수정</a>
+                            <a href="ReviewBoardDelete.do?code=${rdto.r_code}" class="btnNormalFix sizeM">삭제</a>
+                            <a href="ReviewBoardUpdate.do?code=${rdto.r_code}" class="btnNormalFix sizeM">수정</a>
                         </c:if>
                     </span>
                     <span class="right">

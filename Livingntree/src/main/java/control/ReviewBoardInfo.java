@@ -13,7 +13,7 @@ import model.LivingDAO;
 import model.ReviewDTO;
 
 @WebServlet("/ReviewBoardInfo.do")
-public class ReviewBoardInfo.do extends HttpServlet {
+public class ReviewBoardInfo extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		reqPro(request, response);
 	}
@@ -26,9 +26,8 @@ public class ReviewBoardInfo.do extends HttpServlet {
 		LivingDAO ldao = new LivingDAO();
 		ReviewDTO rdto = new ReviewDTO();
 		
-		int num = Integer.parseInt(request.getParameter("num"));
-		rdto = ldao.getOneBoard(num);
-		
+		int code = Integer.parseInt(request.getParameter("code"));
+		rdto = ldao.getOneReviewBoard(code);
 		
 		
 //		request.setAttribute("num", rdto.getNum());

@@ -68,6 +68,7 @@ public class ReviewBoardList extends HttpServlet {
 		}
 		
 		String msg = (String)request.getAttribute("msg");
+		request.setAttribute("msg", msg);
 		
 		request.setAttribute("aList", aList);
 		request.setAttribute("number", number);

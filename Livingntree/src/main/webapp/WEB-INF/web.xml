@@ -219,4 +219,44 @@
     <servlet-name>ReviewBoardWriteProc</servlet-name>
     <url-pattern>/ReviewBoardWriteProc</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ReviewBoardUpdate</display-name>
+    <servlet-name>ReviewBoardUpdate</servlet-name>
+    <servlet-class>control.ReviewBoardUpdate</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReviewBoardUpdate</servlet-name>
+    <url-pattern>/ReviewBoardUpdate</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ReviewBoardUpdateProc</display-name>
+    <servlet-name>ReviewBoardUpdateProc</servlet-name>
+    <servlet-class>control.ReviewBoardUpdateProc</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReviewBoardUpdateProc</servlet-name>
+    <url-pattern>/ReviewBoardUpdateProc</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ReviewBoardDelete</display-name>
+    <servlet-name>ReviewBoardDelete</servlet-name>
+    <servlet-class>control.ReviewBoardDelete</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReviewBoardDelete</servlet-name>
+    <url-pattern>/ReviewBoardDelete</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ReviewBoardDeleteProc</display-name>
+    <servlet-name>ReviewBoardDeleteProc</servlet-name>
+    <servlet-class>control.ReviewBoardDeleteProc</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReviewBoardDeleteProc</servlet-name>
+    <url-pattern>/ReviewBoardDeleteProc</url-pattern>
+  </servlet-mapping>
 </web-app>

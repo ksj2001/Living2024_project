@@ -1035,6 +1035,7 @@ public class LivingDAO {
   			}
   		}
   		
+  	//----------------------------------------------------------------
   		// 전체 리뷰글의 개수를 출력하는 메서드
   		public int getAllReviewCount() {
   			getConnect();
@@ -1065,7 +1066,7 @@ public class LivingDAO {
   			getConnect();
   			ArrayList<ReviewDTO> a = new ArrayList<>();
   			try {
-  				String sql = "select * from board order by r_code desc limit ?,?";
+  				String sql = "select * from review order by r_code desc limit ?,?";
   				pstmt = con.prepareStatement(sql);
   				pstmt.setInt(1, startRow-1);
   				pstmt.setInt(2, pageSize);
@@ -1145,6 +1146,119 @@ public class LivingDAO {
   			return name;
   		}
   		
+  		public ReviewDTO getOneReviewBoard(int code) {
+  			getConnect();
+  			ReviewDTO rdto = new ReviewDTO();
+  			try {
+  				// 조회수 증가 쿼리 작성
+  				String readCountsql = "update review set r_readcount = r_readcount + 1 where r_code=?";
+  				pstmt = con.prepareStatement(readCountsql);
+  				pstmt.setInt(1, code);
+  				pstmt.executeUpdate();
+  				
+  				String sql = "select * from review where r_code=?";
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setInt(1, code);
+  				rs = pstmt.executeQuery();
+  				if(rs.next()) {
+  					rdto.setR_code(rs.getInt(1));
+  					rdto.setR_pw(rs.getString(2));
+  					rdto.setR_title(rs.getString(3));
+  					rdto.setR_content(rs.getString(4));
+  					rdto.setM_name(rs.getString(5));
+  					rdto.setR_date(rs.getDate(6).toString());
+  					rdto.setR_readcount(rs.getInt(7));
+  					rdto.setM_id(rs.getString(8));
+  				}
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con!=null) con.close();
+  					if(pstmt!=null) pstmt.close();
+  					if(rs!=null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  			return rdto;
+  		}
+  		
+  		public ReviewDTO getOneUpdateReviewBoard(int code) {
+  			getConnect();
+  			ReviewDTO rdto = new ReviewDTO();
+  			try {
+  				String sql = "select * from review where r_code=?";
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setInt(1, code);
+  				rs = pstmt.executeQuery();
+  				if(rs.next()) {
+  					rdto.setR_code(rs.getInt(1));
+  					rdto.setR_pw(rs.getString(2));
+  					rdto.setR_title(rs.getString(3));
+  					rdto.setR_content(rs.getString(4));
+  					rdto.setM_name(rs.getString(5));
+  					rdto.setR_date(rs.getDate(6).toString());
+  					rdto.setR_readcount(rs.getInt(7));
+  					rdto.setM_id(rs.getString(8));
+  				}
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con!=null) con.close();
+  					if(pstmt!=null) pstmt.close();
+  					if(rs!=null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  			return rdto;
+  		}
+  		
+  		public void updateReviewBoard(int code, String subject, String content) {
+  			getConnect();
+  			try {
+  				String sql = "update review set r_title=?,r_content=? where r_code=?";
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setString(1, subject);
+  				pstmt.setString(2, content);
+  				pstmt.setInt(3, code);
+  				pstmt.executeUpdate();
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con!=null) con.close();
+  					if(pstmt!=null) pstmt.close();
+  					if(rs!=null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  		}
+  		
+  		public void deleteReviewBoard(int code) {
+  			getConnect();
+  			try {
+  				String sql = "delete from review where r_code=?";
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setInt(1, code);
+  				pstmt.executeUpdate();
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con!=null) con.close();
+  					if(pstmt!=null) pstmt.close();
+  					if(rs!=null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  		}
+  		
+  	//----------------------------------------------------------------
   		// 전체 문의글의 개수를 출력하는 메서드
   		public int getAllInquiryCount() {
   			getConnect();
@@ -1175,7 +1289,7 @@ public class LivingDAO {
   			getConnect();
   			ArrayList<InquiryDTO> a = new ArrayList<>();
   			try {
-  				String sql = "select * from board order by ref desc, re_step asc limit ?,?";
+  				String sql = "select * from inquiry order by ref desc, re_step asc limit ?,?";
   				pstmt = con.prepareStatement(sql);
   				pstmt.setInt(1, startRow-1);
   				pstmt.setInt(2, pageSize);
@@ -1228,6 +1342,122 @@ public class LivingDAO {
   				pstmt.setInt(5, ref);
   				pstmt.setInt(6, re_step);
   				pstmt.setString(7, idto.getM_id());
+  				pstmt.executeUpdate();
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con!=null) con.close();
+  					if(pstmt!=null) pstmt.close();
+  					if(rs!=null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  		}
+  		
+  		public InquiryDTO getOneInquiryBoard(int code) {
+  			getConnect();
+  			InquiryDTO idto = new InquiryDTO();
+  			try {
+  				// 조회수 증가 쿼리 작성
+  				String readCountsql = "update inquiry set i_readcount = i_readcount + 1 where i_code=?";
+  				pstmt = con.prepareStatement(readCountsql);
+  				pstmt.setInt(1, code);
+  				pstmt.executeUpdate();
+  				
+  				String sql = "select * from inquiry where i_code=?";
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setInt(1, code);
+  				rs = pstmt.executeQuery();
+  				if(rs.next()) {
+  					idto.setI_code(rs.getInt(1));
+  					idto.setI_pw(rs.getString(2));
+  					idto.setI_title(rs.getString(3));
+  					idto.setI_content(rs.getString(4));
+  					idto.setM_name(rs.getString(5));
+  					idto.setI_date(rs.getDate(6).toString());
+  					idto.setI_readcount(rs.getInt(7));
+  					idto.setRef(rs.getInt(8));
+  					idto.setRe_step(rs.getInt(9));
+  					idto.setM_id(rs.getString(10));
+  				}
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con!=null) con.close();
+  					if(pstmt!=null) pstmt.close();
+  					if(rs!=null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  			return idto;
+  		}
+  		
+  		public InquiryDTO getOneUpdateInquiryBoard(int code) {
+  			getConnect();
+  			InquiryDTO idto = new InquiryDTO();
+  			try {
+  				String sql = "select * from inquiry where i_code=?";
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setInt(1, code);
+  				rs = pstmt.executeQuery();
+  				if(rs.next()) {
+  					idto.setI_code(rs.getInt(1));
+  					idto.setI_pw(rs.getString(2));
+  					idto.setI_title(rs.getString(3));
+  					idto.setI_content(rs.getString(4));
+  					idto.setM_name(rs.getString(5));
+  					idto.setI_date(rs.getDate(6).toString());
+  					idto.setI_readcount(rs.getInt(7));
+  					idto.setRef(rs.getInt(8));
+  					idto.setRe_step(rs.getInt(9));
+  					idto.setM_id(rs.getString(10));
+  				}
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con!=null) con.close();
+  					if(pstmt!=null) pstmt.close();
+  					if(rs!=null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  			return idto;
+  		}
+  		
+  		public void updateInquiryBoard(int code, String subject, String content) {
+  			getConnect();
+  			try {
+  				String sql = "update inquiry set i_title=?,i_content=? where i_code=?";
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setString(1, subject);
+  				pstmt.setString(2, content);
+  				pstmt.setInt(3, code);
+  				pstmt.executeUpdate();
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con!=null) con.close();
+  					if(pstmt!=null) pstmt.close();
+  					if(rs!=null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  		}
+  		
+  		public void deleteInquiryBoard(int code) {
+  			getConnect();
+  			try {
+  				String sql = "delete from inquiry where i_code=?";
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setInt(1, code);
   				pstmt.executeUpdate();
   			}catch(Exception e) {
   				e.printStackTrace();

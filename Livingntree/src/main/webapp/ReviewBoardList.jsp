@@ -218,6 +218,12 @@ input[type="text"]:hover, input[type="text"]:focus{
 </style>
 </head>
 <body>
+	<c:if test="${msg != null and msg eq '0'}">
+		<script type="text/javascript">
+			alert("비밀번호를 확인하세요.");
+		</script>
+	</c:if>
+
 	<div class="reviewContainer">
         <div class="contents">
             <div class="titleArea">
@@ -246,7 +252,7 @@ input[type="text"]:hover, input[type="text"]:focus{
                                                 &nbsp;
                                             </c:forEach>
                                         </c:if> -->
-                                        <a href="ReviewBoardInfo.do?num=${rdto.r_code}">${rdto.r_title}</a>
+                                        <a href="ReviewBoardInfo.do?code=${rdto.r_code}">${rdto.r_title}</a>
                                     </td>
                                     <td width="85">${rdto.m_name}</td>
                                     <td width="120">${rdto.r_date}</td>
