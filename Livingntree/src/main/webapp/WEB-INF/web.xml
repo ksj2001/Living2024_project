@@ -189,4 +189,34 @@
     <servlet-name>OrderDelete</servlet-name>
     <url-pattern>/OrderDelete</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ReviewBoardList</display-name>
+    <servlet-name>ReviewBoardList</servlet-name>
+    <servlet-class>control.ReviewBoardList</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReviewBoardList</servlet-name>
+    <url-pattern>/ReviewBoardList</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ReviewBoardInfo</display-name>
+    <servlet-name>ReviewBoardInfo</servlet-name>
+    <servlet-class>control.ReviewBoardInfo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReviewBoardInfo</servlet-name>
+    <url-pattern>/ReviewBoardInfo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ReviewBoardWriteProc</display-name>
+    <servlet-name>ReviewBoardWriteProc</servlet-name>
+    <servlet-class>control.ReviewBoardWriteProc</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReviewBoardWriteProc</servlet-name>
+    <url-pattern>/ReviewBoardWriteProc</url-pattern>
+  </servlet-mapping>
 </web-app>

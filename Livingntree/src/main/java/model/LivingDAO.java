@@ -1034,4 +1034,211 @@ public class LivingDAO {
   				}
   			}
   		}
+  		
+  		// 전체 리뷰글의 개수를 출력하는 메서드
+  		public int getAllReviewCount() {
+  			getConnect();
+  			int count = 0;
+  			try {
+  				String sql = "select count(*) from review";
+  				pstmt = con.prepareStatement(sql);
+  				rs = pstmt.executeQuery();
+  				if(rs.next()) {
+  					count = rs.getInt(1);
+  				}
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con!=null) con.close();
+  					if(pstmt!=null) pstmt.close();
+  					if(rs!=null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  			return count;
+  		}
+  		
+  		// pageSize를 기준으로 리뷰글을 return 받아주는 메서드
+  		public ArrayList<ReviewDTO> getAllReviewBoard(int startRow, int pageSize){
+  			getConnect();
+  			ArrayList<ReviewDTO> a = new ArrayList<>();
+  			try {
+  				String sql = "select * from board order by r_code desc limit ?,?";
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setInt(1, startRow-1);
+  				pstmt.setInt(2, pageSize);
+  				rs = pstmt.executeQuery();
+  				while(rs.next()) {
+  					ReviewDTO rdto = new ReviewDTO();
+  					rdto.setR_code(rs.getInt(1));
+  					rdto.setR_pw(rs.getString(2));
+  					rdto.setR_title(rs.getString(3));
+  					rdto.setR_content(rs.getString(4));
+  					rdto.setM_name(rs.getString(5));
+  					rdto.setR_date(rs.getString(6).toString());
+  					rdto.setR_readcount(rs.getInt(7));
+  					rdto.setM_id(rs.getString(8));
+  					a.add(rdto);
+  				}
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con!=null) con.close();
+  					if(pstmt!=null) pstmt.close();
+  					if(rs!=null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  			return a;
+  		}
+  		
+  		public void insertReviewBoard(ReviewDTO rdto) {
+  			getConnect();
+  			try {
+  				String sql = "insert into review values(null,?,?,?,?,current_Date(),0,?)";
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setString(1, rdto.getR_pw());
+  				pstmt.setString(2, rdto.getR_title());
+  				pstmt.setString(3, rdto.getR_content());
+  				pstmt.setString(4, rdto.getM_name());
+  				pstmt.setString(5, rdto.getM_id());
+  				pstmt.executeUpdate();
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con!=null) con.close();
+  					if(pstmt!=null) pstmt.close();
+  					if(rs!=null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  		}
+  		
+  		public String getOneName(String id) {
+  			getConnect();
+  			String name = "";
+  			try {
+  				String sql = "select m_name from member where m_id=?";
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setString(1, id);
+  				rs = pstmt.executeQuery();
+  				if(rs.next()) {
+  					name = rs.getString(1);
+  				}
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con != null) con.close();
+  					if(pstmt != null) pstmt.close();
+  					if(rs != null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  			return name;
+  		}
+  		
+  		// 전체 문의글의 개수를 출력하는 메서드
+  		public int getAllInquiryCount() {
+  			getConnect();
+  			int count = 0;
+  			try {
+  				String sql = "select count(*) from inquiry";
+  				pstmt = con.prepareStatement(sql);
+  				rs = pstmt.executeQuery();
+  				if(rs.next()) {
+  					count = rs.getInt(1);
+  				}
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con!=null) con.close();
+  					if(pstmt!=null) pstmt.close();
+  					if(rs!=null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  			return count;
+  		}
+  		
+  		// pageSize를 기준으로 문의글을 return 받아주는 메서드
+  		public ArrayList<InquiryDTO> getAllInquiryBoard(int startRow, int pageSize){
+  			getConnect();
+  			ArrayList<InquiryDTO> a = new ArrayList<>();
+  			try {
+  				String sql = "select * from board order by ref desc, re_step asc limit ?,?";
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setInt(1, startRow-1);
+  				pstmt.setInt(2, pageSize);
+  				rs = pstmt.executeQuery();
+  				while(rs.next()) {
+  					InquiryDTO idto = new InquiryDTO();
+  					idto.setI_code(rs.getInt(1));
+  					idto.setI_pw(rs.getString(2));
+  					idto.setI_title(rs.getString(3));
+  					idto.setI_content(rs.getString(4));
+  					idto.setM_name(rs.getString(5));
+  					idto.setI_date(rs.getString(6).toString());
+  					idto.setI_readcount(rs.getInt(7));
+  					idto.setRef(rs.getInt(8));
+  					idto.setRe_step(rs.getInt(9));
+  					idto.setM_id(rs.getString(10));
+  					a.add(idto);
+  				}
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con!=null) con.close();
+  					if(pstmt!=null) pstmt.close();
+  					if(rs!=null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  			return a;
+  		}
+  		
+  		public void insertInquiryBoard(InquiryDTO idto) {
+  			// ref, re_step 초기값 설정
+  			int ref = 0;
+  			int re_step = 1;
+  			try {
+  				String refSql = "select max(ref) from inquiry";
+  				pstmt = con.prepareStatement(refSql);
+  				rs = pstmt.executeQuery();
+  				if(rs.next()) {
+  					ref = rs.getInt(1)+1;
+  				}
+  				String sql = "insert into inquiry values(null,?,?,?,?,current_Date(),0,?,?,?)";
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setString(1, idto.getI_pw());
+  				pstmt.setString(2, idto.getI_title());
+  				pstmt.setString(3, idto.getI_content());
+  				pstmt.setString(4, idto.getM_name());
+  				pstmt.setInt(5, ref);
+  				pstmt.setInt(6, re_step);
+  				pstmt.setString(7, idto.getM_id());
+  				pstmt.executeUpdate();
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con!=null) con.close();
+  					if(pstmt!=null) pstmt.close();
+  					if(rs!=null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  		}
 }

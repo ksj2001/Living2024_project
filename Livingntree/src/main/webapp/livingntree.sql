@@ -59,7 +59,7 @@ primary key(o_date,o_code,p_code));
 create table inquiry(
 i_code int auto_increment primary key,
 i_pw varchar(20),
-p_code int,
+-- p_code int,
 i_title varchar(100),
 i_content varchar(500),
 m_name varchar(20),
@@ -73,7 +73,7 @@ m_id varchar(20));
 create table review(
 r_code int auto_increment primary key,
 r_pw varchar(20),
-p_code int,
+-- p_code int,
 r_title varchar(100),
 r_content varchar(500),
 m_name varchar(20),
