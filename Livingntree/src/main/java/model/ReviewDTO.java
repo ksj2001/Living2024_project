@@ -3,6 +3,9 @@ package model;
 public class ReviewDTO {
 	private int r_code;
 	private String r_pw;
+	private int p_code;
+	private String p_name;
+	private String p_mainimg;
 	private String r_title;
 	private String r_content;
 	private String m_name;
@@ -21,6 +24,24 @@ public class ReviewDTO {
 	}
 	public void setR_pw(String r_pw) {
 		this.r_pw = r_pw;
+	}
+	public int getP_code() {
+		return p_code;
+	}
+	public void setP_code(int p_code) {
+		this.p_code = p_code;
+	}
+	public String getP_name() {
+		return p_name;
+	}
+	public void setP_name(String p_name) {
+		this.p_name = p_name;
+	}
+	public String getP_mainimg() {
+		return p_mainimg;
+	}
+	public void setP_mainimg(String p_mainimg) {
+		this.p_mainimg = p_mainimg;
 	}
 	public String getR_title() {
 		return r_title;

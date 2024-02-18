@@ -3,6 +3,9 @@ package model;
 public class InquiryDTO {
 	private int i_code;
 	private String i_pw;
+	private int p_code;
+	private String p_name;
+	private String p_mainimg;
 	private String i_title;
 	private String i_content;
 	private String m_name;
@@ -23,6 +26,24 @@ public class InquiryDTO {
 	}
 	public void setI_pw(String i_pw) {
 		this.i_pw = i_pw;
+	}
+	public int getP_code() {
+		return p_code;
+	}
+	public void setP_code(int p_code) {
+		this.p_code = p_code;
+	}
+	public String getP_name() {
+		return p_name;
+	}
+	public void setP_name(String p_name) {
+		this.p_name = p_name;
+	}
+	public String getP_mainimg() {
+		return p_mainimg;
+	}
+	public void setP_mainimg(String p_mainimg) {
+		this.p_mainimg = p_mainimg;
 	}
 	public String getI_title() {
 		return i_title;

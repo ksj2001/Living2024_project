@@ -161,6 +161,8 @@ ul.info li + li{
 </style>
 </head>
 <body>
+<!-- ProductInfo.jsp에서 ReviewBoardWrite.jsp로 넘겨주어야 하기 때문에 스크립트릿으로 request로 받는다. -->
+<% String p_code = request.getParameter("p_code");%>
     <div class="reviewContainer">
         <div class="contents">
             <div class="titleArea">

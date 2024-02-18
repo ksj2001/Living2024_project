@@ -1066,7 +1066,9 @@ public class LivingDAO {
   			getConnect();
   			ArrayList<ReviewDTO> a = new ArrayList<>();
   			try {
-  				String sql = "select * from review order by r_code desc limit ?,?";
+  				String sql = "select R.r_code, R.r_pw, R.p_code, P.p_name, P.p_mainimg, R.r_title, R.r_content, R.r_name, \r\n"
+  						+ "R.r_date, R.r_readcount, R.m_id, from review R inner join product P on R.p_code = P.p_code \r\n"
+  						+ "order by r_code desc limit ?,?";
   				pstmt = con.prepareStatement(sql);
   				pstmt.setInt(1, startRow-1);
   				pstmt.setInt(2, pageSize);
@@ -1075,12 +1077,83 @@ public class LivingDAO {
   					ReviewDTO rdto = new ReviewDTO();
   					rdto.setR_code(rs.getInt(1));
   					rdto.setR_pw(rs.getString(2));
-  					rdto.setR_title(rs.getString(3));
-  					rdto.setR_content(rs.getString(4));
-  					rdto.setM_name(rs.getString(5));
-  					rdto.setR_date(rs.getString(6).toString());
-  					rdto.setR_readcount(rs.getInt(7));
-  					rdto.setM_id(rs.getString(8));
+  					rdto.setP_code(rs.getInt(3));
+  					rdto.setP_name(rs.getString(4));
+  					rdto.setP_mainimg(rs.getString(5));
+  					rdto.setR_title(rs.getString(6));
+  					rdto.setR_content(rs.getString(7));
+  					rdto.setM_name(rs.getString(8));
+  					rdto.setR_date(rs.getString(9).toString());
+  					rdto.setR_readcount(rs.getInt(10));
+  					rdto.setM_id(rs.getString(11));
+  					a.add(rdto);
+  				}
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con!=null) con.close();
+  					if(pstmt!=null) pstmt.close();
+  					if(rs!=null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  			return a;
+  		}
+  		
+  		// 상품별 리뷰글의 개수 리턴하는 메서드
+  		public int getOneProductReviewCount(int p_code) {
+  			getConnect();
+  			int count = 0;
+  			try {
+  				String sql = "select count(*) from review where p_code=?";
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setInt(1, p_code);
+  				rs = pstmt.executeQuery();
+  				if(rs.next()) {
+  					count = rs.getInt(1);
+  				}
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con!=null) con.close();
+  					if(pstmt!=null) pstmt.close();
+  					if(rs!=null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  			return count;
+  		}
+  		
+  		// 한개의 상품별로 리뷰를 리턴하는 메서드
+  		public ArrayList<ReviewDTO> getOneProductReviewBoard(int startRow, int pageSize, int p_code){
+  			getConnect();
+  			ArrayList<ReviewDTO> a = new ArrayList<>();
+  			try {
+  				String sql = "select R.r_code, R.r_pw, R.p_code, P.p_name, P.p_mainimg, R.r_title, R.r_content, R.r_name, \r\n"
+  						+ "R.r_date, R.r_readcount, R.m_id from review R inner join product P on R.p_code = P.p_code \r\n"
+  						+ "where R.p_code=? order by r_code desc limit ?,?";
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setInt(1, p_code);
+  				pstmt.setInt(2, startRow-1);
+  				pstmt.setInt(3, pageSize);
+  				rs = pstmt.executeQuery();
+  				while(rs.next()) {
+  					ReviewDTO rdto = new ReviewDTO();
+  					rdto.setR_code(rs.getInt(1));
+  					rdto.setR_pw(rs.getString(2));
+  					rdto.setP_code(rs.getInt(3));
+  					rdto.setP_name(rs.getString(4));
+  					rdto.setP_mainimg(rs.getString(5));
+  					rdto.setR_title(rs.getString(6));
+  					rdto.setR_content(rs.getString(7));
+  					rdto.setM_name(rs.getString(8));
+  					rdto.setR_date(rs.getString(9).toString());
+  					rdto.setR_readcount(rs.getInt(10));
+  					rdto.setM_id(rs.getString(11));
   					a.add(rdto);
   				}
   			}catch(Exception e) {
@@ -1100,13 +1173,14 @@ public class LivingDAO {
   		public void insertReviewBoard(ReviewDTO rdto) {
   			getConnect();
   			try {
-  				String sql = "insert into review values(null,?,?,?,?,current_Date(),0,?)";
+  				String sql = "insert into review values(null,?,?,?,?,?,current_Date(),0,?)";
   				pstmt = con.prepareStatement(sql);
   				pstmt.setString(1, rdto.getR_pw());
-  				pstmt.setString(2, rdto.getR_title());
-  				pstmt.setString(3, rdto.getR_content());
-  				pstmt.setString(4, rdto.getM_name());
-  				pstmt.setString(5, rdto.getM_id());
+  				pstmt.setInt(2, rdto.getP_code());
+  				pstmt.setString(3, rdto.getR_title());
+  				pstmt.setString(4, rdto.getR_content());
+  				pstmt.setString(5, rdto.getM_name());
+  				pstmt.setString(6, rdto.getM_id());
   				pstmt.executeUpdate();
   			}catch(Exception e) {
   				e.printStackTrace();
@@ -1289,7 +1363,9 @@ public class LivingDAO {
   			getConnect();
   			ArrayList<InquiryDTO> a = new ArrayList<>();
   			try {
-  				String sql = "select * from inquiry order by ref desc, re_step asc limit ?,?";
+  				String sql = "select I.i_code, I.i_pw, I.p_code, P.p_name, P.p_mainimg, I.i_title, I.i_content, I.i_name, \r\n"
+  						+ "I.i_date, I.i_readcount, I.ref, I.re_step, I.m_id from Inquiry I inner join product P \r\n"
+  						+ "on I.p_code = P.p_code order by i_code desc limit ?,?";
   				pstmt = con.prepareStatement(sql);
   				pstmt.setInt(1, startRow-1);
   				pstmt.setInt(2, pageSize);
@@ -1298,14 +1374,86 @@ public class LivingDAO {
   					InquiryDTO idto = new InquiryDTO();
   					idto.setI_code(rs.getInt(1));
   					idto.setI_pw(rs.getString(2));
-  					idto.setI_title(rs.getString(3));
-  					idto.setI_content(rs.getString(4));
-  					idto.setM_name(rs.getString(5));
-  					idto.setI_date(rs.getString(6).toString());
-  					idto.setI_readcount(rs.getInt(7));
-  					idto.setRef(rs.getInt(8));
-  					idto.setRe_step(rs.getInt(9));
-  					idto.setM_id(rs.getString(10));
+  					idto.setP_code(rs.getInt(3));
+  					idto.setP_name(rs.getString(4));
+  					idto.setP_mainimg(rs.getString(5));
+  					idto.setI_title(rs.getString(6));
+  					idto.setI_content(rs.getString(7));
+  					idto.setM_name(rs.getString(8));
+  					idto.setI_date(rs.getString(9).toString());
+  					idto.setI_readcount(rs.getInt(10));
+  					idto.setRef(rs.getInt(11));
+  					idto.setRe_step(rs.getInt(12));
+  					idto.setM_id(rs.getString(13));
+  					a.add(idto);
+  				}
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con!=null) con.close();
+  					if(pstmt!=null) pstmt.close();
+  					if(rs!=null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  			return a;
+  		}
+  		
+  		// 상품별 문의글 개수 리턴하는 메서드
+  		public int getOneProductInquiryCount(int p_code) {
+  			getConnect();
+  			int count = 0;
+  			try {
+  				String sql = "select count(*) from inquiry where p_code=?";
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setInt(1, p_code);
+  				rs = pstmt.executeQuery();
+  				if(rs.next()) {
+  					count = rs.getInt(1);
+  				}
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con!=null) con.close();
+  					if(pstmt!=null) pstmt.close();
+  					if(rs!=null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  			return count;
+  		}
+  		
+  		// 한개의 상품별로 문의글을 리턴하는 메서드
+  		public ArrayList<InquiryDTO> getOneProductInquiryBoard(int startRow, int pageSize, int p_code){
+  			getConnect();
+  			ArrayList<InquiryDTO> a = new ArrayList<>();
+  			try {
+  				String sql = "select I.i_code, I.i_pw, I.p_code, P.p_name, P.p_mainimg, I.i_title, I.i_content, I.i_name, \r\n"
+  						+ "I.i_date, I.i_readcount, I.ref, I.re_step, I.m_id from Inquiry I inner join product P \r\n"
+  						+ "on I.p_code = P.p_code order by i_code desc limit ?,?";
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setInt(1, startRow-1);
+  				pstmt.setInt(2, pageSize);
+  				rs = pstmt.executeQuery();
+  				while(rs.next()) {
+  					InquiryDTO idto = new InquiryDTO();
+  					idto.setI_code(rs.getInt(1));
+  					idto.setI_pw(rs.getString(2));
+  					idto.setP_code(rs.getInt(3));
+  					idto.setP_name(rs.getString(4));
+  					idto.setP_mainimg(rs.getString(5));
+  					idto.setI_title(rs.getString(6));
+  					idto.setI_content(rs.getString(7));
+  					idto.setM_name(rs.getString(8));
+  					idto.setI_date(rs.getString(9).toString());
+  					idto.setI_readcount(rs.getInt(10));
+  					idto.setRef(rs.getInt(11));
+  					idto.setRe_step(rs.getInt(12));
+  					idto.setM_id(rs.getString(13));
   					a.add(idto);
   				}
   			}catch(Exception e) {
@@ -1333,15 +1481,16 @@ public class LivingDAO {
   				if(rs.next()) {
   					ref = rs.getInt(1)+1;
   				}
-  				String sql = "insert into inquiry values(null,?,?,?,?,current_Date(),0,?,?,?)";
+  				String sql = "insert into inquiry values(null,?,?,?,?,?,current_Date(),0,?,?,?)";
   				pstmt = con.prepareStatement(sql);
   				pstmt.setString(1, idto.getI_pw());
-  				pstmt.setString(2, idto.getI_title());
-  				pstmt.setString(3, idto.getI_content());
-  				pstmt.setString(4, idto.getM_name());
-  				pstmt.setInt(5, ref);
-  				pstmt.setInt(6, re_step);
-  				pstmt.setString(7, idto.getM_id());
+  				pstmt.setInt(2, idto.getP_code());
+  				pstmt.setString(3, idto.getI_title());
+  				pstmt.setString(4, idto.getI_content());
+  				pstmt.setString(5, idto.getM_name());
+  				pstmt.setInt(6, ref);
+  				pstmt.setInt(7, re_step);
+  				pstmt.setString(8, idto.getM_id());
   				pstmt.executeUpdate();
   			}catch(Exception e) {
   				e.printStackTrace();

@@ -242,7 +242,7 @@ table{
 	width: 24%;
 	text-align: center;
 }
-.tabProduct ul li a{
+.tabProduct ul li button{
 	position: relative;
     display: inline-block;
     font-weight: 400;
@@ -250,14 +250,15 @@ table{
     color: #9a9a9a;
     letter-spacing: -0.05em;
     white-space: nowrap;
+    cursor: pointer;
 }
-.tabProduct ul li.selected a{
+.tabProduct ul li.selected button{
 	font-weight: 600;
     color: #d0ac88;
     background-color: #fff;
     border-bottom: 2px solid #d0ac88;
 }
-.tabProduct ul li a span{
+.tabProduct ul li button span{
 	position: absolute;
     top: -10px;
     right: -10px;
@@ -312,9 +313,94 @@ table{
 .prdReview .board_title .btnBox .normalBtn:hover, .prdQna .board_title .btnBox .normalBtn:hover{
     border-color: #ac5600;
 }
-/* .prdReview .board_contents{
+.prdReview .board_contents{
     
-} */
+}
+/*  */
+table{
+    width: 100%;
+    border: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+table tr{
+    display: table-row;
+    vertical-align: middle;
+}
+.typeList table th, .typeList table td{
+    height: 29px;
+    padding: 15px 10px 16px;
+    font-size: 13px;
+    line-height: 22px;
+    vertical-align: middle;
+    border: 0;
+}
+.typeList table th{
+    border-bottom: 0;
+    font-weight: 400;
+    color: #000;
+    background-color: #f6f6f6;
+}
+.typeList table td{
+    border-bottom: 1px solid #e5e5e5;
+    color: #555;
+}
+.typeList table td.code{
+    color: #6d6d6d;
+}
+.typeList table td.subject{
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: left;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+.typeList table td.subject a{
+    margin-right: 5px;
+    vertical-align: middle;
+}
+.typeList .pageing{
+    margin: 50px auto;
+    text-align: center;
+}
+.typeList .pageing > a:first-child{
+    background: url(img/icon/btn_page_prev.png) no-repeat center center;
+}
+.typeList .pageing > a{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 0;
+    text-align: center;
+    vertical-align: top;
+    background: url(img/icon/btn_page_next.png) no-repeat center center;
+    background-size: 40px;
+}
+.typeList .pageing ol{
+    display: inline-block;
+    font-size: 0;
+    line-height: 0;
+    vertical-align: middle;
+}
+.typeList .pageing li{
+    display: inline-block;
+    margin: 0 0 0 -1px;
+    vertical-align: top;
+}
+.typeList .pageing li a{
+    display: block;
+    width: 40px;
+    padding: 12px 0;
+    font-size: 14px;
+    color: #6d6d6d;
+    border: 1px solid #e5e5e5;
+    line-height: 14px;
+    background: #fff;
+}
+
+
+/*  */
 .additional .nodata{
 	padding: 56px 0;
     color: #6d6d6d;
@@ -406,14 +492,15 @@ table{
                     <div class="tabProduct">
                         <ul>
                             <li class="selected">
+                            	<button type="button">Detail</button>
                                 <a href="#">Detail</a>
                             </li>
                             <li class>
-                                <a href="#">Review<span>0</span></a>
-                                <!-- 리뷰 게시판 작성완료 후 수정할 예정 -->
+                            	<button type="button">Review<span>0</span></button>
+                                <!-- 리뷰 게시판 작성완료 후 수정완료 -->
                             </li>
                             <li class>
-                                <a href="#">Q&A<span>0</span></a>
+                            	<button type="button">Q&A<span>0</span></button>
                                 <!-- 문의 게시판 작성완료 후 수정할 예정 -->
                             </li>
                         </ul>
@@ -435,23 +522,75 @@ table{
                     <div class="board_title">
                         <h2>REVIEW</h2>
                         <div class="btnBox">
-                            <a href="#" class="normalBtn">LIST</a>
-                            <a href="#" class="normalBtn">WRITE</a>
+                            <a href="ReviewBoardList.do" class="normalBtn">LIST</a>
+                            <button type="button" onclick="reviewWrite()" class="normalBtn">WRITE</button>
+                            <!-- <a href="#" class="normalBtn">WRITE</a> -->
                         </div>
                     </div>
                     <div class="board_contents">
-                        <p class="nodata">게시물이 없습니다.</p>
-                        <!-- 리뷰 게시판 작성완료 후 수정할 예정 -->
+                        <c:choose>
+                            <c:when test="${not empty aList}">
+                                <div class="typeList">
+                                    <table>
+                                        <tr>
+                                            <th width="80">번호</th>
+                                            <th width="615">제목</th>
+                                            <th width="85">작성자</th>
+                                            <th width="120">작성일</th>
+                                            <th width="55">조회</th>
+                                        </tr>
+                                        <c:set var="number" value="${number}" />
+                                        <c:forEach var="rdto" items="${aList}">
+                                            <tr>
+                                                <td width="80" class="code">${number}</td>
+                                                <!-- 답글 들여쓰기 -->
+                                                <td width="700" class="subject">
+                                                    <a href="ReviewBoardInfo.do?code=${rdto.r_code}">${rdto.r_title}</a>
+                                                </td>
+                                                <td width="85">${rdto.m_name}</td>
+                                                <td width="120">${rdto.r_date}</td>
+                                                <td width="55">${rdto.r_readcount}</td>
+                                            </tr>
+                                            <c:set var="number" value="${number=number-1}" />
+                                        </c:forEach>
+                                    </table>
+                                    <!-- 페이징 코드 [1] [2] [3] ... -->
+                                    <c:if test="${aList.size() ne 0}">
+                                        <div class="pageing">
+                                            <c:if test="${startPage>pageBlock }">
+                                                <a href="ReviewBoardList.do?pageNum=${startPage-pageBlock}">이전</a>
+                                            </c:if>
+                    
+                                            <ol>
+                                                <c:forEach var="i" begin="${startPage}" end="${endPage}">
+                                                    <li>
+                                                        <a href="ReviewBoardList.do?pageNum=${i}">${i}</a>
+                                                    </li>
+                                                </c:forEach>
+                                            </ol>
+                    
+                                            <c:if test="${endPage<pageCount}">
+                                                <a href="ReviewBoardList.do?pageNum=${startPage+pageBlock}">다음</a>
+                                            </c:if>
+                                        </div>
+                                    </c:if>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <p class="nodata">게시물이 없습니다.</p>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
-                </div>
-                <div class="prdQna" style="display: none;">
-                    <div class="board_title">
-                        <h2>Q&A</h2>
-                        <div class="btnBox">
-                            <a href="#" class="normalBtn">LIST</a>
-                            <a href="#" class="normalBtn">WRITE</a>
+                    </div>
+                    <div class="prdQna" style="display: none;">
+                        <div class="board_title">
+                            <h2>Q&A</h2>
+                            <div class="btnBox">
+                                <a href="InquiryBoardList.do" class="normalBtn">LIST</a>
+                                <button type="button" onclick="inquiryWrite()" class="normalBtn">WRITE</button>
+                                <!-- <a href="#" class="normalBtn">WRITE</a> -->
+                            </div>
                         </div>
-                    </div>
                     <div class="board_contents">
                         <p class="nodata">게시물이 없습니다.</p>
                         <!-- 문의 게시판 작성완료 후 수정할 예정 -->
@@ -515,6 +654,30 @@ table{
                     prdQna.style.display = "block";
                 }
             })
+        }
+        
+        // review에서 write 버튼 클릭 시 로그인이 되었는지 확인하는 코드
+        function reviewWrite(){
+        	let loginId = "<c:out value='${loginId}' />";
+        	let p_code = "<c:out value='${pdto.p_code}' />";
+        	
+        	if(loginId == ""){
+        		location.href = "Main.jsp?section=MemberLogin.jsp";
+        	}else{
+        		location.href = "Main.jsp?section=ReviewBoardWrite.jsp?p_code=" + p_code
+        	}
+        }
+        
+     	// inquiry에서 write 버튼 클릭 시 로그인이 되었는지 확인하는 코드
+        function inquiryWrite(){
+        	let loginId = "<c:out value='${loginId}' />";
+        	let p_code = "<c:out value='${pdto.p_code}' />";
+        	
+        	if(loginId == ""){
+        		location.href = "Main.jsp?section=MemberLogin.jsp";
+        	}else{
+        		location.href = "Main.jsp?section=InquiryBoardWrite.jsp?p_code=" + p_code
+        	}
         }
     </script>
 </body>
