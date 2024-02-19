@@ -37,6 +37,25 @@
     font-size: 13px;
     color: #000;
 }
+.reviewContainer .contents .reviewBox{
+	display: table;
+	table-layout: fixed;
+	padding: 10px;
+	width: 100%;
+	border: 10px solid #f6f6f6;
+}
+.reviewBox .reviewBoxWrap{
+	display: flex;
+	gap: 10px;
+	align-items: center;
+}
+.reviewBox .reviewimg img{
+	width: 65px;
+	height: 65px;
+}
+.reviewBox .reviewBoxWrap .reviewinfo h3{
+	font-weight: 700;
+}
 .typeWrite .head{
     padding: 30px 0;
     border-bottom: 1px solid #eaeaea;
@@ -129,6 +148,16 @@
             <div class="titleArea">
                 <h2>상품 리뷰</h2>
                 <p>상품 사용후기입니다.</p>
+            </div>
+            <div class="reviewBox">
+            	<div class="reviewBoxWrap">
+            		<div class="reviewimg">
+            			<img src="img/productimg/${rdto.p_mainimg}">
+            		</div>
+            		<div class="reviewinfo">
+            			<h3>${rdto.p_name}</h3>
+            		</div>
+            	</div>
             </div>
             <div class="typeWrite">
                 <div class="head">

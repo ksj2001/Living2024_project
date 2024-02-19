@@ -78,10 +78,12 @@ input[type="password"]:hover, input[type="password"]:focus{
 .typeWrite #subject{
     width: 526px;
 }
-textarea{
+.typeWrite #content{
     position: relative;
     overflow: hidden;
+    width: 100%;
     height: 440px;
+    resize: none;
     padding: 20px;
     border: 1px solid #CCCCCC;
     line-height: 1.2;
@@ -99,12 +101,13 @@ ul.info{
 ul.info li{
     padding-left: 9px;
     font-size: 13px;
+    line-height: 1.5;
 }
 ul.info li + li{
     padding: 4px 0 0 9px;
 }
 .btnBox{
-    margin-top: 12px;
+    margin-top: 20px;
     text-align: center;
 }
 .btnNormalFix{

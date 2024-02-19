@@ -62,6 +62,7 @@ table tr{
 .typeList table th{
     border-bottom: 0;
     font-weight: 400;
+    text-align: center;
     color: #000;
     background-color: #f6f6f6;
 }
@@ -116,7 +117,7 @@ table tr{
     word-wrap: break-word;
 }
 .typeList #boardSearchForm{
-    margin-top: -60px;
+    /* margin-top: -60px; */
 }
 .typeList #boardSearchForm .boardSearch{
     max-width: 1480px;
@@ -138,9 +139,11 @@ select{
     border: 1px solid #e0e0e0;
     background: #fff url(img/icon/ico_select.png) no-repeat right 10px center;
     background-size: 14px 8px;
+    appearance: none;
 }
 .boardSearch #search_key{
     width: 110px;
+    padding: 0 30px 0 15px;
 }
 input[type="text"]{
     height: 40px;
@@ -234,44 +237,46 @@ input[type="text"]:hover, input[type="text"]:focus{
                 <table>
                     <tr>
                         <th width="80">번호</th>
-                        <th width="700">제목</th>
+                        <th width="85">상품정보</th>
+                        <th width="615">제목</th>
                         <th width="85">작성자</th>
                         <th width="120">작성일</th>
                         <th width="55">조회</th>
                     </tr>
-                    <c:choose>
-                        <c:when test="${aList.size() ne 0}">
-                            <c:set var="number" value="${number}" />
-                            <c:forEach var="rdto" items="${aList}">
-                                <tr>
-                                    <td width="80" class="code">${number}</td>
-                                    <!-- 답글 들여쓰기 -->
-                                    <td width="700" class="subject">
-                                        <!-- <c:if test="${bdto.re_step > 1}">
-                                            <c:forEach var="j" begin="1" end="${(bdto.re_step-1)*3 }">
-                                                &nbsp;
-                                            </c:forEach>
-                                        </c:if> -->
-                                        <a href="ReviewBoardInfo.do?code=${rdto.r_code}">${rdto.r_title}</a>
-                                    </td>
-                                    <td width="85">${rdto.m_name}</td>
-                                    <td width="120">${rdto.r_date}</td>
-                                    <td width="55">${rdto.r_readcount}</td>
-                                </tr>
-                                <c:set var="number" value="${number=number-1}" />
-                            </c:forEach>
-                        </c:when>
-                        <c:otherwise>
-                            <p class="boardEmpty">게시물이 없습니다.</p>
-                        </c:otherwise>
-                    </c:choose>
+                    <c:if test="${aList.size() ne 0}">
+                        <c:set var="number" value="${number}" />
+                        <c:forEach var="rdto" items="${aList}">
+                            <tr>
+                                <td width="80" class="code">${number}</td>
+                                <td width="85"><img src="img/productimg/${rdto.p_mainimg}"></td>
+                                <!-- 답글 들여쓰기 -->
+                                <td width="700" class="subject">
+                                    <!--
+                                                <c:if test="${bdto.re_step > 1}">
+                                                    <c:forEach var="j" begin="1" end="${(bdto.re_step-1)*3 }">
+                                                        &nbsp;
+                                                    </c:forEach>
+                                                </c:if>
+                                                -->
+                                    <a href="ReviewBoardInfo.do?code=${rdto.r_code}">${rdto.p_name}<br>${rdto.r_title}</a>
+                                </td>
+                                <td width="85">${rdto.m_name}</td>
+                                <td width="120">${rdto.r_date}</td>
+                                <td width="55">${rdto.r_readcount}</td>
+                            </tr>
+                            <c:set var="number" value="${number=number-1}" />
+                        </c:forEach>
+                    </c:if>
                 </table>
+                <c:if test="${aList.size() eq 0}">
+                    <p class="boardEmpty">게시물이 없습니다.</p>
+                </c:if>
                 <!-- 글쓰기 버튼 -->
-                <div class="boardButton">
+                <%-- <div class="boardButton">
                     <c:if test="${loginId ne null}">
                         <a href="ReviewBoardWrite.jsp">글쓰기</a>
                     </c:if>
-                </div>
+                </div> --%>
                 <!-- 게시물 검색 -->
                 <form id="boardSearchForm" action="" method="post">
                     <div class="boardSearch">
@@ -287,11 +292,11 @@ input[type="text"]:hover, input[type="text"]:focus{
                 </form>
                 <!-- 페이징 코드 [1] [2] [3] ... -->
                 <c:if test="${aList.size() ne 0}">
-                    <div class="pageing"> 
+                    <div class="pageing">
                         <c:if test="${startPage>pageBlock }">
                             <a href="ReviewBoardList.do?pageNum=${startPage-pageBlock}">이전</a>
                         </c:if>
-                        
+            
                         <ol>
                             <c:forEach var="i" begin="${startPage}" end="${endPage}">
                                 <li>
@@ -299,7 +304,7 @@ input[type="text"]:hover, input[type="text"]:focus{
                                 </li>
                             </c:forEach>
                         </ol>
-    
+            
                         <c:if test="${endPage<pageCount}">
                             <a href="ReviewBoardList.do?pageNum=${startPage+pageBlock}">다음</a>
                         </c:if>

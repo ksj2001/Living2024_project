@@ -248,14 +248,15 @@ table{
     font-weight: 400;
     font-size: 20px;
     color: #9a9a9a;
+    border: 0;
     letter-spacing: -0.05em;
     white-space: nowrap;
+    background-color: #fff;
     cursor: pointer;
 }
 .tabProduct ul li.selected button{
 	font-weight: 600;
     color: #d0ac88;
-    background-color: #fff;
     border-bottom: 2px solid #d0ac88;
 }
 .tabProduct ul li button span{
@@ -313,9 +314,9 @@ table{
 .prdReview .board_title .btnBox .normalBtn:hover, .prdQna .board_title .btnBox .normalBtn:hover{
     border-color: #ac5600;
 }
-.prdReview .board_contents{
+/* .prdReview .board_contents{
     
-}
+} */
 /*  */
 table{
     width: 100%;
@@ -480,7 +481,7 @@ table tr{
                     		</span>
                     	</div>
                     	<div class="actionButton">
-                    		<button type="button" class="btnSubmit" onclick="">BUY IT NOW</button>
+                    		<button type="button" class="btnSubmit" onclick="buynow()">BUY IT NOW</button>
                     		<button type="submit" class="btnNormal actionCart">CART</button>
                     		<button type="button" class="btnNormal actionWish" onclick="">WISH LIST</button>
                     	</div>
@@ -493,7 +494,7 @@ table tr{
                         <ul>
                             <li class="selected">
                             	<button type="button">Detail</button>
-                                <a href="#">Detail</a>
+								<!-- <a href="#">Detail</a> -->
                             </li>
                             <li class>
                             	<button type="button">Review<span>0</span></button>
@@ -628,6 +629,21 @@ table tr{
 	    	priceTotal2.innerText = (parseInt(quantity.value) * price).toLocaleString((parseInt(quantity.value) * price));
     		innerCnt.innerText = quantity.value;
     		//f.submit();
+    	}
+    	
+    	// 바로구매(BUY IT NOW)를 클릭 -> 로그인이 안 되어 있으면 로그인하고 바로 구매서블릿으로 이동
+    	// 로그인이 되어있을 때 바로 구매하면 구매서블릿으로 이동
+    	function buynow(){
+    		let loginId = "<c:out value='${loginId}'/>";
+    		let cnt = document.querySelector("#quantity");
+    		let chk = "<c:out value='${pdto.p_code}'/>"
+    		
+    		if(loginId == ""){
+    			alert("회원만 상품을 구매할 수 있습니다.");
+    			location.href = "Main.jsp?section=MemberLogin.jsp?chk="+chk+'&cnt='+cnt.value;
+    		}else{
+    			location.href = "CartOrderPro.do?chk="+chk+'&loginId='+loginId+'&cnt='+cnt.value;
+    		}
     	}
   
     	// Detail, Review, Q&A 메뉴 스크립트 짜기

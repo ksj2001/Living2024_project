@@ -366,7 +366,7 @@
                         <i class="fa-solid fa-angle-down" aria-hidden="false"></i>
                     </a>
                     <ul class="boardinfo">
-                        <li><a href="#">상품 리뷰</a></li>
+                        <li><a href="ReviewBoardList.do">상품 리뷰</a></li>
                         <li><a href="#">상품 문의</a></li>
                     </ul>
                 </li>
@@ -385,7 +385,7 @@
                     <li><a href="LivProductListProc.do?p_category=7">생활용품</a></li>
                     <li><a href="LivProductListProc.do?p_category=8">기타용품</a></li>
                     <li><a href="LivProductListProc.do?p_category=9">부속제품</a></li>
-                    <li><a href="#">상품리뷰</a></li>
+                    <li><a href="ReviewBoardList.do">상품리뷰</a></li>
                 </ul>
             </div>
             <ul class="top_mypage">
@@ -426,7 +426,7 @@
       <div class="search_box">
           <p>Find Product</p>
           <div class="bottom_search_box">
-           <form action="SearchProductProc.do" method="post" name="formname">
+           <form action="SearchProductProc.do" method="post" name="formname2">
             <div class="search">
                <input type="text" name="keyword" id="keyword" placeholder="좁은 공간 틈새 수납해보세요">
                <button type="button"  id="searchbtn">
@@ -475,7 +475,7 @@
         })
         /* 모달창에서 상품검색한 자료 SearchProductProc.do로 전송  */
         $('.searchcontainer .search_Wrap  .search_box .bottom_search_box .search #searchbtn').click(function(){
-        	formname.submit();
+        	formname2.submit();
         })
     })
 </script>

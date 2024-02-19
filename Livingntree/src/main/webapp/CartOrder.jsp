@@ -284,6 +284,44 @@ input[type="text"][readonly]{
 .tableBox table #phone1{
     margin-left: 0;
 }
+#order .desc{
+    width: 100%;
+    /* margin: 5px 0 20px; */
+    padding: 0 16px 15px;
+}
+#order .desc .check{
+    margin-top: 10px;
+}
+#order .desc .code{
+    display: flex;
+    align-items: center;
+    margin: 0 -9px;
+}
+#order .desc .code input[type="text"]{
+    width: 30%;
+    margin: 0 9px;
+}
+input[type="radio"]{
+    position: relative;
+    opacity: 1;
+    width: 18px;
+    height: 18px;
+    appearance: none;
+    background: url("img/icon/bg_radio.png") no-repeat 0 0;
+    background-size: 18px 18px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+input[type="radio"]:checked{
+    background-image: url("img/icon/bg_radio_checked.png");
+    transition: 0.2s ease-out;
+}
+input[type="radio"] + label{
+    margin: 0 15px 0 10px;
+    vertical-align: middle;
+    font-size: 13px;
+    /* cursor: default; */
+}
 /* #order .shippingInfo .shippingInfoText{
 	overflow: hidden;
     padding-top: 9px;
@@ -492,6 +530,14 @@ input[type="text"][readonly]{
 					<i class="fa-solid fa-angle-down" aria-hidden="false"></i>
 				</div>
 				<div class="contents">
+					<div class="desc">
+                    	<div class="check">
+                        	<input id="check_method1" name="check_method" value="defaultinfo" type="radio" checked="checked">
+                        	<label for="check_method1">기본정보</label>
+                            <input id="check_method2" name="check_method" value="newinfo" type="radio">
+                            <label for="check_method2">새정보</label>
+                    	</div>
+                    </div>
 					<div class="shippingInfo">
 						<div class="tableBox">
 							<table border="1">
@@ -506,7 +552,7 @@ input[type="text"][readonly]{
 									<td class="formMultiple">
 										<div class="postcode_wrap">
 											<input type="text" id="postcode" name="postcode" placeholder="우편번호" readonly>
-											<input type="button" class="btnBasic" onclick="DaumPostcode()" value="주소검색" style="cursor: pointer;"></button>
+											<input type="button" class="btnBasic" onclick="DaumPostcode()" value="주소검색" style="cursor: pointer;">
 										</div>
 										<div class="defaultaddr_wrap">
 											<input type="text" id="defaultaddr" name="defaultaddr" placeholder="기본주소" readonly>
@@ -556,7 +602,168 @@ input[type="text"][readonly]{
 					<h2>주문상품</h2>
 					<i class="fa-solid fa-angle-down" aria-hidden="false"></i>
 				</div>
-				<div class="contents">
+				<c:choose>
+					<c:when test="${pdto ne isEmpty}">
+						<div class="contents">
+							<input type="hidden" name="code" value="${pdto.p_code}">
+							<input type="hidden" name="img" value="${pdto.p_mainimg}">
+							<input type="hidden" name="price" value="${pdto.p_price}">
+							<input type="hidden" name="name" value="${pdto.p_name}">
+							<input type="hidden" name="cnt" value="${cnt}">
+							<input type="hidden" name="delivfee" value="${pdto.p_delivfee}">
+							<input type="hidden" name="id" value="${loginId}">
+							<div class="orderList">
+								<div class="prdBox">
+									<div class="thumbnail">
+										<a href="ProductInfo.do?p_code=${pdto.p_code}">
+											<img src="img/productimg/${pdto.p_mainimg}">
+										</a>
+									</div>
+									<div class="description">
+										<strong class="prdName">
+											<a href="ProductInfo.do?p_code=${pdto.p_code}">${pdto.p_name}</a>
+										</strong>
+										<div class="info">수량: ${cnt}개</div>
+										<div class="prdPrice">
+											<fmt:formatNumber value="${cnt * pdto.p_price}" pattern="#,##0" />원
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="delivery">
+								<h3>배송비</h3>
+								<span class="deliveryFee">
+									<c:choose>
+										<c:when test="${pdto.p_delivfee eq 0}">
+											0 (무료)원
+										</c:when>
+										<c:otherwise>
+											<fmt:formatNumber value="${pdto.p_delivfee}" pattern="#,##0" />원
+										</c:otherwise>
+									</c:choose>
+								</span>
+							</div>
+						</div>
+						</div>
+						<div class="payment fold selected">
+							<div class="title">
+								<h2>결제정보</h2>
+								<i class="fa-solid fa-angle-down" aria-hidden="false"></i>
+							</div>
+							<div class="contents">
+								<div class="segment">
+									<table border="0">
+										<tr>
+											<th class="row">주문상품</th>
+											<td class="right">
+												<c:set var="itemTotal" value="${cnt * pdto.p_price}" />
+												<fmt:formatNumber value="${cnt * pdto.p_price}" pattern="#,##0" />원
+											</td>
+										</tr>
+										<tr>
+											<th class="row">배송비</th>
+											<td class="right">
+												<c:set var="shippingTotal" value="${cnt * pdto.p_delivfee}" />
+												<fmt:formatNumber value="${cnt * pdto.p_delivfee}" pattern="#,##0" />원
+											</td>
+										</tr>
+									</table>
+								</div>
+								<div class="totalPrice">
+									<h3 class="heading">최종 결제 금액</h3>
+									<strong class="txtStrong">
+										<fmt:formatNumber value="${itemTotal+shippingTotal}" pattern="#,##0" />원
+									</strong>
+								</div>
+							</div>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="contents">
+							<c:forEach var="chk" items="${chkList}">
+								<input type="hidden" name="code" value="${chk.p_code}">
+								<input type="hidden" name="img" value="${chk.p_mainimg}">
+								<input type="hidden" name="price" value="${chk.p_price}">
+								<input type="hidden" name="name" value="${chk.p_name}">
+								<input type="hidden" name="cnt" value="${chk.c_qty}">
+								<input type="hidden" name="delivfee" value="${chk.p_delivfee}">
+								<input type="hidden" name="id" value="${loginId}">
+								<input type="hidden" name="c_code" value="${chk.c_code}">
+								<div class="orderList">
+									<div class="prdBox">
+										<div class="thumbnail">
+											<a href="ProductInfo.do?p_code=${chk.p_code}">
+												<img src="img/productimg/${chk.p_mainimg}">
+											</a>
+										</div>
+										<div class="description">
+											<strong class="prdName">
+												<a href="ProductInfo.do?p_code=${chk.p_code}">${chk.p_name}</a>
+											</strong>
+											<div class="info">수량: ${chk.c_qty}개</div>
+											<div class="prdPrice">
+												<fmt:formatNumber value="${chk.c_total}" pattern="#,##0" />원
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="delivery">
+									<h3>배송비</h3>
+									<span class="deliveryFee">
+										<c:choose>
+											<c:when test="${chk.p_delivfee eq 0}">
+												0 (무료)원
+											</c:when>
+											<c:otherwise>
+												<fmt:formatNumber value="${chk.p_delivfee}" pattern="#,##0" />원
+											</c:otherwise>
+										</c:choose>
+									</span>
+								</div>
+							</c:forEach>
+						</div>
+						</div>
+						<div class="payment fold selected">
+							<div class="title">
+								<h2>결제정보</h2>
+								<i class="fa-solid fa-angle-down" aria-hidden="false"></i>
+							</div>
+							<div class="contents">
+								<div class="segment">
+									<table border="0">
+										<tr>
+											<th class="row">주문상품</th>
+											<td class="right">
+												<c:set var="itemTotal" value="0" />
+												<c:forEach var="chk" items="${chkList}">
+													<c:set var="itemTotal" value="${itemTotal + chk.c_total}" />
+												</c:forEach>
+												<fmt:formatNumber value="${itemTotal}" pattern="#,##0" />원
+											</td>
+										</tr>
+										<tr>
+											<th class="row">배송비</th>
+											<td class="right">
+												<c:set var="shippingTotal" value="0" />
+												<c:forEach var="chk" items="${chkList}">
+													<c:set var="shippingTotal" value="${shippingTotal + chk.p_delivfee}" />
+												</c:forEach>
+												<fmt:formatNumber value="${shippingTotal}" pattern="#,##0" />원
+											</td>
+										</tr>
+									</table>
+								</div>
+								<div class="totalPrice">
+									<h3 class="heading">최종 결제 금액</h3>
+									<strong class="txtStrong">
+										<fmt:formatNumber value="${itemTotal+shippingTotal}" pattern="#,##0" />원
+									</strong>
+								</div>
+							</div>
+						</div>
+					</c:otherwise>
+				</c:choose>
+				<%-- <div class="contents">
 					<c:forEach var="chk" items="${chkList}">
 						<input type="hidden" name="code" value="${chk.p_code}">
 						<input type="hidden" name="img" value="${chk.p_mainimg}">
@@ -637,7 +844,7 @@ input[type="text"][readonly]{
 						</strong>
 					</div>
 				</div>
-			</div>
+			</div> --%>
 			<button type="button" onclick="purchase()" class="btnSubmit" id="btn_payment">
 				<fmt:formatNumber value="${itemTotal+shippingTotal}" pattern="#,##0"/>원 결제하기
 			</button>
@@ -654,6 +861,61 @@ input[type="text"][readonly]{
 			})
 		}
 
+		let name = document.getElementById('name');
+		let postcode = document.getElementById('postcode');
+		let defaultaddr = document.getElementById('defaultaddr');
+		let detailaddr = document.getElementById('detailaddr');
+		let phone1 = document.getElementById('phone1');
+		let phone2 = document.getElementById('phone2');
+		let phone3 = document.getElementById('phone3');
+		let email = document.getElementById('email');
+		
+		// 배송지 주소 기본과 새로운 주소로 변경하는 코드
+		let check_method1 = document.querySelector("#check_method1");
+		let check_method2 = document.querySelector("#check_method2");
+		
+		let namevalue = "<c:out value='${mdto.m_name}'/>";
+		let postcodevalue = "<c:out value='${mdto.m_postcode}'/>";
+		let defaultaddrvalue = "<c:out value='${mdto.m_defaultaddr}'/>";
+		let detailaddrvalue = "<c:out value='${mdto.m_detailaddr}'/>";
+		let emailvalue = "<c:out value='${mdto.m_email}'/>";
+		/* substr(시작위치, 길이) */
+		let telephone = "<c:out value='${mdto.m_phone}'/>";
+		let telephone1 = telephone.substr(0,3);
+		let telephone2 = telephone.substr(4,4);
+		let telephone3 = telephone.substr(9,4);
+		
+		if(check_method1.checked){
+			phone1.value = telephone1;
+			phone2.value = telephone2;
+			phone3.value = telephone3;
+			name.value = namevalue;
+			postcode.value = postcodevalue;
+			defaultaddr.value = defaultaddrvalue;
+			detailaddr.value = detailaddrvalue;
+			email.value = emailvalue;
+		}
+		check_method1.addEventListener("change", () =>{
+			phone1.value = telephone1;
+			phone2.value = telephone2;
+			phone3.value = telephone3;
+			name.value = namevalue;
+			postcode.value = postcodevalue;
+			defaultaddr.value = defaultaddrvalue;
+			detailaddr.value = detailaddrvalue;
+			email.value = emailvalue;
+		})
+		check_method2.addEventListener("change", () =>{
+			phone1.value = "";
+			phone2.value = "";
+			phone3.value = "";
+			name.value = "";
+			postcode.value = "";
+			defaultaddr.value = "";
+			detailaddr.value = "";
+			email.value = "";
+		})
+		
 		// 주소검색 클릭 시 Daum 주소 API가 뜨도록 설정
 		function DaumPostcode(){
     	new daum.Postcode({
@@ -670,15 +932,6 @@ input[type="text"][readonly]{
     		},
     	}).open();	
     	}
-		
-		let name = document.getElementById('name');
-		let postcode = document.getElementById('postcode');
-		let defaultaddr = document.getElementById('defaultaddr');
-		let detailaddr = document.getElementById('detailaddr');
-		let phone1 = document.getElementById('phone1');
-		let phone2 = document.getElementById('phone2');
-		let phone3 = document.getElementById('phone3');
-		let email = document.getElementById('email');
 
 		// 휴대전화: ex) 010-0000-0000, 010-111-1111
 		const regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;

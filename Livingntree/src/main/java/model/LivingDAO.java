@@ -369,6 +369,41 @@ public class LivingDAO {
 		return mdto;
 	}
 	
+	// 개인회원 한 사람의 정보를 리턴하는 메서드
+	public MemberDTO getOneMember(String id) {
+		getConnect();
+		MemberDTO mdto = new MemberDTO();
+		try {
+			String sql = "select * from member where m_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				mdto.setM_id(rs.getString(1));
+				mdto.setM_pw(rs.getString(2));
+				mdto.setM_pwq(rs.getString(3));
+				mdto.setM_pwa(rs.getString(4));
+				mdto.setM_name(rs.getString(5));
+				mdto.setM_postcode(rs.getInt(6));
+				mdto.setM_defaultaddr(rs.getString(7));
+				mdto.setM_detailaddr(rs.getString(8));
+				mdto.setM_phone(rs.getString(9));
+				mdto.setM_email(rs.getString(10));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(con != null) con.close();
+				if(pstmt != null) pstmt.close();
+				if(rs != null) rs.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+		return mdto;
+	}
+	
 	public ProductDTO getOneProduct(int code) {
 		getConnect();
 		ProductDTO pdto = new ProductDTO();
@@ -400,6 +435,42 @@ public class LivingDAO {
 		}
 		return pdto;
 	}
+	
+	
+	/*
+	public ProductDTO buyProductSelect(int code) {
+		getConnect();
+		ProductDTO pdto = new ProductDTO();
+		try {
+			String sql = "select * from product where p_code=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, code);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				pdto.setP_code(rs.getInt(1));
+				pdto.setP_category(rs.getInt(2));
+				pdto.setP_name(rs.getString(3));
+				pdto.setP_mainimg(rs.getString(4));
+				pdto.setP_detailimg(rs.getString(5));
+				pdto.setP_price(rs.getInt(6));
+				pdto.setP_occ(rs.getString(7));
+				pdto.setP_delivfee(rs.getInt(8));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(con != null) con.close();
+				if(pstmt != null) pstmt.close();
+				if(rs != null) rs.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+		return pdto;
+	}
+	*/
+	
 	// 장바구니 값 insert하는 메서드
 	public void insertCart(CartDTO cdto) {
 		getConnect();
@@ -1066,8 +1137,8 @@ public class LivingDAO {
   			getConnect();
   			ArrayList<ReviewDTO> a = new ArrayList<>();
   			try {
-  				String sql = "select R.r_code, R.r_pw, R.p_code, P.p_name, P.p_mainimg, R.r_title, R.r_content, R.r_name, \r\n"
-  						+ "R.r_date, R.r_readcount, R.m_id, from review R inner join product P on R.p_code = P.p_code \r\n"
+  				String sql = "select R.r_code, R.r_pw, R.p_code, P.p_name, P.p_mainimg, R.r_title, R.r_content, R.m_name, \r\n"
+  						+ "R.r_date, R.r_readcount, R.m_id from review R inner join product P on R.p_code = P.p_code \r\n"
   						+ "order by r_code desc limit ?,?";
   				pstmt = con.prepareStatement(sql);
   				pstmt.setInt(1, startRow-1);
@@ -1133,7 +1204,7 @@ public class LivingDAO {
   			getConnect();
   			ArrayList<ReviewDTO> a = new ArrayList<>();
   			try {
-  				String sql = "select R.r_code, R.r_pw, R.p_code, P.p_name, P.p_mainimg, R.r_title, R.r_content, R.r_name, \r\n"
+  				String sql = "select R.r_code, R.r_pw, R.p_code, P.p_name, P.p_mainimg, R.r_title, R.r_content, R.m_name, \r\n"
   						+ "R.r_date, R.r_readcount, R.m_id from review R inner join product P on R.p_code = P.p_code \r\n"
   						+ "where R.p_code=? order by r_code desc limit ?,?";
   				pstmt = con.prepareStatement(sql);
@@ -1220,6 +1291,7 @@ public class LivingDAO {
   			return name;
   		}
   		
+  		// 하나의 리뷰 글만 리턴하는 메서드
   		public ReviewDTO getOneReviewBoard(int code) {
   			getConnect();
   			ReviewDTO rdto = new ReviewDTO();
@@ -1230,7 +1302,8 @@ public class LivingDAO {
   				pstmt.setInt(1, code);
   				pstmt.executeUpdate();
   				
-  				String sql = "select * from review where r_code=?";
+  				String sql = "select R.r_code, R.r_pw, R.p_code, P.p_name, P.p_mainimg, R.r_title, R.r_content, R.m_name, \r\n"
+  						+ "R.r_date, R.r_readcount, R.m_id from review R inner join product P on R.p_code = P.p_code where r_code=?";
   				pstmt = con.prepareStatement(sql);
   				pstmt.setInt(1, code);
   				rs = pstmt.executeQuery();
@@ -1262,7 +1335,8 @@ public class LivingDAO {
   			getConnect();
   			ReviewDTO rdto = new ReviewDTO();
   			try {
-  				String sql = "select * from review where r_code=?";
+  				String sql = "select R.r_code, R.r_pw, R.p_code, P.p_name, P.p_mainimg, R.r_title, R.r_content, R.m_name, \r\n"
+  						+ "R.r_date, R.r_readcount, R.m_id from review R inner join product P on R.p_code = P.p_code where r_code=?";
   				pstmt = con.prepareStatement(sql);
   				pstmt.setInt(1, code);
   				rs = pstmt.executeQuery();
@@ -1363,7 +1437,7 @@ public class LivingDAO {
   			getConnect();
   			ArrayList<InquiryDTO> a = new ArrayList<>();
   			try {
-  				String sql = "select I.i_code, I.i_pw, I.p_code, P.p_name, P.p_mainimg, I.i_title, I.i_content, I.i_name, \r\n"
+  				String sql = "select I.i_code, I.i_pw, I.p_code, P.p_name, P.p_mainimg, I.i_title, I.i_content, I.m_name, \r\n"
   						+ "I.i_date, I.i_readcount, I.ref, I.re_step, I.m_id from Inquiry I inner join product P \r\n"
   						+ "on I.p_code = P.p_code order by i_code desc limit ?,?";
   				pstmt = con.prepareStatement(sql);
@@ -1432,7 +1506,7 @@ public class LivingDAO {
   			getConnect();
   			ArrayList<InquiryDTO> a = new ArrayList<>();
   			try {
-  				String sql = "select I.i_code, I.i_pw, I.p_code, P.p_name, P.p_mainimg, I.i_title, I.i_content, I.i_name, \r\n"
+  				String sql = "select I.i_code, I.i_pw, I.p_code, P.p_name, P.p_mainimg, I.i_title, I.i_content, I.m_name, \r\n"
   						+ "I.i_date, I.i_readcount, I.ref, I.re_step, I.m_id from Inquiry I inner join product P \r\n"
   						+ "on I.p_code = P.p_code order by i_code desc limit ?,?";
   				pstmt = con.prepareStatement(sql);
@@ -1505,6 +1579,7 @@ public class LivingDAO {
   			}
   		}
   		
+  		// 하나의 문의 글만 리턴하는 메서드
   		public InquiryDTO getOneInquiryBoard(int code) {
   			getConnect();
   			InquiryDTO idto = new InquiryDTO();
@@ -1515,7 +1590,8 @@ public class LivingDAO {
   				pstmt.setInt(1, code);
   				pstmt.executeUpdate();
   				
-  				String sql = "select * from inquiry where i_code=?";
+  				String sql = "select I.i_code, I.i_pw, I.p_code, P.p_name, P.p_mainimg, I.i_title, I.i_content, I.m_name, \r\n"
+  						+ "I.i_date, I.i_readcount, I.m_id from inquiry I inner join product P on I.p_code = P.p_code where i_code=?";
   				pstmt = con.prepareStatement(sql);
   				pstmt.setInt(1, code);
   				rs = pstmt.executeQuery();
@@ -1549,7 +1625,8 @@ public class LivingDAO {
   			getConnect();
   			InquiryDTO idto = new InquiryDTO();
   			try {
-  				String sql = "select * from inquiry where i_code=?";
+  				String sql = "select I.i_code, I.i_pw, I.p_code, P.p_name, P.p_mainimg, I.i_title, I.i_content, I.m_name, \r\n"
+  						+ "I.i_date, I.i_readcount, I.m_id from inquiry I inner join product P on I.p_code = P.p_code where i_code=?";
   				pstmt = con.prepareStatement(sql);
   				pstmt.setInt(1, code);
   				rs = pstmt.executeQuery();
