@@ -503,7 +503,7 @@ table tr{
                                 <!-- 리뷰 게시판 작성완료 후 수정완료 -->
                             </li>
                             <li class>
-                            	<button type="button">Q&A<span>0</span></button>
+                            	<button type="button">Q&A<span>${count2}</span></button>
                                 <!-- 문의 게시판 작성완료 후 수정할 예정 -->
                             </li>
                         </ul>
@@ -560,10 +560,10 @@ table tr{
                                     <!-- 페이징 코드 [1] [2] [3] ... -->
                                     <c:if test="${aList.size() ne 0}">
                                         <div class="pageing">
-                                            <c:if test="${startPage>pageBlock }">
+                                            <c:if test="${startPage>pageBlock}">
                                                 <a href="ReviewBoardList.do?pageNum=${startPage-pageBlock}">이전</a>
                                             </c:if>
-                    
+                
                                             <ol>
                                                 <c:forEach var="i" begin="${startPage}" end="${endPage}">
                                                     <li>
@@ -571,7 +571,7 @@ table tr{
                                                     </li>
                                                 </c:forEach>
                                             </ol>
-                    
+                
                                             <c:if test="${endPage<pageCount}">
                                                 <a href="ReviewBoardList.do?pageNum=${startPage+pageBlock}">다음</a>
                                             </c:if>
@@ -584,21 +584,72 @@ table tr{
                             </c:otherwise>
                         </c:choose>
                     </div>
-                    </div>
-                    <div class="prdQna" style="display: none;">
-                        <div class="board_title">
-                            <h2>Q&A</h2>
-                            <div class="btnBox">
-                                <a href="InquiryBoardList.do" class="normalBtn">LIST</a>
-                                <button type="button" onclick="inquiryWrite()" class="normalBtn">WRITE</button>
-                                <!-- <a href="#" class="normalBtn">WRITE</a> -->
-                            </div>
+                </div>
+                <div class="prdQna" style="display: none;">
+                    <div class="board_title">
+                        <h2>Q&A</h2>
+                        <div class="btnBox">
+                            <a href="InquiryBoardList.do" class="normalBtn">LIST</a>
+                            <button type="button" onclick="inquiryWrite()" class="normalBtn">WRITE</button>
+                            <!-- <a href="#" class="normalBtn">WRITE</a> -->
                         </div>
+                    </div>
                     <div class="board_contents">
-                        <p class="nodata">게시물이 없습니다.</p>
-                        <!-- 문의 게시판 작성완료 후 수정할 예정 -->
+                        <c:choose>
+                            <c:when test="${not empty aList2}">
+                                <div class="typeList">
+                                    <table>
+                                        <tr>
+                                            <th width="80">번호</th>
+                                            <th width="615">제목</th>
+                                            <th width="85">작성자</th>
+                                            <th width="120">작성일</th>
+                                            <th width="55">조회</th>
+                                        </tr>
+                                        <c:set var="number2" value="${number2}" />
+                                        <c:forEach var="idto" items="${aList2}">
+                                            <tr>
+                                                <td width="80" class="code">${number2}</td>
+                                                <!-- 답글 들여쓰기 -->
+                                                <td width="700" class="subject">
+                                                    <a href="InquiryBoardInfo.do?code=${idto.i_code}">${idto.i_title}</a>
+                                                </td>
+                                                <td width="85">${idto.m_name}</td>
+                                                <td width="120">${idto.i_date}</td>
+                                                <td width="55">${idto.i_readcount}</td>
+                                            </tr>
+                                            <c:set var="number2" value="${number2=number2-1}" />
+                                        </c:forEach>
+                                    </table>
+                                    <!-- 페이징 코드 [1] [2] [3] ... -->
+                                    <c:if test="${aList2.size() ne 0}">
+                                        <div class="pageing">
+                                            <c:if test="${startPage2>pageBlock2}">
+                                                <a href="InquiryBoardList.do?pageNum2=${startPage2-pageBlock2}">이전</a>
+                                            </c:if>
+                
+                                            <ol>
+                                                <c:forEach var="i" begin="${startPage2}" end="${endPage2}">
+                                                    <li>
+                                                        <a href="InquiryBoardList.do?pageNum2=${i}">${i}</a>
+                                                    </li>
+                                                </c:forEach>
+                                            </ol>
+                
+                                            <c:if test="${endPage2<pageCount2}">
+                                                <a href="InquiryBoardList.do?pageNum2=${startPage2+pageBlock2}">다음</a>
+                                            </c:if>
+                                        </div>
+                                    </c:if>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <p class="nodata">게시물이 없습니다.</p>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>

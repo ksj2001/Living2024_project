@@ -1513,11 +1513,12 @@ public class LivingDAO {
   			ArrayList<InquiryDTO> a = new ArrayList<>();
   			try {
   				String sql = "select I.i_code, I.i_pw, I.p_code, P.p_name, P.p_mainimg, I.i_title, I.i_content, I.m_name, \r\n"
-  						+ "I.i_date, I.i_readcount, I.ref, I.re_step, I.m_id from Inquiry I inner join product P \r\n"
-  						+ "on I.p_code = P.p_code order by i_code desc limit ?,?";
+  						+ "I.i_date, I.i_readcount, I.ref, I.re_step, I.m_id from Inquiry I inner join product P on I.p_code = P.p_code \r\n"
+  						+ "where I.p_code=? order by i_code desc limit ?,?";
   				pstmt = con.prepareStatement(sql);
-  				pstmt.setInt(1, startRow-1);
-  				pstmt.setInt(2, pageSize);
+  				pstmt.setInt(1, p_code);
+  				pstmt.setInt(2, startRow-1);
+  				pstmt.setInt(3, pageSize);
   				rs = pstmt.executeQuery();
   				while(rs.next()) {
   					InquiryDTO idto = new InquiryDTO();
@@ -1551,6 +1552,7 @@ public class LivingDAO {
   		}
   		
   		public void insertInquiryBoard(InquiryDTO idto) {
+  			getConnect();
   			// ref, re_step 초기값 설정
   			int ref = 0;
   			int re_step = 1;
@@ -1597,21 +1599,24 @@ public class LivingDAO {
   				pstmt.executeUpdate();
   				
   				String sql = "select I.i_code, I.i_pw, I.p_code, P.p_name, P.p_mainimg, I.i_title, I.i_content, I.m_name, \r\n"
-  						+ "I.i_date, I.i_readcount, I.m_id from inquiry I inner join product P on I.p_code = P.p_code where i_code=?";
+  						+ "I.i_date, I.i_readcount, I.ref, I.re_step, I.m_id from inquiry I inner join product P on I.p_code = P.p_code where i_code=?";
   				pstmt = con.prepareStatement(sql);
   				pstmt.setInt(1, code);
   				rs = pstmt.executeQuery();
   				if(rs.next()) {
   					idto.setI_code(rs.getInt(1));
   					idto.setI_pw(rs.getString(2));
-  					idto.setI_title(rs.getString(3));
-  					idto.setI_content(rs.getString(4));
-  					idto.setM_name(rs.getString(5));
-  					idto.setI_date(rs.getDate(6).toString());
-  					idto.setI_readcount(rs.getInt(7));
-  					idto.setRef(rs.getInt(8));
-  					idto.setRe_step(rs.getInt(9));
-  					idto.setM_id(rs.getString(10));
+  					idto.setP_code(rs.getInt(3));
+  					idto.setP_name(rs.getString(4));
+  					idto.setP_mainimg(rs.getString(5));
+  					idto.setI_title(rs.getString(6));
+  					idto.setI_content(rs.getString(7));
+  					idto.setM_name(rs.getString(8));
+  					idto.setI_date(rs.getString(9).toString());
+  					idto.setI_readcount(rs.getInt(10));
+  					idto.setRef(rs.getInt(11));
+  					idto.setRe_step(rs.getInt(12));
+  					idto.setM_id(rs.getString(13));
   				}
   			}catch(Exception e) {
   				e.printStackTrace();
@@ -1632,21 +1637,24 @@ public class LivingDAO {
   			InquiryDTO idto = new InquiryDTO();
   			try {
   				String sql = "select I.i_code, I.i_pw, I.p_code, P.p_name, P.p_mainimg, I.i_title, I.i_content, I.m_name, \r\n"
-  						+ "I.i_date, I.i_readcount, I.m_id from inquiry I inner join product P on I.p_code = P.p_code where i_code=?";
+  						+ "I.i_date, I.i_readcount, I.ref, I.re_step, I.m_id from inquiry I inner join product P on I.p_code = P.p_code where i_code=?";
   				pstmt = con.prepareStatement(sql);
   				pstmt.setInt(1, code);
   				rs = pstmt.executeQuery();
   				if(rs.next()) {
   					idto.setI_code(rs.getInt(1));
   					idto.setI_pw(rs.getString(2));
-  					idto.setI_title(rs.getString(3));
-  					idto.setI_content(rs.getString(4));
-  					idto.setM_name(rs.getString(5));
-  					idto.setI_date(rs.getDate(6).toString());
-  					idto.setI_readcount(rs.getInt(7));
-  					idto.setRef(rs.getInt(8));
-  					idto.setRe_step(rs.getInt(9));
-  					idto.setM_id(rs.getString(10));
+  					idto.setP_code(rs.getInt(3));
+  					idto.setP_name(rs.getString(4));
+  					idto.setP_mainimg(rs.getString(5));
+  					idto.setI_title(rs.getString(6));
+  					idto.setI_content(rs.getString(7));
+  					idto.setM_name(rs.getString(8));
+  					idto.setI_date(rs.getString(9).toString());
+  					idto.setI_readcount(rs.getInt(10));
+  					idto.setRef(rs.getInt(11));
+  					idto.setRe_step(rs.getInt(12));
+  					idto.setM_id(rs.getString(13));
   				}
   			}catch(Exception e) {
   				e.printStackTrace();

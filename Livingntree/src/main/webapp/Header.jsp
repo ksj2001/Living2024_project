@@ -367,7 +367,7 @@
                     </a>
                     <ul class="boardinfo">
                         <li><a href="ReviewBoardList.do">상품 리뷰</a></li>
-                        <li><a href="#">상품 문의</a></li>
+                        <li><a href="InquiryBoardList.do">상품 문의</a></li>
                     </ul>
                 </li>
             </ul>
