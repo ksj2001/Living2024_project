@@ -68,10 +68,15 @@ table tr{
 }
 .typeList table td{
     border-bottom: 1px solid #e5e5e5;
+    text-align: center;
     color: #555;
 }
 .typeList table td.code{
     color: #6d6d6d;
+}
+.typeList table td img{
+	width: 46px;
+	height: 46px;
 }
 .typeList table td.subject{
     padding-left: 20px;
@@ -258,7 +263,8 @@ input[type="text"]:hover, input[type="text"]:focus{
                                                     </c:forEach>
                                                 </c:if>
                                                 -->
-                                    <a href="ReviewBoardInfo.do?code=${rdto.r_code}">${rdto.p_name}<br>${rdto.r_title}</a>
+                                    ${rdto.p_name}<br>
+                                    <a href="ReviewBoardInfo.do?code=${rdto.r_code}">${rdto.r_title}</a>
                                 </td>
                                 <td width="85">${rdto.m_name}</td>
                                 <td width="120">${rdto.r_date}</td>

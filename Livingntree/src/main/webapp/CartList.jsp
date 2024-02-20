@@ -588,7 +588,7 @@
 			}else if (loginId == "") {
 				location.href = "Main.jsp?section=MemberLogin.jsp?chk=" + param;
 			} else {
-				location.href = 'CartOrderPro.do?chk=' + param + '&loginId=' + loginId;
+				location.href = 'CartOrder.do?chk=' + param + '&loginId=' + loginId;
 			}
 		}
 	</script>

@@ -33,15 +33,19 @@ public class ReviewBoardWriteProc extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		String loginId = (String)session.getAttribute("loginId");
+		String code = request.getParameter("p_code");
 		
 		rdto.setR_pw(request.getParameter("password"));
+		rdto.setP_code(Integer.parseInt(code));
 		rdto.setR_title(request.getParameter("subject"));
 		rdto.setR_content(request.getParameter("content"));
 		rdto.setM_name(ldao.getOneName(loginId));
 		rdto.setM_id(loginId);
 		
 		ldao.insertReviewBoard(rdto);
-		RequestDispatcher rd = request.getRequestDispatcher("ReviewBoardList.do");
-		rd.forward(request, response);
+		// insert를 하게 되면 새로고침 할 때마다 데이터가 DB에 저장되기 때문에 response.sendRedirect로 페이지를 떠넘김을 주의하자!!
+		response.sendRedirect("ReviewBoardList.do");
+		// RequestDispatcher rd = request.getRequestDispatcher("ReviewBoardList.do");
+		// rd.forward(request, response);
 	}
 }

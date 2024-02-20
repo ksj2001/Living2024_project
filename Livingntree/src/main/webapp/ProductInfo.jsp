@@ -339,11 +339,13 @@ table tr{
 .typeList table th{
     border-bottom: 0;
     font-weight: 400;
+    text-align: center;
     color: #000;
     background-color: #f6f6f6;
 }
 .typeList table td{
     border-bottom: 1px solid #e5e5e5;
+    text-align: center;
     color: #555;
 }
 .typeList table td.code{
@@ -497,7 +499,7 @@ table tr{
 								<!-- <a href="#">Detail</a> -->
                             </li>
                             <li class>
-                            	<button type="button">Review<span>0</span></button>
+                            	<button type="button">Review<span>${count}</span></button>
                                 <!-- 리뷰 게시판 작성완료 후 수정완료 -->
                             </li>
                             <li class>
@@ -642,7 +644,7 @@ table tr{
     			alert("회원만 상품을 구매할 수 있습니다.");
     			location.href = "Main.jsp?section=MemberLogin.jsp?chk="+chk+'&cnt='+cnt.value;
     		}else{
-    			location.href = "CartOrderPro.do?chk="+chk+'&loginId='+loginId+'&cnt='+cnt.value;
+    			location.href = "CartOrder.do?chk="+chk+'&loginId='+loginId+'&cnt='+cnt.value;
     		}
     	}
   

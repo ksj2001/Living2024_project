@@ -79,10 +79,12 @@ input[type="password"]:hover, input[type="password"]:focus{
 .typeWrite #subject{
     width: 526px;
 }
-textarea{
+.typeWrite #content{
     position: relative;
     overflow: hidden;
+    width: 100%;
     height: 440px;
+    resize: none;
     padding: 20px;
     border: 1px solid #CCCCCC;
     line-height: 1.2;
@@ -90,7 +92,7 @@ textarea{
     color: #000000;
 }
 .btnBox{
-    margin-top: 12px;
+    margin-top: 20px;
     text-align: center;
 }
 .btnNormalFix{
@@ -164,7 +166,7 @@ textarea{
                         <tr>
                             <th class="rw top">본문</th>
                             <td>
-                                <textarea name="content" id="content" value="${rdto.r_content}" width="100%" height="440" maxlength="500"></textarea>
+                                <textarea name="content" id="content" maxlength="500">${rdto.r_content}</textarea>
                             </td>
                         </tr>
                     </table>

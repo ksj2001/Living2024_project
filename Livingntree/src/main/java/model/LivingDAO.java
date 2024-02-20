@@ -1310,12 +1310,15 @@ public class LivingDAO {
   				if(rs.next()) {
   					rdto.setR_code(rs.getInt(1));
   					rdto.setR_pw(rs.getString(2));
-  					rdto.setR_title(rs.getString(3));
-  					rdto.setR_content(rs.getString(4));
-  					rdto.setM_name(rs.getString(5));
-  					rdto.setR_date(rs.getDate(6).toString());
-  					rdto.setR_readcount(rs.getInt(7));
-  					rdto.setM_id(rs.getString(8));
+  					rdto.setP_code(rs.getInt(3));
+  					rdto.setP_name(rs.getString(4));
+  					rdto.setP_mainimg(rs.getString(5));
+  					rdto.setR_title(rs.getString(6));
+  					rdto.setR_content(rs.getString(7));
+  					rdto.setM_name(rs.getString(8));
+  					rdto.setR_date(rs.getString(9).toString());
+  					rdto.setR_readcount(rs.getInt(10));
+  					rdto.setM_id(rs.getString(11));
   				}
   			}catch(Exception e) {
   				e.printStackTrace();
@@ -1343,12 +1346,15 @@ public class LivingDAO {
   				if(rs.next()) {
   					rdto.setR_code(rs.getInt(1));
   					rdto.setR_pw(rs.getString(2));
-  					rdto.setR_title(rs.getString(3));
-  					rdto.setR_content(rs.getString(4));
-  					rdto.setM_name(rs.getString(5));
-  					rdto.setR_date(rs.getDate(6).toString());
-  					rdto.setR_readcount(rs.getInt(7));
-  					rdto.setM_id(rs.getString(8));
+  					rdto.setP_code(rs.getInt(3));
+  					rdto.setP_name(rs.getString(4));
+  					rdto.setP_mainimg(rs.getString(5));
+  					rdto.setR_title(rs.getString(6));
+  					rdto.setR_content(rs.getString(7));
+  					rdto.setM_name(rs.getString(8));
+  					rdto.setR_date(rs.getString(9).toString());
+  					rdto.setR_readcount(rs.getInt(10));
+  					rdto.setM_id(rs.getString(11));
   				}
   			}catch(Exception e) {
   				e.printStackTrace();

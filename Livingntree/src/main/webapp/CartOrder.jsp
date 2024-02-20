@@ -523,7 +523,7 @@ input[type="radio"] + label{
 		</div>
 	</header>
 	<section id="order">
-		<form action="CartOrderDone.do" name="formname" method="post">
+		<form action="CartOrderProc.do" name="formname" method="post">
 			<div class="shipping fold selected">
 				<div class="title">
 					<h2>배송지</h2>

@@ -45,6 +45,7 @@
     color: #000;
 }
 .txtEm{
+	font-size: 16px;
     font-weight: 700;
 }
 input[type=text], input[type=password] {
@@ -111,7 +112,7 @@ input[type=text], input[type=password] {
             <form id="boardDeleteForm" action="ReviewBoardDeleteProc.do" method="post">
                 <div class="baseBox">
                     <p class="headDesc">
-                        이 글은 비밀글입니다. <strong class="txtEm">비밀번호</strong>를 입력하여 주세요.<br>관리자는 확인버튼만 누르시면 됩니다.
+                        게시글을 삭제하려면 <strong class="txtEm">비밀번호</strong>를 입력하여 주세요.<br>관리자는 확인버튼만 누르시면 됩니다.
                     </p>
                     <p class="password">
                         <input type="password" name="userPw" id="password">

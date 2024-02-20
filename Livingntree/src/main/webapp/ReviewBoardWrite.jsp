@@ -183,13 +183,14 @@ ul.info li + li{
                         <tr>
                             <th class="rw top">본문</th>
                             <td>
-                                <textarea name="content" id="content" width="100%" height="440" maxlength="500"></textarea>
+                                <textarea name="content" id="content" maxlength="500"></textarea>
                             </td>
                         </tr>
                         <tr>
                             <th class="rw">비밀번호</th>
                             <td>
                                 <input type="password" name="password" id="password" maxlength="20">
+                                <input type="hidden" name="p_code" value="<%=p_code %>">
                             </td>
                         </tr>
                     </table>
