@@ -521,6 +521,21 @@
 		let chk_list = document.querySelectorAll(".cartChk"); // checkbox에 담겨진 code 값을 배열로 처리한 것
 		let param = ""; // checkbox에 담겨진 code 값을 담을 변수
 
+		// 체크박스 선택했을때/해제됐을때 금액변경 함수  ----------------------------
+		for(let i=0;i<chk_list.length;i++){
+			chk_list[i].addEventListener("change", () =>{
+				// 상품 선택
+				if(this.checked){
+					
+				}
+				// 상품 선택 해제
+				if(!this.checked){
+					
+				}
+			})
+		}
+		
+		// -----------------------------------------------------------
 		let loginId = "<c:out value='${loginId}' />";
 		function fn_allDelete() {
 			param = "";

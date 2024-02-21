@@ -259,4 +259,14 @@
     <servlet-name>ReviewBoardDeleteProc</servlet-name>
     <url-pattern>/ReviewBoardDeleteProc</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MainList</display-name>
+    <servlet-name>MainList</servlet-name>
+    <servlet-class>control.MainList</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MainList</servlet-name>
+    <url-pattern>/MainList</url-pattern>
+  </servlet-mapping>
 </web-app>
