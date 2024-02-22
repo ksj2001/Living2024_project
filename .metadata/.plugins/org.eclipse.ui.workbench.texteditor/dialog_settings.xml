@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="getOne"/>
+		<item key="selection" value="span"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="getone"/>
-			<item value="getmember"/>
-			<item value="delete"/>
-			<item value="choose"/>
-			<item value="getallcartcount"/>
-			<item value="getallcart"/>
-			<item value="description"/>
-			<item value=".btnNormal"/>
-			<item value="h2"/>
-			<item value=".name"/>
-			<item value="deliv"/>
-			<item value="orderList"/>
-			<item value="input"/>
-			<item value="check"/>
-			<item value="productCode"/>
+			<item value="span"/>
+			<item value="add"/>
+			<item value="Main.jsp"/>
+			<item value="productselect"/>
+			<item value="product "/>
+			<item value="getoneproduct"/>
+			<item value="form"/>
+			<item value="getoneupdate"/>
+			<item value="getonereview"/>
+			<item value="getallreview"/>
+			<item value="board_content"/>
+			<item value="insertreview"/>
+			<item value="orderlist"/>
+			<item value="formname"/>
+			<item value="out"/>
 		</list>
 		<list key="replacehistory">
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="1623"/>
-		<item key="DIALOG_Y_ORIGIN" value="376"/>
+		<item key="DIALOG_X_ORIGIN" value="1090"/>
+		<item key="DIALOG_Y_ORIGIN" value="536"/>
 		<item key="DIALOG_WIDTH" value="322"/>
 		<item key="DIALOG_HEIGHT" value="391"/>
 		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>

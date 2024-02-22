@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.LivingDAO;
 
@@ -24,13 +25,16 @@ public class InquiryBoardDeleteProc extends HttpServlet {
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
+		HttpSession session = request.getSession();
+		String loginId = (String)session.getAttribute("loginId");
+		
 		int code = Integer.parseInt(request.getParameter("code"));
 		String userPw = request.getParameter("userPw");
 		String dbPw = request.getParameter("dbPw");
 		
-		if(userPw.equals(dbPw)) {
+		if(userPw.equals(dbPw) || loginId.equals("admin")) {
 			LivingDAO ldao = new LivingDAO();
-			ldao.deleteReviewBoard(code);
+			ldao.deleteInquiryBoard(code);
 			
 			request.setAttribute("msg", "1");
 			RequestDispatcher rd = request.getRequestDispatcher("InquiryBoardList.do");

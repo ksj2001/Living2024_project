@@ -37,7 +37,7 @@ public class InquiryBoardList extends HttpServlet {
 		int currentPage = Integer.parseInt(pageNum);
 		
 		LivingDAO ldao = new LivingDAO();
-		count = ldao.getAllReviewCount();
+		count = ldao.getAllInquiryCount();
 		
 		int startRow = (currentPage - 1) * pageSize + 1;
 		int endRow = currentPage * pageSize;

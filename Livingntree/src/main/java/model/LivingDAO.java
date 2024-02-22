@@ -1587,6 +1587,44 @@ public class LivingDAO {
   			}
   		}
   		
+  		public void rewriteInsertInquiryBoard(InquiryDTO idto) {
+  			getConnect();
+  			
+  			int ref = idto.getRef();
+  			int re_step = idto.getRe_step();
+  			try {
+  				// 답변글을 쓰면 부모 게시글의 re_step에 4를 더해준다.
+  				/*
+  				String restepSql = "update inquiry set re_step = re_step + 4 where ref=? and re_step=1";
+  				pstmt = con.prepareStatement(restepSql);
+  				pstmt.setInt(1, ref);
+  				pstmt.executeUpdate();
+  				*/
+  				
+  				String sql = "insert into inquiry values(null,?,?,?,?,?,current_Date(),0,?,?,?)";
+  				pstmt = con.prepareStatement(sql);
+  				pstmt.setString(1, idto.getI_pw());
+  				pstmt.setInt(2, idto.getP_code());
+  				pstmt.setString(3, idto.getI_title());
+  				pstmt.setString(4, idto.getI_content());
+  				pstmt.setString(5, idto.getM_name());
+  				pstmt.setInt(6, ref);
+  				pstmt.setInt(7, re_step + 1);
+  				pstmt.setString(8, idto.getM_id());
+  				pstmt.executeUpdate();
+  			}catch(Exception e) {
+  				e.printStackTrace();
+  			}finally {
+  				try {
+  					if(con!=null) con.close();
+  					if(pstmt!=null) pstmt.close();
+  					if(rs!=null) rs.close();
+  				}catch(SQLException se){
+  					se.printStackTrace();
+  				}
+  			}
+  		}
+  		
   		// 하나의 문의 글만 리턴하는 메서드
   		public InquiryDTO getOneInquiryBoard(int code) {
   			getConnect();
