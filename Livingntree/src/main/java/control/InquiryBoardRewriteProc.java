@@ -33,16 +33,18 @@ public class InquiryBoardRewriteProc extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		String loginId = (String)session.getAttribute("loginId");
-		int code = 0;
-		// String code = request.getParameter("p_code");
+		// int code = 0;
+		int p_code = Integer.parseInt(request.getParameter("p_code"));
 		
 		idto.setI_pw(request.getParameter("password"));
-		idto.setP_code(code);
+		idto.setP_code(p_code);
 		/* idto.setP_code(Integer.parseInt(code)); */
 		idto.setI_title(request.getParameter("subject"));
 		idto.setI_content(request.getParameter("content"));
 		idto.setM_name(ldao.getOneName(loginId));
 		idto.setM_id(loginId);
+		idto.setRef(Integer.parseInt(request.getParameter("ref")));
+		idto.setRe_step(Integer.parseInt(request.getParameter("re_step")));
 		
 		ldao.rewriteInsertInquiryBoard(idto);
 		// insert를 하게 되면 새로고침 할 때마다 데이터가 DB에 저장되기 때문에 response.sendRedirect로 페이지를 떠넘김을 주의하자!!

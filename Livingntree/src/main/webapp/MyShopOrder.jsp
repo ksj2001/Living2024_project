@@ -155,12 +155,12 @@
                     <ul class="menu">
                         <li><a href="#">최근 본 상품</a></li>
                         <li><a href="#">나의 위시리스트</a></li>
-                        <li><a href="#">나의 게시글</a></li>
+                        <li><a href="MyShopBoard.do">나의 게시글</a></li>
                     </ul>
                     <div class="subTitle"><h3>나의 정보</h3></div>
                     <ul class="menu">
-                        <li><a href="#">회원정보 수정</a></li>
-                        <li><a href="#">로그아웃</a></li>
+                        <li><a href="MemberModify.do">회원정보 수정</a></li>
+                        <li><a href="MemberLogoutProc.do">로그아웃</a></li>
                     </ul>
                 </div>
                 <div class="orderHistory">

@@ -545,7 +545,7 @@
 
 			let deleteAllInput = confirm('상품 전체를 삭제하시겠습니까?');
 			if(deleteAllInput){
-				location.href = 'CartDelete.do?chk=' + param;
+				location.href = 'CartDeleteProc.do?chk=' + param;
 			}
 		}
 
@@ -562,7 +562,7 @@
 			}else{
 				let deleteInput = confirm('선택하신 상품을 삭제하시겠습니까?');
 				if(deleteInput){
-					location.href = 'CartDelete.do?chk=' + param;
+					location.href = 'CartDeleteProc.do?chk=' + param;
 				}
 			}
 		}
@@ -586,7 +586,7 @@
 
 			// +,-버튼을 눌렀을 때 cnt가 update되는 servlet으로 보내야 함
 			// <form action="CartUpdate.do" method="">
-			f.action = "CartUpdate.do";
+			f.action = "CartUpdateProc.do";
 			f.submit();
 		}
 

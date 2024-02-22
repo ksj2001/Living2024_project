@@ -165,7 +165,7 @@ ul.info li + li{
 </head>
 <body>
 <!-- ProductInfo.jsp에서 InquiryBoardReWrite.jsp로 넘겨주어야 하기 때문에 스크립트릿으로 request로 받는다. -->
-<% String p_code = request.getParameter("p_code");%>
+<%-- <% String p_code = request.getParameter("p_code");%> --%>
     <div class="inquiryContainer">
         <div class="contents">
             <div class="titleArea">
@@ -184,7 +184,7 @@ ul.info li + li{
                             <th class="rw top">본문</th>
                             <td>
                                 <textarea name="content" id="content" maxlength="500"></textarea>
-                                <input type="hidden" name="p_code" value="<%=p_code %>">
+                                <input type="hidden" name="p_code" value="${idto.p_code}">
                             </td>
                         </tr>
                     </table>
